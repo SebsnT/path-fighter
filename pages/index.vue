@@ -16,6 +16,14 @@
         :loading="loading"
         :columns="selectedColumns"
       >
+        <template
+          v-for="column in selectedColumns"
+          :key="column.key"
+          #[`${column.key}-data`]="{ row }"
+        >
+          <!-- eslint-disable vue/no-v-html -->
+          <span v-html="row[column.key]"></span>
+        </template>
       </UTable>
     </div>
   </div>

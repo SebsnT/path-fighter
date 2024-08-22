@@ -1,8 +1,11 @@
 import { ref, onMounted, computed } from "vue";
 import type { Creature } from "../types/creature";
 import { columns } from "../config/columnConfig";
+import { addLinkToName, convertMarkdownToLinks } from "../utils/tableUtils";
 
 const selectedColumns = ref([...columns]);
+
+export const baseUrl = "https://2e.aonprd.com";
 
 export function loadData() {
   const rows = ref<Creature[]>([]);
@@ -11,7 +14,7 @@ export function loadData() {
 
   const loadJsonData = async () => {
     try {
-      const response = await fetch("/creature.json");
+      const response = await fetch("/output.json");
       if (!response.ok) {
         throw new Error("Failed to load JSON");
       }
@@ -27,8 +30,29 @@ export function loadData() {
           columnKeys.forEach((key) => {
             if (Object.prototype.hasOwnProperty.call(item, key)) {
               const column = columns.find((col) => col.key === key);
-              if (column.isArray && Array.isArray(item[key])) {
-                filteredItem[key] = item[key].join(", ");
+
+              // Apply the addLinkToName function where needed
+              if (key === "name" && item["url"]) {
+                // Assuming "name" is the key you want to make clickable and "url" contains the link
+                filteredItem[key] = addLinkToName(
+                  item[key],
+                  item["url"],
+                  baseUrl,
+                );
+              } else if (column?.isArray && Array.isArray(item[key])) {
+                filteredItem[key] = item[key]
+                  .map((element: string) => {
+                    if (column.containsMarkdown) {
+                      return convertMarkdownToLinks(element, baseUrl);
+                    }
+                    return element;
+                  })
+                  .join(", ");
+              } else if (
+                column?.containsMarkdown &&
+                typeof item[key] === "string"
+              ) {
+                filteredItem[key] = convertMarkdownToLinks(item[key], baseUrl);
               } else {
                 filteredItem[key] = item[key];
               }

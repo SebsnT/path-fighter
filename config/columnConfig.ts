@@ -5,6 +5,7 @@ export interface Column {
   label: string;
   sortable?: boolean;
   isArray?: boolean;
+  containsMarkdown?: boolean;
 }
 
 export const columns: Column[] = [
@@ -29,9 +30,10 @@ export const columns: Column[] = [
     sortable: true,
   },
   {
-    key: "creature_family",
+    key: "creature_family_markdown",
     label: "Family",
     sortable: true,
+    containsMarkdown: true,
   },
   {
     key: "size",
@@ -40,13 +42,16 @@ export const columns: Column[] = [
     isArray: true,
   },
   {
-    key: "trait",
+    key: "trait_markdown",
     label: "Traits",
     isArray: true,
+    containsMarkdown: true,
   },
+
   {
-    key: "trait",
-    label: "Traits",
+    key: "immunity_markdown",
+    label: "Immunities",
     isArray: true,
+    containsMarkdown: true,
   },
 ];
