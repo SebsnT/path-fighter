@@ -1,4 +1,5 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["Nuxt"]
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
 }
