@@ -1,5 +1,6 @@
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import type { Creature } from "../types/creature";
+import type { Column } from "../config/columnConfig";
 import { columns } from "../config/columnConfig";
 import { addLinkToName, convertMarkdownToLinks } from "../utils/tableUtils";
 
@@ -11,6 +12,12 @@ export function loadData() {
   const rows = ref<Creature[]>([]);
   const loading = ref(true);
   const filterQuery = ref("");
+  // pagination
+  const page = ref(1);
+  const pageCount = 300;
+  // debounce
+  const debouncedFilterQuery = ref("");
+  const debounceDelay = 300;
 
   const loadJsonData = async () => {
     try {
@@ -33,21 +40,14 @@ export function loadData() {
 
               // Apply the addLinkToName function where needed
               if (key === "name" && item["url"]) {
-                // Assuming "name" is the key you want to make clickable and "url" contains the link
+                // Make name a link
                 filteredItem[key] = addLinkToName(
                   item[key],
                   item["url"],
                   baseUrl,
                 );
               } else if (column?.isArray && Array.isArray(item[key])) {
-                filteredItem[key] = item[key]
-                  .map((element: string) => {
-                    if (column.containsMarkdown) {
-                      return convertMarkdownToLinks(element, baseUrl);
-                    }
-                    return element;
-                  })
-                  .join(", ");
+                filteredItem[key] = processArray(item, key, column);
               } else if (
                 column?.containsMarkdown &&
                 typeof item[key] === "string"
@@ -73,26 +73,60 @@ export function loadData() {
 
   onMounted(loadJsonData);
 
-  // Computed property for filtered rows based on filterQuery
+  // Debounce filter input
+
+  let timeout: NodeJS.Timeout | null = null;
+
+  watch(filterQuery, (newValue) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      debouncedFilterQuery.value = newValue;
+    }, debounceDelay);
+  });
+
+  // Use a computed property to filter rows based on debounced filterQuery
   const filteredRows = computed(() => {
-    if (!filterQuery.value) {
+    if (!debouncedFilterQuery.value) {
       return rows.value;
     }
+    const query = debouncedFilterQuery.value.toLowerCase();
+    return rows.value.filter((item) =>
+      Object.values(item).some((value) =>
+        String(value).toLowerCase().includes(query),
+      ),
+    );
+  });
 
-    return rows.value.filter((item) => {
-      return Object.values(item).some((value) => {
-        return String(value)
-          .toLowerCase()
-          .includes(filterQuery.value.toLowerCase());
-      });
-    });
+  const paginatedRows = computed(() => {
+    const start = (page.value - 1) * pageCount;
+    const end = page.value * pageCount;
+
+    return filteredRows.value.slice(start, end);
   });
 
   return {
     filteredRows,
+    paginatedRows,
     columns,
     selectedColumns,
     filterQuery,
     loading,
+    page,
+    pageCount,
   };
+}
+
+function processArray(
+  item: { [x: string]: string[] },
+  key: keyof Creature,
+  column: Column,
+) {
+  return item[key]
+    .map((element: string) => {
+      if (column.containsMarkdown) {
+        return convertMarkdownToLinks(element, baseUrl);
+      }
+      return element;
+    })
+    .join(", ");
 }

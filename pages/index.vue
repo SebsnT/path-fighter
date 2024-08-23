@@ -12,7 +12,7 @@
     <div>
       <UTable
         class="w-full"
-        :rows="filteredRows"
+        :rows="paginatedRows"
         :loading="loading"
         :columns="selectedColumns"
       >
@@ -24,14 +24,36 @@
           <!-- eslint-disable vue/no-v-html -->
           <span v-html="row[column.key]"></span>
         </template>
+
+        <template #expand="{ row }">
+          <div class="p-4">
+            <pre>{{ row }}</pre>
+          </div>
+        </template>
       </UTable>
+      <div
+        class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
+      >
+        <UPagination
+          v-model="page"
+          :page-count="pageCount"
+          :total="filteredRows.length"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { loadData } from "../composables/loadData";
-
-const { filteredRows, columns, selectedColumns, filterQuery, loading } =
-  loadData();
+const {
+  filteredRows,
+  paginatedRows,
+  columns,
+  selectedColumns,
+  filterQuery,
+  loading,
+  page,
+  pageCount,
+} = loadData();
 </script>

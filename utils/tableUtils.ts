@@ -4,7 +4,7 @@ export function convertMarkdownToLinks(
   baseUrl: string,
 ): string {
   return markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, text, url) => {
-    return `<a href="${baseUrl}${url}" target="_blank">${text}</a>`;
+    return `${text} <a href="${baseUrl}${url}" target="_blank"> #</a>`;
   });
 }
 
@@ -13,5 +13,5 @@ export function addLinkToName(
   url: string,
   baseUrl: string,
 ): string {
-  return `<a href="${baseUrl}${url}" target="_blank">${name}</a>`;
+  return `${name} <a href="${baseUrl}${url}" target="_blank"> #</a>`;
 }
