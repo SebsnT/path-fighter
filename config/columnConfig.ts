@@ -30,6 +30,11 @@ export const columns: Column[] = [
     sortable: true,
   },
   {
+    key: "alignment",
+    label: "Alignment",
+    sortable: true,
+  },
+  {
     key: "creature_family_markdown",
     label: "Family",
     sortable: true,
@@ -44,13 +49,6 @@ export const columns: Column[] = [
   {
     key: "trait_markdown",
     label: "Traits",
-    isArray: true,
-    containsMarkdown: true,
-  },
-
-  {
-    key: "immunity_markdown",
-    label: "Immunities",
     isArray: true,
     containsMarkdown: true,
   },
