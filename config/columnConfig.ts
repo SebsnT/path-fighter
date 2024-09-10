@@ -10,6 +10,7 @@ export interface Column<Creature> {
 export interface EncounterColumn {
   count: number;
   name: string;
+  action: unknown;
 }
 
 export const encounterColumns: Column<EncounterColumn>[] = [
@@ -21,6 +22,10 @@ export const encounterColumns: Column<EncounterColumn>[] = [
     key: "name",
     label: "Name",
     sortable: true,
+  },
+  {
+    key: "action",
+    label: "Action",
   },
 ];
 
@@ -50,17 +55,17 @@ export const columns: Column<Creature>[] = [
     label: "Alignment",
     sortable: true,
   },
-  /* {
-    key: "creature_family_markdown",
-    label: "Family",
-    sortable: true,
-    containsMarkdown: true,
-  },
   {
     key: "size",
     label: "Size",
     sortable: true,
     isArray: true,
+  },
+  /*{
+    key: "creature_family_markdown",
+    label: "Family",
+    sortable: true,
+    containsMarkdown: true,
   },
   {
     key: "trait_markdown",
@@ -68,4 +73,8 @@ export const columns: Column<Creature>[] = [
     isArray: true,
     containsMarkdown: true,
   }, */
+  {
+    key: "action",
+    label: "Action",
+  },
 ];
