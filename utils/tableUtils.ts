@@ -1,4 +1,3 @@
-import { baseUrl } from "../composables/loadData";
 import type { Column } from "../config/columnConfig";
 import type { Creature } from "../types/creature";
 

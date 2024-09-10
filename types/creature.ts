@@ -1,5 +1,12 @@
 export type Creature = {
-  name: string; // Add more fields as necessary
+  [key: string]: unknown;
+  name: string;
+  level: string;
   ac: string;
-  [key: string]: unknown; // Allows for additional fields
+  hp: string;
+  alignment: string;
+  creature_family_markdown: string;
+  size: string[];
+  trait_markdown: string[];
+  count?: number;
 };

@@ -72,6 +72,7 @@ attributes_to_remove = [
     "trait",
     "trait_group",
     "trait_raw",
+    "text",
     "weakest_save",
     "will_save_scale",
     "will_save_scale_number",

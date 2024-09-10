@@ -1,14 +1,30 @@
 import type { Creature } from "../types/creature";
 
-export interface Column {
-  key: keyof Creature;
+export interface Column<Creature> {
+  key: keyof Creature & string;
   label: string;
   sortable?: boolean;
   isArray?: boolean;
   containsMarkdown?: boolean;
 }
+export interface EncounterColumn {
+  count: number;
+  name: string;
+}
 
-export const columns: Column[] = [
+export const encounterColumns: Column<EncounterColumn>[] = [
+  {
+    key: "count",
+    label: "Number",
+  },
+  {
+    key: "name",
+    label: "Name",
+    sortable: true,
+  },
+];
+
+export const columns: Column<Creature>[] = [
   {
     key: "name",
     label: "Name",
@@ -34,7 +50,7 @@ export const columns: Column[] = [
     label: "Alignment",
     sortable: true,
   },
-  {
+  /* {
     key: "creature_family_markdown",
     label: "Family",
     sortable: true,
@@ -51,5 +67,5 @@ export const columns: Column[] = [
     label: "Traits",
     isArray: true,
     containsMarkdown: true,
-  },
+  }, */
 ];
