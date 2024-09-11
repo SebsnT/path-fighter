@@ -1,6 +1,6 @@
 .header {
   background-color: #333;
-  padding: 1.5rem;
+  padding: 0.75rem;
   display: flex;
   h1 {
     color: white;
@@ -36,5 +36,9 @@
   width: 100%;
   bottom: 0;
   padding: 0;
+}
+
+body {
+  overflow: hidden;
 }
 

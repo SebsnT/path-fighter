@@ -1,15 +1,31 @@
 
 .slot-container {
   display: flex;
-  padding: 50px;
-
+  padding: 20px 50px 50px 50px;
 }
 
 .slot-left, .slot-right {
   border: #fff 1px solid;
-  width: 50%;
   flex: 1;
   min-width: 0;
   overflow: auto;
   height: 40vw;
+  margin-right: 30px
+}
+
+.difficulty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 80px;
+}
+
+.rotated {
+  transform: rotate(90deg);
+  transform-origin: center;
+  height: 100%;
+  width: auto;
 }
