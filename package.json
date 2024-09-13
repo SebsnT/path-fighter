@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxt/ui": "^2.18.4",
     "nuxt": "^3.12.4",
+    "nuxt-app": "file:",
     "vue": "latest"
   },
   "devDependencies": {
