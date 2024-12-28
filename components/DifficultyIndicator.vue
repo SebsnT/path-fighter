@@ -1,11 +1,12 @@
 <template>
-  <UProgress :value="currentValue" :max="maxValue" :color="color">
+  <div></div>
+  <!--   <UProgress :value="currentValue" :max="maxValue" :color="color">
     <template #indicator>
       <div :class="textClass">
         {{ label }}
       </div>
     </template>
-  </UProgress>
+  </UProgress> -->
 </template>
 
 <script>

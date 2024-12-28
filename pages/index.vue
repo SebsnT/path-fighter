@@ -12,72 +12,82 @@
       v-bind="thresholds"
     />
 
-    <!-- Slot Container -->
-    <div class="slot-container">
-      <div class="slot-left">
+    <!-- Full-Width Filter Bar -->
+    <div class="filter-bar-container">
+      <div class="filter-bar">
         <div
-          class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
+          v-for="col in filterableColumns"
+          :key="col.key"
+          class="filter-input"
         >
-          <UPagination
-            v-model="page"
-            :page-count="pageCount"
-            :total="data.creatures.value.length"
+          <label :for="'filter-' + col.key">{{ col.label }}</label>
+          <InputText
+            :id="'filter-' + col.key"
+            v-model="filters[col.key].value"
+            :placeholder="'Search ' + col.label"
+            class="filter-input-field"
           />
         </div>
-        <UTable :rows="paginatedData" :columns="columns">
-          <template #action-data="{ row }">
-            <UButton
-              color="gray"
-              variant="ghost"
-              icon="i-heroicons-plus-20-solid"
-              @click="addToEncounter(row)"
-            />
+      </div>
+    </div>
+
+    <!-- Slot Container -->
+    <div class="slot-container">
+      <!-- Table for all monsters -->
+      <div class="slot-left">
+        <DataTable
+          data-key="id"
+          :value="data.creatures.value"
+          class="data-table"
+          scrollable
+          scroll-height="500px"
+          sort-field="name"
+          :virtual-scroller-options="{ itemSize: 20 }"
+          :sort-order="1"
+          :filters="filters"
+          selection-mode="single"
+        >
+          <Column expander style="width: 5rem" />
+          <!-- Filters for Each Column -->
+          <Column
+            v-for="col in columns"
+            :key="col.key"
+            :field="col.key"
+            :header="col.label"
+            :sortable="col.sortable"
+          >
+          </Column>
+          <template #expandedRow="{ rowData }">
+            <div class="expanded-row-content">
+              <!-- Customize the expanded row content here -->
+              <p><strong>Name:</strong> {{ rowData.name }}</p>
+              <p><strong>Type:</strong> {{ rowData.type }}</p>
+              <!-- Add more fields as needed -->
+            </div>
           </template>
-        </UTable>
+        </DataTable>
       </div>
 
       <div class="slot-right">
-        <UTable :rows="encounterArray" :columns="encounterColumns">
-          <template #action-data="{ row }">
-            <UButton
-              color="gray"
-              variant="ghost"
-              icon="i-heroicons-trash-20-solid"
-              @click="deleteFromEncounter(row)"
-            />
-          </template>
-        </UTable>
+        <EncounterTable />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
+import InputText from "primevue/inputtext";
+import EncounterTable from "~/components/EncounterTable.vue";
+
 import { ref } from "vue";
-import {
-  addToEncounter,
-  encounterArray,
-} from "~/composables/createEncounter.ts";
 import { loadCreatures } from "~/composables/loadData.ts";
-import { columns, encounterColumns } from "~/config/columnConfig";
-import { usePagination, page, pageCount } from "~/composables/pagination";
+import { columns } from "~/config/columnConfig";
+import { generateFilters } from "~/composables/filter";
 
 // Load creatures data
 const data = await loadCreatures();
-const paginatedData = usePagination(data.creatures.value);
-
-// Reactive state for difficulty indicator
-const currentValue = ref(20);
-const maxValue = ref(160);
-
-// Threshold values in an object
-const thresholds = ref({
-  trivialThreshold: 40,
-  lowThreshold: 60,
-  moderateThreshold: 80,
-  severeThreshold: 120,
-  extremeThreshold: 160,
-});
 
 // Handle threshold updates dynamically
 const handleThresholdUpdate = ({ type, value }) => {
@@ -85,6 +95,15 @@ const handleThresholdUpdate = ({ type, value }) => {
     thresholds.value[type + "Threshold"] = value;
   }
 };
+
+// Generate filters for all columns
+const filters = ref(generateFilters(columns));
+
+// Columns that can be filtered
+const filterableColumns = ref(columns.filter((col) => col.filterable));
+
+// Expanded rows state
+const expandedRows = ref([]);
 </script>
 
 <style lang="scss">

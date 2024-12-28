@@ -16,12 +16,16 @@ export function addToEncounter(row: Creature) {
   }
 }
 
-export function deleteFromEncounter(row: Creature) {
+export function deleteOneFromEncounter(row: Creature) {
   const existingCreature = encounter.value.get(row.name)!;
   existingCreature.count = (existingCreature.count || 1) - 1;
   if (existingCreature.count == 0) {
     encounter.value.delete(row.name);
   }
+}
+
+export function deleteAllFromEncounter(row: Creature) {
+  encounter.value.delete(row.name);
 }
 
 export { encounter, encounterArray, actions };

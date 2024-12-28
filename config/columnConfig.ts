@@ -6,14 +6,10 @@ export interface Column<Creature> {
   sortable?: boolean;
   isArray?: boolean;
   containsMarkdown?: boolean;
-}
-export interface EncounterColumn {
-  count: number;
-  name: string;
-  action: unknown;
+  filterable?: boolean;
 }
 
-export const encounterColumns: Column<EncounterColumn>[] = [
+export const encounterColumns: Column<Creature>[] = [
   {
     key: "count",
     label: "Number",
@@ -34,34 +30,38 @@ export const columns: Column<Creature>[] = [
     key: "name",
     label: "Name",
     sortable: true,
+    filterable: true,
   },
   {
     key: "level",
     label: "Level",
     sortable: true,
+    filterable: true,
   },
   {
     key: "ac",
     label: "AC",
     sortable: true,
+    filterable: true,
   },
   {
     key: "hp",
     label: "HP",
     sortable: true,
+    filterable: true,
   },
   {
     key: "alignment",
     label: "Alignment",
-    sortable: true,
+    filterable: true,
   },
-  {
+  /*{{
     key: "size",
     label: "Size",
     sortable: true,
     isArray: true,
   },
-  /*{
+
     key: "creature_family_markdown",
     label: "Family",
     sortable: true,
@@ -76,5 +76,6 @@ export const columns: Column<Creature>[] = [
   {
     key: "action",
     label: "Action",
+    filterable: false,
   },
 ];
