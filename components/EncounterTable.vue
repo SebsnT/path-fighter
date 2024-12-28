@@ -6,7 +6,20 @@
       :field="col.key"
       :header="col.label"
       :sortable="col.sortable"
-    />
+    >
+      <template #body="slotProps">
+        <template v-if="col.key != 'action'">
+          {{ slotProps.data[col.key] }}</template
+        >
+
+        <template v-else>
+          <Button
+            label="Remove"
+            @click="deleteOneFromEncounter(slotProps.data)"
+          />
+        </template>
+      </template>
+    </Column>
   </DataTable>
 </template>
 

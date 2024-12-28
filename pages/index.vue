@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ThresholdSelectors
+    <!--     <ThresholdSelectors
       v-bind="thresholds"
       @update:threshold="handleThresholdUpdate"
     />
@@ -10,7 +10,9 @@
       :current-value="currentValue"
       :max-value="maxValue"
       v-bind="thresholds"
-    />
+    /> -->
+
+    <OptionToolbar />
 
     <!-- Full-Width Filter Bar -->
     <div class="filter-bar-container">
@@ -40,9 +42,9 @@
           :value="data.creatures.value"
           class="data-table"
           scrollable
-          scroll-height="500px"
+          scroll-height="650px"
           sort-field="name"
-          :virtual-scroller-options="{ itemSize: 20 }"
+          :virtual-scroller-options="{ itemSize: 50 }"
           :sort-order="1"
           :filters="filters"
           selection-mode="single"
@@ -56,15 +58,16 @@
             :header="col.label"
             :sortable="col.sortable"
           >
+            <template #body="row">
+              <template v-if="col.key != 'action'">
+                {{ row.data[col.key] }}</template
+              >
+
+              <template v-else>
+                <Button label="Add" @click="addToEncounter(row.data)" />
+              </template>
+            </template>
           </Column>
-          <template #expandedRow="{ rowData }">
-            <div class="expanded-row-content">
-              <!-- Customize the expanded row content here -->
-              <p><strong>Name:</strong> {{ rowData.name }}</p>
-              <p><strong>Type:</strong> {{ rowData.type }}</p>
-              <!-- Add more fields as needed -->
-            </div>
-          </template>
         </DataTable>
       </div>
 
@@ -90,20 +93,17 @@ import { generateFilters } from "~/composables/filter";
 const data = await loadCreatures();
 
 // Handle threshold updates dynamically
-const handleThresholdUpdate = ({ type, value }) => {
+/* const handleThresholdUpdate = ({ type, value }) => {
   if (thresholds.value[type + "Threshold"] !== undefined) {
     thresholds.value[type + "Threshold"] = value;
   }
-};
+}; */
 
 // Generate filters for all columns
 const filters = ref(generateFilters(columns));
 
 // Columns that can be filtered
 const filterableColumns = ref(columns.filter((col) => col.filterable));
-
-// Expanded rows state
-const expandedRows = ref([]);
 </script>
 
 <style lang="scss">
