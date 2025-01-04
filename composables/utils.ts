@@ -1,0 +1,9 @@
+import { clearFilters } from "./filter";
+
+/**
+ * function for resetting the state of the application
+ */
+export function reset() {
+  deleteAllFromEncounter();
+  clearFilters();
+}
