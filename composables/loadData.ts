@@ -1,6 +1,8 @@
+import type { Creature } from "~/types/creature";
+
 export async function loadCreatures() {
   try {
-    const { data: creatures, status } = await useLazyAsyncData(
+    const { data: creatures, status } = await useLazyAsyncData<Creature[]>(
       "creatures",
       () => $fetch("https://sebsnt.github.io/creature.json"),
     );
