@@ -1,31 +1,76 @@
+import { currentValue } from "#imports";
 import type { Creature } from "~/types/creature";
 
 // Define the encounter list as a reactive reference
-const encounter = ref<Map<string, Creature>>(new Map());
-const encounterArray = computed(() => Array.from(encounter.value.values()));
+export const encounter = ref<Map<string, Creature>>(new Map());
+export const encounterArray = computed(() =>
+  Array.from(encounter.value.values()),
+);
 
-export function addToEncounter(row: Creature) {
+/**
+ * Adds one creature to the encounter and increase the difficulty
+ *
+ * @param creature
+ */
+export function addToEncounter(creature: Creature) {
   // Check if the creature is already in the map
-  if (encounter.value.has(row.name)) {
+  if (encounter.value.has(creature.name)) {
     // Increment the count of the existing creature
-    const existingCreature = encounter.value.get(row.name)!;
+    const existingCreature = encounter.value.get(creature.name)!;
     existingCreature.count = (existingCreature.count || 1) + 1;
   } else {
     // Add new creature with count set to 1
-    encounter.value.set(row.name, { ...row, count: 1 });
+    encounter.value.set(creature.name, { ...creature, count: 1 });
   }
+
+  increaseDifficulty(creature.level);
 }
 
-export function deleteOneFromEncounter(row: Creature) {
-  const existingCreature = encounter.value.get(row.name)!;
+/**
+ * Deletes one creature from the encounter table and decreases the difficulty
+ *
+ * @param creature
+ */
+export function deleteOneFromEncounter(creature: Creature) {
+  const existingCreature = encounter.value.get(creature.name)!;
   existingCreature.count = (existingCreature.count || 1) - 1;
   if (existingCreature.count == 0) {
-    encounter.value.delete(row.name);
+    encounter.value.delete(creature.name);
   }
+  decreaseDifficulty(creature.level);
 }
 
+/**
+ * Deletes all creatures from the encounter and resets the difficulty
+ */
 export function deleteAllFromEncounter() {
   encounter.value.clear();
+  resetDifficulty();
 }
 
-export { encounter, encounterArray, actions };
+/**
+ * Resets the difficulty shown in the indicator
+ */
+export function resetDifficulty() {
+  currentValue.value = 0;
+}
+
+/**
+ * Increase the difficulty of the encounter based on player level, party size and monster level
+ *
+ * @param level of the creature
+ */
+function increaseDifficulty(level: number) {
+  console.log(level);
+
+  //TODO make caluclations
+}
+/**
+ * Decrease the difficulty of the encounter based on player level, party size and monster level
+ *
+ * @param level of the creature
+ */
+function decreaseDifficulty(level: number) {
+  console.log(level);
+  //TODO make caluclations
+}
