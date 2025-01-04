@@ -14,24 +14,7 @@
 
     <OptionToolbar />
 
-    <!-- Full-Width Filter Bar -->
-    <div class="filter-bar-container">
-      <div class="filter-bar">
-        <div
-          v-for="col in filterableColumns"
-          :key="col.key"
-          class="filter-input"
-        >
-          <label :for="'filter-' + col.key">{{ col.label }}</label>
-          <InputText
-            :id="'filter-' + col.key"
-            v-model="filters[col.key].value"
-            :placeholder="'Search ' + col.label"
-            class="filter-input-field"
-          />
-        </div>
-      </div>
-    </div>
+    <FilterBar :filters="filters"></FilterBar>
 
     <!-- Slot Container -->
     <div class="slot-container">
@@ -39,17 +22,19 @@
       <div class="slot-left">
         <DataTable
           data-key="id"
-          :value="data.creatures.value"
           class="data-table"
+          :value="data.creatures.value"
+          :size="'small'"
           scrollable
-          scroll-height="650px"
-          sort-field="name"
+          scroll-height="400px"
           :virtual-scroller-options="{ itemSize: 50 }"
+          sort-field="name"
           :sort-order="1"
+          removable-sort
           :filters="filters"
           selection-mode="single"
         >
-          <Column expander style="width: 5rem" />
+          <Column expander style="width: 3rem" />
           <!-- Filters for Each Column -->
           <Column
             v-for="col in columns"
@@ -64,7 +49,14 @@
               >
 
               <template v-else>
-                <Button label="Add" @click="addToEncounter(row.data)" />
+                <Button
+                  icon="pi pi-plus"
+                  severity="success"
+                  size="small"
+                  raised
+                  aria-label="Add"
+                  @click="addToEncounter(row.data)"
+                />
               </template>
             </template>
           </Column>
@@ -81,13 +73,12 @@
 <script setup>
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
-import InputText from "primevue/inputtext";
 import EncounterTable from "~/components/EncounterTable.vue";
+import FilterBar from "~/components/FilterBar.vue";
+import "primeicons/primeicons.css";
 
-import { ref } from "vue";
 import { loadCreatures } from "~/composables/loadData.ts";
 import { columns } from "~/config/columnConfig";
-import { generateFilters } from "~/composables/filter";
 
 // Load creatures data
 const data = await loadCreatures();
@@ -100,10 +91,7 @@ const data = await loadCreatures();
 }; */
 
 // Generate filters for all columns
-const filters = ref(generateFilters(columns));
-
-// Columns that can be filtered
-const filterableColumns = ref(columns.filter((col) => col.filterable));
+const filters = useFilters(columns);
 </script>
 
 <style lang="scss">

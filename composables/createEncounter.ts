@@ -24,8 +24,8 @@ export function deleteOneFromEncounter(row: Creature) {
   }
 }
 
-export function deleteAllFromEncounter(row: Creature) {
-  encounter.value.delete(row.name);
+export function deleteAllFromEncounter() {
+  encounter.value.clear();
 }
 
 export { encounter, encounterArray, actions };
