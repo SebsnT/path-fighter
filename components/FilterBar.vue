@@ -1,16 +1,7 @@
 <template>
   <div class="filter-bar-container">
     <div class="filter-bar">
-      <Button
-        type="button"
-        icon="pi pi-filter-slash"
-        label="Clear"
-        size="small"
-        outlined
-        @click="clearFilters()"
-      />
       <div v-for="col in filterableColumns" :key="col.key" class="filter-input">
-        <label :for="'filter-' + col.key">{{ col.label }}</label>
         <template v-if="col.type === 'string'">
           <InputText
             :id="'filter-' + col.key"
@@ -45,6 +36,14 @@
           />
         </template>
       </div>
+      <Button
+        type="button"
+        icon="pi pi-filter-slash"
+        label="Clear"
+        size="small"
+        outlined
+        @click="clearFilters()"
+      />
     </div>
   </div>
 </template>
