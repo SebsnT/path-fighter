@@ -1,18 +1,18 @@
 <template>
   <div>
-    <!--     <ThresholdSelectors
+    <ThresholdSelectors
       v-bind="thresholds"
       @update:threshold="handleThresholdUpdate"
     />
+
+    <OptionToolbar />
 
     <DifficultyIndicator
       class="difficulty"
       :current-value="currentValue"
       :max-value="maxValue"
       v-bind="thresholds"
-    /> -->
-
-    <OptionToolbar />
+    />
 
     <FilterBar :filters="filters"></FilterBar>
 
@@ -82,13 +82,6 @@ import { columns } from "~/config/columnConfig";
 
 // Load creatures data
 const data = await loadCreatures();
-
-// Handle threshold updates dynamically
-/* const handleThresholdUpdate = ({ type, value }) => {
-  if (thresholds.value[type + "Threshold"] !== undefined) {
-    thresholds.value[type + "Threshold"] = value;
-  }
-}; */
 
 // Generate filters for all columns
 const filters = useFilters(columns);

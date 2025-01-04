@@ -1,6 +1,10 @@
 <template>
   <div class="threshold-inputs">
-    <div v-for="(label, type) in thresholdLabels" :key="type">
+    <div
+      v-for="(label, type) in thresholdLabels"
+      :key="type"
+      class="threshold-entry"
+    >
       <label :for="type + 'Threshold'">{{ label }}:</label>
       <input
         :id="type + 'Threshold'"
@@ -54,17 +58,13 @@ const updateThreshold = (type, value) => {
 <style scoped>
 .threshold-inputs {
   display: flex;
-  flex-direction: column;
   gap: 10px;
-
-  label {
-    margin-right: 10px;
-  }
-
-  input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
+  padding-top: 10px;
+  padding-bottom: 10px;
+  justify-content: center;
+}
+.threshold-entry {
+  display: flex;
+  flex-direction: column;
 }
 </style>

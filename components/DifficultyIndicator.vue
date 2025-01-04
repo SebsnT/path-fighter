@@ -1,15 +1,11 @@
 <template>
-  <div></div>
-  <!--   <UProgress :value="currentValue" :max="maxValue" :color="color">
-    <template #indicator>
-      <div :class="textClass">
-        {{ label }}
-      </div>
-    </template>
-  </UProgress> -->
+  <div class="difficulty-label">{{ label }}</div>
+  <ProgressBar :value="(currentValue / maxValue) * 100" :class="color">{{
+    currentValue
+  }}</ProgressBar>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     currentValue: {
@@ -49,16 +45,6 @@ export default {
       if (this.currentValue >= this.lowThreshold) return "lime";
       return "green";
     },
-    textClass() {
-      return `font-bold ${this.colorClass}`;
-    },
-    colorClass() {
-      if (this.currentValue >= this.extremeThreshold) return "text-red-500";
-      if (this.currentValue >= this.severeThreshold) return "text-orange-500";
-      if (this.currentValue >= this.moderateThreshold) return "text-yellow-500";
-      if (this.currentValue >= this.lowThreshold) return "text-lime-500";
-      return "text-green-500";
-    },
     label() {
       if (this.currentValue >= this.extremeThreshold) return "Extreme";
       if (this.currentValue >= this.severeThreshold) return "Severe";
@@ -71,5 +57,5 @@ export default {
 </script>
 
 <style lang="scss">
-@use "~/assets/scss/index.scss";
+@use "~/assets/scss/progress-bar.scss";
 </style>

@@ -1,7 +1,7 @@
 export type Creature = {
   [key: string]: unknown;
   name: string;
-  level: string;
+  level: number;
   ac: string;
   hp: string;
   alignment: string;

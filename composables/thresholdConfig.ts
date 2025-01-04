@@ -1,3 +1,5 @@
+import { ref } from "vue";
+
 // Reactive state for difficulty indicator
 export const currentValue = ref(20);
 export const maxValue = ref(160);

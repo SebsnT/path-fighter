@@ -1,0 +1,37 @@
+.difficulty-label{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.p-progressbar-label {
+    font-size: 16px !important;
+}
+
+.yellow {    
+    .p-progressbar-value {
+        background-color: yellow;
+    }
+}
+
+.lime {    
+    .p-progressbar-value {
+        background-color: lime;
+    }
+}
+
+.orange {    
+    .p-progressbar-value {
+        background-color: orange;
+    }
+}
+
+.red {    
+    .p-progressbar-value {
+        background-color: red;
+    }
+}
