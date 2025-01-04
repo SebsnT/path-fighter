@@ -2,8 +2,14 @@
   <div>
     <Toolbar>
       <template #end>
+        <Button
+          label="Reset"
+          class="button-spacer"
+          :severity="'warn'"
+          @click="reset()"
+        ></Button>
         <FileUpload
-          class="file-upload"
+          class="button-spacer"
           mode="basic"
           accept=".json"
           :max-file-size="1000000"
@@ -26,6 +32,7 @@
 
 <script setup lang="ts">
 import { exportPDF } from "~/composables/pdfExport";
+import { reset } from "../composables/utils";
 </script>
 
 <style lang="scss">

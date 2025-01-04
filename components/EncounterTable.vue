@@ -1,5 +1,5 @@
 <template>
-  <DataTable class="data-table" :value="encounterArray">
+  <DataTable class="data-table" :size="'small'" :value="encounterArray">
     <Column
       v-for="col in encounterColumns"
       :key="col.key"
@@ -14,12 +14,25 @@
 
         <template v-else>
           <Button
-            label="Remove"
+            icon="pi pi-plus"
+            severity="success"
+            size="small"
+            raised
+            aria-label="Add"
+            @click="addToEncounter(slotProps.data)"
+          />
+
+          <Button
+            icon="pi pi-times"
+            severity="danger"
+            aria-label="Cancel"
+            size="small"
             @click="deleteOneFromEncounter(slotProps.data)"
           />
         </template>
       </template>
     </Column>
+    <template #empty> No creature selected </template>
   </DataTable>
 </template>
 
