@@ -2,7 +2,6 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
-  "jest.enable": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   }
