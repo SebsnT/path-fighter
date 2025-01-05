@@ -5,55 +5,30 @@
   }}</ProgressBar>
 </template>
 
-<script lang="ts">
-export default {
-  props: {
-    currentValue: {
-      type: Number,
-      required: true,
-    },
-    maxValue: {
-      type: Number,
-      required: true,
-    },
-    trivialThreshold: {
-      type: Number,
-      required: true,
-    },
-    lowThreshold: {
-      type: Number,
-      required: true,
-    },
-    moderateThreshold: {
-      type: Number,
-      required: true,
-    },
-    severeThreshold: {
-      type: Number,
-      required: true,
-    },
-    extremeThreshold: {
-      type: Number,
-      required: true,
-    },
-  },
-  computed: {
-    color() {
-      if (this.currentValue >= this.extremeThreshold) return "red";
-      if (this.currentValue >= this.severeThreshold) return "orange";
-      if (this.currentValue >= this.moderateThreshold) return "yellow";
-      if (this.currentValue >= this.lowThreshold) return "lime";
-      return "green";
-    },
-    label() {
-      if (this.currentValue >= this.extremeThreshold) return "Extreme";
-      if (this.currentValue >= this.severeThreshold) return "Severe";
-      if (this.currentValue >= this.moderateThreshold) return "Moderate";
-      if (this.currentValue >= this.lowThreshold) return "Low";
-      return "Trivial";
-    },
-  },
-};
+<script setup lang="ts">
+import { computed } from "vue";
+import { useThresholds } from "~/composables/thresholds";
+import { useDifficulty } from "~/composables/difficulty";
+
+const { thresholds } = useThresholds();
+const { currentValue, maxValue } = useDifficulty();
+
+const color = computed(() => {
+  if (currentValue.value >= thresholds.value.extremeThreshold) return "red";
+  if (currentValue.value >= thresholds.value.severeThreshold) return "orange";
+  if (currentValue.value >= thresholds.value.moderateThreshold) return "yellow";
+  if (currentValue.value >= thresholds.value.lowThreshold) return "lime";
+  return "green";
+});
+
+const label = computed(() => {
+  if (currentValue.value >= thresholds.value.extremeThreshold) return "Extreme";
+  if (currentValue.value >= thresholds.value.severeThreshold) return "Severe";
+  if (currentValue.value >= thresholds.value.moderateThreshold)
+    return "Moderate";
+  if (currentValue.value >= thresholds.value.lowThreshold) return "Low";
+  return "Trivial";
+});
 </script>
 
 <style lang="scss">

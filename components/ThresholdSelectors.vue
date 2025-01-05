@@ -10,48 +10,23 @@
         :id="type + 'Threshold'"
         v-model="thresholds[type]"
         type="number"
-        @input="updateThreshold(type, thresholds[type])"
       />
     </div>
   </div>
 </template>
 
-<script setup>
-import { computed } from "vue";
+<script setup lang="ts">
+import { useThresholds } from "~/composables/thresholds";
 
-// Define props for thresholds
-const props = defineProps({
-  trivialThreshold: { type: Number, default: 40 },
-  lowThreshold: { type: Number, default: 60 },
-  moderateThreshold: { type: Number, default: 80 },
-  severeThreshold: { type: Number, default: 120 },
-  extremeThreshold: { type: Number, default: 160 },
-});
-
-// Emit event to update threshold
-const emit = defineEmits(["update:threshold"]);
+const { thresholds } = useThresholds();
 
 // Define labels for each threshold type
 const thresholdLabels = {
-  trivial: "Trivial Threshold",
-  low: "Low Threshold",
-  moderate: "Moderate Threshold",
-  severe: "Severe Threshold",
-  extreme: "Extreme Threshold",
-};
-
-// Create a computed object for the thresholds
-const thresholds = computed(() => ({
-  trivial: props.trivialThreshold,
-  low: props.lowThreshold,
-  moderate: props.moderateThreshold,
-  severe: props.severeThreshold,
-  extreme: props.extremeThreshold,
-}));
-
-// Emit the update event whenever a threshold is modified
-const updateThreshold = (type, value) => {
-  emit("update:threshold", { type, value });
+  trivialThreshold: "Trivial Threshold",
+  lowThreshold: "Low Threshold",
+  moderateThreshold: "Moderate Threshold",
+  severeThreshold: "Severe Threshold",
+  extremeThreshold: "Extreme Threshold",
 };
 </script>
 

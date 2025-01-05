@@ -1,12 +1,15 @@
-import { currentValue } from "#imports";
 import type { Creature } from "~/types/creature";
+import { useDifficulty } from "~/composables/difficulty";
 
 // Define the encounter list as a reactive reference
 const encounter = ref<Map<string, Creature>>(new Map());
 
-export const useEncounter = () => {
-  const encounterArray = computed(() => Array.from(encounter.value.values()));
+const { increaseDifficulty, decreaseDifficulty, resetDifficulty } =
+  useDifficulty();
 
+const encounterArray = computed(() => Array.from(encounter.value.values()));
+
+export const useEncounter = () => {
   /**
    * Adds one creature to the encounter and increase the difficulty
    *
@@ -48,37 +51,15 @@ export const useEncounter = () => {
     resetDifficulty();
   }
 
+  function clearEncounter() {
+    encounter.value.clear();
+  }
+
   return {
     encounterArray,
     addToEncounter,
     deleteOneFromEncounter,
     deleteAllFromEncounter,
+    clearEncounter,
   };
 };
-
-/**
- * Resets the difficulty shown in the indicator
- */
-export function resetDifficulty() {
-  currentValue.value = 0;
-}
-
-/**
- * Increase the difficulty of the encounter based on player level, party size and monster level
- *
- * @param level of the creature
- */
-function increaseDifficulty(level: number) {
-  console.log(level);
-
-  //TODO make caluclations
-}
-/**
- * Decrease the difficulty of the encounter based on player level, party size and monster level
- *
- * @param level of the creature
- */
-function decreaseDifficulty(level: number) {
-  console.log(level);
-  //TODO make caluclations
-}

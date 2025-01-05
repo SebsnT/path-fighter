@@ -1,14 +1,10 @@
 <template>
   <div>
-    <ThresholdSelectors v-bind="thresholds" />
+    <ThresholdSelectors />
 
     <OptionToolbar />
 
-    <DifficultyIndicator
-      :current-value="currentValue"
-      :max-value="maxValue"
-      v-bind="thresholds"
-    />
+    <DifficultyIndicator />
 
     <FilterBar :filters="filters"></FilterBar>
 
