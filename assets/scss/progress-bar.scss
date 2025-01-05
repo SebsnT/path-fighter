@@ -1,3 +1,13 @@
+.difficulty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 80px;
+}
+
 .difficulty-label{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -12,25 +22,25 @@
     font-size: 16px !important;
 }
 
-.yellow {    
+.yellow {
     .p-progressbar-value {
         background-color: yellow;
     }
 }
 
-.lime {    
+.lime {
     .p-progressbar-value {
         background-color: lime;
     }
 }
 
-.orange {    
+.orange {
     .p-progressbar-value {
         background-color: orange;
     }
 }
 
-.red {    
+.red {
     .p-progressbar-value {
         background-color: red;
     }

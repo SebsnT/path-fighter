@@ -1,4 +1,4 @@
-<template>
+<template class="difficulty">
   <div class="difficulty-label">{{ label }}</div>
   <ProgressBar :value="(currentValue / maxValue) * 100" :class="color">{{
     currentValue

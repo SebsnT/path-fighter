@@ -1,14 +1,10 @@
 <template>
   <div>
-    <ThresholdSelectors
-      v-bind="thresholds"
-      @update:threshold="handleThresholdUpdate"
-    />
+    <ThresholdSelectors v-bind="thresholds" />
 
     <OptionToolbar />
 
     <DifficultyIndicator
-      class="difficulty"
       :current-value="currentValue"
       :max-value="maxValue"
       v-bind="thresholds"
@@ -77,7 +73,8 @@ import EncounterTable from "~/components/EncounterTable.vue";
 import FilterBar from "~/components/FilterBar.vue";
 import "primeicons/primeicons.css";
 
-import { loadCreatures } from "~/composables/loadData.ts";
+import { loadCreatures } from "../utils/loadData";
+
 import { columns } from "~/config/columnConfig";
 
 // Load creatures data

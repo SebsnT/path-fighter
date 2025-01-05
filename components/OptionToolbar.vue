@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { exportPDF } from "~/composables/pdfExport";
+import { exportPDF } from "~/utils/export";
 import { reset } from "../composables/utils";
 </script>
 
