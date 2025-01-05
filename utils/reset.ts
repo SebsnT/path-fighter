@@ -1,5 +1,3 @@
-import { resetDifficulty } from "./createEncounter";
-
 /**
  * function for resetting the state of the application
  */

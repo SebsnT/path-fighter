@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { exportPDF } from "~/utils/export";
-import { reset } from "../composables/utils";
+import { reset } from "~/utils/reset";
 </script>
 
 <style lang="scss">
