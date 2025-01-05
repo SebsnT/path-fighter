@@ -74,14 +74,17 @@ import FilterBar from "~/components/FilterBar.vue";
 import "primeicons/primeicons.css";
 
 import { loadCreatures } from "../utils/loadData";
-
 import { columns } from "~/config/columnConfig";
+
+import { useEncounter } from "~/composables/encounter";
 
 // Load creatures data
 const data = await loadCreatures();
 
 // Generate filters for all columns
 const filters = useFilters(columns);
+
+const { addToEncounter } = useEncounter();
 </script>
 
 <style lang="scss">

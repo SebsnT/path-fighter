@@ -2,51 +2,59 @@ import { currentValue } from "#imports";
 import type { Creature } from "~/types/creature";
 
 // Define the encounter list as a reactive reference
-export const encounter = ref<Map<string, Creature>>(new Map());
-export const encounterArray = computed(() =>
-  Array.from(encounter.value.values()),
-);
+const encounter = ref<Map<string, Creature>>(new Map());
 
-/**
- * Adds one creature to the encounter and increase the difficulty
- *
- * @param creature
- */
-export function addToEncounter(creature: Creature) {
-  // Check if the creature is already in the map
-  if (encounter.value.has(creature.name)) {
-    // Increment the count of the existing creature
+export const useEncounter = () => {
+  const encounterArray = computed(() => Array.from(encounter.value.values()));
+
+  /**
+   * Adds one creature to the encounter and increase the difficulty
+   *
+   * @param creature
+   */
+  function addToEncounter(creature: Creature) {
+    // Check if the creature is already in the map
+    if (encounter.value.has(creature.name)) {
+      // Increment the count of the existing creature
+      const existingCreature = encounter.value.get(creature.name)!;
+      existingCreature.count = (existingCreature.count || 1) + 1;
+    } else {
+      // Add new creature with count set to 1
+      encounter.value.set(creature.name, { ...creature, count: 1 });
+    }
+
+    increaseDifficulty(creature.level);
+  }
+
+  /**
+   * Deletes one creature from the encounter table and decreases the difficulty
+   *
+   * @param creature
+   */
+  function deleteOneFromEncounter(creature: Creature) {
     const existingCreature = encounter.value.get(creature.name)!;
-    existingCreature.count = (existingCreature.count || 1) + 1;
-  } else {
-    // Add new creature with count set to 1
-    encounter.value.set(creature.name, { ...creature, count: 1 });
+    existingCreature.count = (existingCreature.count || 1) - 1;
+    if (existingCreature.count == 0) {
+      encounter.value.delete(creature.name);
+    }
+    decreaseDifficulty(creature.level);
   }
 
-  increaseDifficulty(creature.level);
-}
-
-/**
- * Deletes one creature from the encounter table and decreases the difficulty
- *
- * @param creature
- */
-export function deleteOneFromEncounter(creature: Creature) {
-  const existingCreature = encounter.value.get(creature.name)!;
-  existingCreature.count = (existingCreature.count || 1) - 1;
-  if (existingCreature.count == 0) {
-    encounter.value.delete(creature.name);
+  /**
+   * Deletes all creatures from the encounter and resets the difficulty
+   */
+  function deleteAllFromEncounter() {
+    encounter.value.clear();
+    resetDifficulty();
   }
-  decreaseDifficulty(creature.level);
-}
 
-/**
- * Deletes all creatures from the encounter and resets the difficulty
- */
-export function deleteAllFromEncounter() {
-  encounter.value.clear();
-  resetDifficulty();
-}
+  return {
+    encounterArray,
+    addToEncounter,
+    deleteOneFromEncounter,
+    deleteAllFromEncounter,
+  };
+};
 
 /**
  * Resets the difficulty shown in the indicator

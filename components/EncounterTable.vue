@@ -37,6 +37,9 @@
 </template>
 
 <script setup>
-import { encounterArray } from "~/composables/encounter";
+import { useEncounter } from "~/composables/encounter";
 import { encounterColumns } from "~/config/columnConfig";
+
+const { encounterArray, addToEncounter, deleteOneFromEncounter } =
+  useEncounter();
 </script>
