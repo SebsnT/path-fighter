@@ -18,10 +18,6 @@
     font-weight: bold;
 }
 
-.p-progressbar-label {
-    display: none !important;
-}
-
 .yellow {
     .p-progressbar-value {
         background-color: yellow;
@@ -44,4 +40,8 @@
     .p-progressbar-value {
         background-color: red;
     }
+}
+
+.fast-animation-progressbar .p-progressbar-value {
+  transition: width 0.5s ease-in-out !important; /* Adjust duration to 0.2s */
 }

@@ -15,8 +15,9 @@
         <DataTable
           data-key="id"
           class="data-table"
-          :value="creatures"
+          :value="data?.creatures.value"
           :size="'small'"
+          show-gridlines
           scrollable
           scroll-height="400px"
           :virtual-scroller-options="{ itemSize: 50 }"
@@ -27,7 +28,7 @@
           :expanded-rows="expandedRows"
           @row-expand="onRowExpand"
         >
-          <Column expander style="width: 3rem" />
+          <!--   <Column expander style="width: 10px" /> -->
 
           <Column
             v-for="col in columns"
@@ -35,6 +36,7 @@
             :field="col.key"
             :header="col.label"
             :sortable="col.sortable"
+            :style="{ width: col.width || '150px' }"
           >
             <template #body="row">
               <template v-if="col.key == 'name'">
@@ -92,9 +94,6 @@ import type { Creature } from "~/models/creature";
 
 // Load creatures data
 const data = await loadCreatures();
-
-// Define types for creatures data
-const creatures = ref<Creature[] | null>(data ? data.creatures.value : []);
 
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();

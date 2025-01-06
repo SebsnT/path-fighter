@@ -3,6 +3,8 @@
   <ProgressBar
     :value="(currentValue / maxValue) * 100"
     :class="color"
+    :show-value="false"
+    class="fast-animation-progressbar"
   ></ProgressBar>
 </template>
 

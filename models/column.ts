@@ -6,6 +6,7 @@ export interface Column {
   key: keyof Creature & string;
   label: string;
   sortable?: boolean;
+  width?: string;
   isArray?: boolean;
   containsMarkdown?: boolean;
   filterable?: boolean;

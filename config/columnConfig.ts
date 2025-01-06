@@ -20,6 +20,7 @@ export const columns: Column[] = [
   {
     key: "name",
     label: "Name",
+    width: "250px",
     sortable: true,
     filterable: true,
     type: "string",
@@ -27,6 +28,7 @@ export const columns: Column[] = [
   {
     key: "level",
     label: "Level",
+    width: "50px",
     sortable: true,
     filterable: true,
     type: "number",
@@ -36,6 +38,7 @@ export const columns: Column[] = [
   {
     key: "ac",
     label: "AC",
+    width: "50px",
     sortable: true,
     filterable: true,
     type: "number",
@@ -45,6 +48,7 @@ export const columns: Column[] = [
   {
     key: "hp",
     label: "HP",
+    width: "50px",
     sortable: true,
     filterable: true,
     type: "number",
@@ -54,9 +58,11 @@ export const columns: Column[] = [
   {
     key: "alignment",
     label: "Alignment",
+    width: "50px",
     filterable: true,
     type: "dropdown",
     options: [
+      { label: "Any", value: "Any" },
       { label: "Lawful Good", value: "LG" },
       { label: "Lawful Neutral", value: "LN" },
       { label: "Lawful Evil", value: "LE" },
@@ -66,10 +72,12 @@ export const columns: Column[] = [
       { label: "Chaotic Good", value: "CG" },
       { label: "Chaotic Neutral", value: "CE" },
       { label: "Chaotic Evil", value: "CE" },
+      { label: "No Alignment", value: "No Alignment" },
     ],
   },
   {
     key: "action",
+    width: "5%",
     label: "Action",
     filterable: false,
   },
