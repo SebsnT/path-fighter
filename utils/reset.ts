@@ -3,6 +3,7 @@
  */
 export function reset() {
   const { clearEncounter } = useEncounter();
+  const { clearFilters } = useFilters();
   const { resetDifficulty } = useDifficulty();
 
   clearEncounter();

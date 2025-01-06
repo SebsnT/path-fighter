@@ -6,7 +6,7 @@
 
     <DifficultyIndicator />
 
-    <FilterBar :filters="filters"></FilterBar>
+    <FilterBar></FilterBar>
 
     <!-- Slot Container -->
     <div class="slot-container">
@@ -73,14 +73,13 @@ import { loadCreatures } from "../utils/loadData";
 import { columns } from "~/config/columnConfig";
 
 import { useEncounter } from "~/composables/encounter";
+import { useFilters } from "~/composables/filter";
 
 // Load creatures data
 const data = await loadCreatures();
 
-// Generate filters for all columns
-const filters = useFilters(columns);
-
 const { addToEncounter } = useEncounter();
+const { filters } = useFilters();
 </script>
 
 <style lang="scss">

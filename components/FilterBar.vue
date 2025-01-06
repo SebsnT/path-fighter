@@ -5,7 +5,7 @@
         <template v-if="col.type === 'string'">
           <InputText
             :id="'filter-' + col.key"
-            v-model="localFilters[col.key].value"
+            v-model="filters[col.key].value as string | null"
             class="filter-input-field"
             :placeholder="'Search ' + col.label"
           />
@@ -14,7 +14,7 @@
         <template v-else-if="col.type === 'number'">
           <InputNumber
             :id="'filter-' + col.key"
-            v-model="localFilters[col.key].value"
+            v-model="filters[col.key].value as number | null"
             class="filter-input-field"
             :placeholder="'Search ' + col.label"
             :min="col.minValue"
@@ -26,7 +26,7 @@
         <template v-else-if="col.type === 'dropdown'">
           <Select
             :id="'filter-' + col.key"
-            v-model="localFilters[col.key].value"
+            v-model="filters[col.key].value"
             class="filter-input-field"
             :options="col.options"
             option-label="label"
@@ -51,17 +51,10 @@
 <script setup lang="ts">
 import Select from "primevue/select";
 import { columns } from "../config/columnConfig";
-import { onNumberInput, clearFilters } from "~/composables/filter";
+import { onNumberInput } from "~/utils/filterUtils";
+import { useFilters } from "~/composables/filter";
 
-const props = defineProps({
-  filters: {
-    type: Object as PropType<{ [key: string]: { value: never } }>, // Define the shape of the object
-    required: true,
-  },
-});
-
-// Create a local copy of the filters prop
-const localFilters = reactive({ ...props.filters });
+const { filters, clearFilters } = useFilters();
 
 // Columns that can be filtered
 const filterableColumns = ref(columns.filter((col) => col.filterable));
