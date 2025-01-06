@@ -7,6 +7,11 @@ const maxValue = ref(160);
 const partySize = ref(4);
 const partyLevel = ref(1);
 
+const manualThresholds = ref(false);
+
+const { encounterArray } = useEncounterState();
+const { thresholds } = useThresholds();
+
 export const useDifficulty = () => {
   /**
    * Resets the difficulty to default the value
@@ -35,7 +40,11 @@ export const useDifficulty = () => {
    * @param level of the creature
    */
   function increaseDifficulty(level: number) {
-    currentValue.value += calculateCreatureXP(level, partyLevel.value);
+    currentValue.value += calculateCreatureXP(
+      level,
+      partySize.value,
+      partyLevel.value,
+    );
   }
   /**
    * Decrease the difficulty of the encounter based on player level, party size and monster level
@@ -43,11 +52,15 @@ export const useDifficulty = () => {
    * @param level of the creature
    */
   function decreaseDifficulty(level: number) {
-    currentValue.value -= calculateCreatureXP(level, partyLevel.value);
+    currentValue.value -= calculateCreatureXP(
+      level,
+      partySize.value,
+      partyLevel.value,
+    );
   }
 
   /**
-   * Adjust the XP gained based on the party size and level
+   * Adjust the XP gained when the level of the party changes
    *
    * @param event to update the value immidiatly
    */
@@ -55,9 +68,37 @@ export const useDifficulty = () => {
     // Update value immidiatly
     onNumberInput(event);
 
-    if (partyLevel != null && partySize != null) {
-      //TODO adjust currentValue based on
+    // Only update value if valid values are set
+    if (partyLevel.value != null && partySize.value != null) {
+      let xp = 0;
+      if (!manualThresholds.value) {
+        adjustThreholds();
+      }
+
+      // Calculate the XP for each creature in the encounter, multiply it by the count and sum it up
+      encounterArray.value.forEach((element) => {
+        if (element.count) {
+          xp +=
+            calculateCreatureXP(
+              element.level,
+              partySize.value,
+              partyLevel.value,
+            ) * element.count;
+        }
+      });
+      currentValue.value = xp;
     }
+  }
+
+  function adjustThreholds() {
+    const partySizeAdjustment = partySize.value - 4;
+
+    // Adjust each threshold dynamically based on the party size adjustment
+    thresholds.value.trivialThreshold = 40 + partySizeAdjustment * 10;
+    thresholds.value.lowThreshold = 60 + partySizeAdjustment * 15;
+    thresholds.value.moderateThreshold = 80 + +partySizeAdjustment * 20;
+    thresholds.value.severeThreshold = 120 + +partySizeAdjustment * 30;
+    thresholds.value.extremeThreshold = 160 + +partySizeAdjustment * 40;
   }
 
   return {
@@ -65,11 +106,12 @@ export const useDifficulty = () => {
     maxValue,
     partySize,
     partyLevel,
+    manualThresholds,
     resetDifficulty,
     resetPartySize,
     resetPartyLevel,
     increaseDifficulty,
     decreaseDifficulty,
-    adjustXPGained,
+    adjustXPGained: adjustXPGained,
   };
 };

@@ -8,13 +8,22 @@
       <label for="partyLevel">Party Level:</label>
       <InputNumber v-model="partyLevel" @input="adjustXPGained($event)" />
     </div>
+
+    <div class="party-entry center">
+      <label for="partyLevel">Manual Thresholds</label>
+      <div class="checkbox-container">
+        <Checkbox v-model="manualThresholds" binary />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import Checkbox from "primevue/checkbox";
 import { useDifficulty } from "~/composables/difficulty";
 
-const { partySize, partyLevel, adjustXPGained } = useDifficulty();
+const { partySize, partyLevel, manualThresholds, adjustXPGained } =
+  useDifficulty();
 </script>
 
 <style lang="scss">
@@ -24,6 +33,16 @@ const { partySize, partyLevel, adjustXPGained } = useDifficulty();
   padding-top: 10px;
   padding-bottom: 10px;
   justify-content: center;
+}
+.center {
+  align-items: center;
+  padding-left: 10px;
+}
+
+.checkbox-container {
+  display: flex;
+  flex: 1;
+  align-items: center; /* Centers the checkbox vertically */
 }
 
 .party-entry {

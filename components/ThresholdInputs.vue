@@ -1,5 +1,5 @@
 <template>
-  <div class="threshold-inputs">
+  <div v-if="manualThresholds" class="threshold-inputs">
     <div
       v-for="(label, type) in thresholdLabels"
       :key="type"
@@ -19,6 +19,7 @@
 import { useThresholds } from "~/composables/thresholds";
 
 const { thresholds } = useThresholds();
+const { manualThresholds } = useDifficulty();
 
 // Define labels for each threshold type
 const thresholdLabels = {
