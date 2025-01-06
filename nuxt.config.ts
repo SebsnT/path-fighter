@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from "nuxt/config";
 import Aura from "@primevue/themes/aura";
 export default defineNuxtConfig({
-  modules: ["@nuxt/eslint", "@primevue/nuxt-module"],
+  modules: ["@nuxt/eslint", "@primevue/nuxt-module", "@nuxt/test-utils"],
   primevue: {
     options: {
       theme: {
