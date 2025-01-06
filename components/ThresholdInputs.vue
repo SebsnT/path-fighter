@@ -6,10 +6,10 @@
       class="threshold-entry"
     >
       <label :for="type + 'Threshold'">{{ label }}:</label>
-      <input
+      <InputNumber
         :id="type + 'Threshold'"
         v-model="thresholds[type]"
-        type="number"
+        @input="onNumberInput($event)"
       />
     </div>
   </div>

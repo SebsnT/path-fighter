@@ -1,6 +1,8 @@
 <template>
   <div>
-    <ThresholdSelectors />
+    <ThresholdInputs />
+
+    <PartyInputs />
 
     <OptionToolbar />
 
