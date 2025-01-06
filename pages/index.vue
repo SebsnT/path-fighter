@@ -15,7 +15,7 @@
         <DataTable
           data-key="id"
           class="data-table"
-          :value="data.creatures.value"
+          :value="creatures"
           :size="'small'"
           scrollable
           scroll-height="400px"
@@ -24,9 +24,11 @@
           :sort-order="1"
           removable-sort
           :filters="filters"
-          selection-mode="single"
+          :expanded-rows="expandedRows"
+          @row-expand="onRowExpand"
         >
           <Column expander style="width: 3rem" />
+
           <Column
             v-for="col in columns"
             :key="col.key"
@@ -35,9 +37,14 @@
             :sortable="col.sortable"
           >
             <template #body="row">
-              <template v-if="col.key != 'action'">
-                {{ row.data[col.key] }}</template
-              >
+              <template v-if="col.key == 'name'">
+                <a :href="baseUrl + row.data.url" target="_blank">{{
+                  row.data[col.key]
+                }}</a>
+              </template>
+              <template v-else-if="col.key != 'action'">
+                {{ row.data[col.key] }}
+              </template>
 
               <template v-else>
                 <Button
@@ -46,11 +53,19 @@
                   size="small"
                   raised
                   aria-label="Add"
-                  @click="addToEncounter(row.data)"
+                  @click="addOneToEncounter(row.data)"
                 />
               </template>
             </template>
           </Column>
+          <template #expansion="row">
+            <div class="expanded-row-content">
+              <p>TODO</p>
+
+              {{ row.data.id }}
+            </div>
+          </template>
+          <!-- Detail view for the expanded row -->
         </DataTable>
       </div>
 
@@ -61,7 +76,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import EncounterTable from "~/components/EncounterTable.vue";
@@ -73,12 +88,24 @@ import { columns } from "~/config/columnConfig";
 
 import { useEncounter } from "~/composables/encounter";
 import { useFilters } from "~/composables/filter";
+import type { Creature } from "~/models/creature";
 
 // Load creatures data
 const data = await loadCreatures();
 
+// Define types for creatures data
+const creatures = ref<Creature[] | null>(data ? data.creatures.value : []);
+
 const { filters } = useFilters();
-const { addToEncounter } = useEncounter();
+const { addOneToEncounter } = useEncounter();
+
+const baseUrl = "https://2e.aonprd.com";
+
+const expandedRows = ref({});
+
+const onRowExpand = (event: { data: Creature }) => {
+  expandedRows.value = { [event.data.id]: true };
+};
 </script>
 
 <style lang="scss">

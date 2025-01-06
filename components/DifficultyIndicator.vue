@@ -1,8 +1,9 @@
 <template class="difficulty">
-  <div class="difficulty-label">{{ label }}</div>
-  <ProgressBar :value="(currentValue / maxValue) * 100" :class="color">{{
-    currentValue
-  }}</ProgressBar>
+  <div class="difficulty-label">{{ label }} {{ currentValue }}</div>
+  <ProgressBar
+    :value="(currentValue / maxValue) * 100"
+    :class="color"
+  ></ProgressBar>
 </template>
 
 <script setup lang="ts">

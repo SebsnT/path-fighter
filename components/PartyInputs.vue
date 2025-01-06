@@ -42,7 +42,7 @@ const { partySize, partyLevel, manualThresholds, adjustXPGained } =
 .checkbox-container {
   display: flex;
   flex: 1;
-  align-items: center; /* Centers the checkbox vertically */
+  align-items: center;
 }
 
 .party-entry {
