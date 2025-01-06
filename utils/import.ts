@@ -13,8 +13,10 @@ export function importJSON(event: FileUploadSelectEvent) {
       try {
         if (e.target && typeof e.target.result === "string") {
           const { addMultipleToEncounter, clearEncounter } = useEncounter();
+          const { resetDifficulty } = useDifficulty();
           const jsonContent = JSON.parse(e.target.result); // Parse the JSON content
           clearEncounter(); // Clear the current encounter
+          resetDifficulty(); // Reset the difficulty
           addMultipleToEncounter(jsonContent); // Add the creatures to the encounter
         } else {
           console.error("File reading error or result is not a string.");

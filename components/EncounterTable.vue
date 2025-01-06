@@ -1,5 +1,11 @@
 <template>
-  <DataTable class="data-table" :size="'small'" :value="encounterArray">
+  <DataTable
+    class="data-table"
+    :size="'small'"
+    :value="encounterArray"
+    scrollable
+    scroll-height="400px"
+  >
     <Column
       v-for="col in encounterColumns"
       :key="col.key"
