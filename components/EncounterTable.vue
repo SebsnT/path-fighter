@@ -19,7 +19,7 @@
             size="small"
             raised
             aria-label="Add"
-            @click="addToEncounter(slotProps.data)"
+            @click="addOneToEncounter(slotProps.data)"
           />
 
           <Button
@@ -40,6 +40,6 @@
 import { useEncounter } from "~/composables/encounter";
 import { encounterColumns } from "~/config/columnConfig";
 
-const { encounterArray, addToEncounter, deleteOneFromEncounter } =
+const { encounterArray, addOneToEncounter, deleteOneFromEncounter } =
   useEncounter();
 </script>

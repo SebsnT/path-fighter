@@ -2,37 +2,48 @@
   <div>
     <Toolbar>
       <template #end>
-        <Button
-          label="Reset"
-          class="button-spacer"
-          :severity="'warn'"
-          @click="reset()"
-        ></Button>
-        <FileUpload
-          class="button-spacer"
-          mode="basic"
-          accept=".json"
-          :max-file-size="1000000"
-          label="Import"
-          custom-upload
-          choose-label="Import"
-          auto
-          :choose-button-props="{ severity: 'secondary' }"
-        />
-        <Button
-          label="Export"
-          icon="pi pi-upload"
-          severity="secondary"
-          @click="exportPDF()"
-        />
+        <div class="buttons">
+          <Button
+            label="Reset"
+            class="button-spacer"
+            :severity="'warn'"
+            @click="reset()"
+          ></Button>
+          <FileUpload
+            mode="basic"
+            accept=".json"
+            :max-file-size="1000000"
+            label="Import"
+            choose-label="Import JSON"
+            auto
+            custom-upload
+            :choose-button-props="{ severity: 'secondary' }"
+            @select="importJSON($event)"
+          />
+          <Button
+            label="Export JSON"
+            icon="pi pi-upload"
+            severity="secondary"
+            @click="exportJSON(encounterArray)"
+          />
+          <Button
+            label="Export PDF"
+            icon="pi pi-upload"
+            severity="secondary"
+            @click="exportPDF()"
+          />
+        </div>
       </template>
     </Toolbar>
   </div>
 </template>
 
 <script setup lang="ts">
-import { exportPDF } from "~/utils/export";
+import { exportJSON, exportPDF } from "~/utils/export";
+import { importJSON } from "~/utils/import";
 import { reset } from "~/utils/reset";
+
+const { encounterArray } = useEncounterState();
 </script>
 
 <style lang="scss">

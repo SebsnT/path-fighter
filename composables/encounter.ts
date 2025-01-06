@@ -12,7 +12,7 @@ export const useEncounter = () => {
    *
    * @param creature
    */
-  function addToEncounter(creature: Creature) {
+  function addOneToEncounter(creature: Creature) {
     // Check if the creature is already in the map
     if (encounter.value.has(creature.name)) {
       // Increment the count of the existing creature
@@ -24,6 +24,32 @@ export const useEncounter = () => {
     }
 
     increaseDifficulty(creature.level);
+  }
+
+  /**
+   * Adds multiple creatures to the encounter and increases the difficulty.
+   *
+   * @param creatures Array of creatures to add to the encounter.
+   */
+  function addMultipleToEncounter(creatures: Creature[]) {
+    // Iterate over the array of creatures
+    creatures.forEach((creature) => {
+      // Check if the creature is already in the map
+      if (encounter.value.has(creature.name)) {
+        // Increment the count of the existing creature
+        const existingCreature = encounter.value.get(creature.name)!;
+        existingCreature.count = creature.count;
+      } else {
+        // Add new creature with count set to 1
+        encounter.value.set(creature.name, {
+          ...creature,
+          count: creature.count,
+        });
+      }
+
+      // Increase difficulty based on the creature's level
+      increaseDifficulty(creature.level, creature.count);
+    });
   }
 
   /**
@@ -54,7 +80,8 @@ export const useEncounter = () => {
 
   return {
     encounterArray,
-    addToEncounter,
+    addOneToEncounter,
+    addMultipleToEncounter,
     deleteOneFromEncounter,
     deleteAllFromEncounter,
     clearEncounter,

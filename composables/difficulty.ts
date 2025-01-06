@@ -46,12 +46,9 @@ export const useDifficulty = () => {
    *
    * @param level of the creature
    */
-  function increaseDifficulty(level: number) {
-    currentValue.value += calculateCreatureXP(
-      level,
-      partySize.value,
-      partyLevel.value,
-    );
+  function increaseDifficulty(level: number, count: number = 1) {
+    currentValue.value +=
+      calculateCreatureXP(level, partySize.value, partyLevel.value) * count;
   }
   /**
    * Decrease the difficulty of the encounter based on player level, party size and monster level
@@ -84,6 +81,8 @@ export const useDifficulty = () => {
 
       // Calculate the XP for each creature in the encounter, multiply it by the count and sum it up
       encounterArray.value.forEach((element) => {
+        console.log(encounterArray.value);
+
         if (element.count) {
           xp +=
             calculateCreatureXP(
