@@ -4,9 +4,13 @@
 export function reset() {
   const { clearEncounter } = useEncounter();
   const { clearFilters } = useFilters();
-  const { resetDifficulty } = useDifficulty();
+  const { resetDifficulty, resetPartyLevel, resetPartySize } = useDifficulty();
+  const { resetThresholds } = useThresholds();
 
   clearEncounter();
   clearFilters();
   resetDifficulty();
+  resetPartyLevel();
+  resetPartySize();
+  resetThresholds();
 }
