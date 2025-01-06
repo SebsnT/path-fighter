@@ -14,24 +14,31 @@ const { thresholds } = useThresholds();
 
 export const useDifficulty = () => {
   /**
-   * Resets the difficulty to default the value
+   * Resets the difficulty to default value
    */
   function resetDifficulty() {
     currentValue.value = 0;
   }
 
   /**
-   * Resets the party size to default the value
+   * Resets the party size to default value
    */
   function resetPartySize() {
     partySize.value = 4;
   }
 
   /**
-   * Resets the party level to default the value
+   * Resets the party level to default value
    */
   function resetPartyLevel() {
     partyLevel.value = 1;
+  }
+
+  /**
+   * Resets the manual threshold boolean to default value
+   */
+  function resetManualThresholds() {
+    manualThresholds.value = false;
   }
 
   /**
@@ -110,6 +117,7 @@ export const useDifficulty = () => {
     resetDifficulty,
     resetPartySize,
     resetPartyLevel,
+    resetManualThresholds,
     increaseDifficulty,
     decreaseDifficulty,
     adjustXPGained: adjustXPGained,
