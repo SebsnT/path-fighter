@@ -1,22 +1,4 @@
-import type { Creature } from "../types/creature";
-
-type FieldType = "number" | "string" | "dropdown";
-
-export interface Column {
-  key: keyof Creature & string;
-  label: string;
-  sortable?: boolean;
-  isArray?: boolean;
-  containsMarkdown?: boolean;
-  filterable?: boolean;
-  type?: FieldType;
-  minValue?: number;
-  maxValue?: number;
-  options?: {
-    label: string;
-    value: string;
-  }[];
-}
+import type { Column } from "~/models/column";
 
 export const encounterColumns: Column[] = [
   {

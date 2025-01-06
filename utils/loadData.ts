@@ -1,4 +1,4 @@
-import type { Creature } from "~/types/creature";
+import type { Creature } from "~/models/creature";
 
 export async function loadCreatures() {
   try {

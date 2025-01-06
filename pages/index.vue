@@ -8,11 +8,9 @@
 
     <DifficultyIndicator />
 
-    <FilterBar></FilterBar>
+    <FilterBar />
 
-    <!-- Slot Container -->
     <div class="slot-container">
-      <!-- Table for all monsters -->
       <div class="slot-left">
         <DataTable
           data-key="id"
@@ -29,7 +27,6 @@
           selection-mode="single"
         >
           <Column expander style="width: 3rem" />
-          <!-- Filters for Each Column -->
           <Column
             v-for="col in columns"
             :key="col.key"
@@ -80,8 +77,8 @@ import { useFilters } from "~/composables/filter";
 // Load creatures data
 const data = await loadCreatures();
 
-const { addToEncounter } = useEncounter();
 const { filters } = useFilters();
+const { addToEncounter } = useEncounter();
 </script>
 
 <style lang="scss">

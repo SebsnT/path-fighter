@@ -1,5 +1,5 @@
 import type { InputNumberInputEvent } from "primevue/inputnumber";
-import type { Column } from "~/config/columnConfig";
+import type { Column } from "~/models/column";
 
 /**
  * generates Filters from column config

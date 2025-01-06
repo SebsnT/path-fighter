@@ -1,13 +1,10 @@
-import type { Creature } from "~/types/creature";
 import { useDifficulty } from "~/composables/difficulty";
+import type { Creature } from "~/models/creature";
 
-// Define the encounter list as a reactive reference
-const encounter = ref<Map<string, Creature>>(new Map());
+const { encounterArray, encounter } = useEncounterState();
 
 const { increaseDifficulty, decreaseDifficulty, resetDifficulty } =
   useDifficulty();
-
-const encounterArray = computed(() => Array.from(encounter.value.values()));
 
 export const useEncounter = () => {
   /**
