@@ -10,8 +10,6 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useThresholds } from "~/composables/thresholds";
-import { useDifficulty } from "~/composables/difficulty";
 
 const { thresholds } = useThresholds();
 const { currentValue, maxValue } = useDifficulty();

@@ -1,10 +1,10 @@
 <template>
   <div>
+    <OptionToolbar />
+
     <ThresholdInputs />
 
     <PartyInputs />
-
-    <OptionToolbar />
 
     <DifficultyIndicator />
 
@@ -19,7 +19,7 @@
           :size="'small'"
           show-gridlines
           scrollable
-          scroll-height="400px"
+          :scroll-height="manualThresholds ? '57vh' : 'calc(65vh)'"
           :virtual-scroller-options="{ itemSize: 50 }"
           sort-field="name"
           :sort-order="1"
@@ -36,6 +36,7 @@
             :field="col.key"
             :header="col.label"
             :sortable="col.sortable"
+            :virtual-scroller-options="{ itemSize: 50 }"
             :style="{ width: col.width || '150px' }"
           >
             <template #body="row">
@@ -88,8 +89,6 @@ import "primeicons/primeicons.css";
 import { loadCreatures } from "../utils/loadData";
 import { columns } from "~/config/columnConfig";
 
-import { useEncounter } from "~/composables/encounter";
-import { useFilters } from "~/composables/filter";
 import type { Creature } from "~/models/creature";
 
 // Load creatures data
@@ -97,6 +96,7 @@ const data = await loadCreatures();
 
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();
+const { manualThresholds } = useDifficulty();
 
 const baseUrl = "https://2e.aonprd.com";
 

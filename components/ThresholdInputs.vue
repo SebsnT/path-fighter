@@ -16,8 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { useThresholds } from "~/composables/thresholds";
-
 const { thresholds } = useThresholds();
 const { manualThresholds } = useDifficulty();
 

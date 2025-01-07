@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 import Checkbox from "primevue/checkbox";
-import { useDifficulty } from "~/composables/difficulty";
 
 const { partySize, partyLevel, manualThresholds, adjustXPGained } =
   useDifficulty();

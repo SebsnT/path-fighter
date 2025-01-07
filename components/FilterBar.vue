@@ -52,7 +52,6 @@
 import Select from "primevue/select";
 import { columns } from "../config/columnConfig";
 import { onNumberInput } from "~/utils/filterUtils";
-import { useFilters } from "~/composables/filter";
 
 const { filters, clearFilters } = useFilters();
 

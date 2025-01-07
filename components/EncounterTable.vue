@@ -4,7 +4,7 @@
     :size="'small'"
     :value="encounterArray"
     scrollable
-    scroll-height="400px"
+    :scroll-height="manualThresholds ? '57vh' : 'calc(65vh)'"
   >
     <Column
       v-for="col in encounterColumns"
@@ -43,9 +43,9 @@
 </template>
 
 <script setup>
-import { useEncounter } from "~/composables/encounter";
 import { encounterColumns } from "~/config/columnConfig";
 
 const { encounterArray, addOneToEncounter, deleteOneFromEncounter } =
   useEncounter();
+const { manualThresholds } = useDifficulty();
 </script>
