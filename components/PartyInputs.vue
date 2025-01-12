@@ -2,11 +2,19 @@
   <div class="party-inputs">
     <div class="party-entry">
       <label for="partySize">Party Size:</label>
-      <InputNumber v-model="partySize" @input="adjustXPGained($event)" />
+      <InputNumber
+        v-model="partySize"
+        class="party-input"
+        @input="adjustXPGained($event)"
+      />
     </div>
     <div class="party-entry">
       <label for="partyLevel">Party Level:</label>
-      <InputNumber v-model="partyLevel" @input="adjustXPGained($event)" />
+      <InputNumber
+        v-model="partyLevel"
+        class="party-input"
+        @input="adjustXPGained($event)"
+      />
     </div>
 
     <div class="party-entry center">
@@ -47,5 +55,11 @@ const { partySize, partyLevel, manualThresholds, adjustXPGained } =
 .party-entry {
   display: flex;
   flex-direction: column;
+}
+
+.party-input {
+  .p-inputnumber-input {
+    max-width: 100px;
+  }
 }
 </style>

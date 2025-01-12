@@ -1,11 +1,22 @@
 <template class="difficulty">
   <div class="difficulty-label">{{ label }} {{ currentValue }}</div>
-  <ProgressBar
-    :value="(currentValue / maxValue) * 100"
-    :class="color"
-    :show-value="false"
-    class="fast-animation-progressbar"
-  ></ProgressBar>
+  <div class="progress-container">
+    <ProgressBar
+      :value="(currentValue / maxValue) * 100"
+      :class="color"
+      :show-value="false"
+      class="fast-animation-progressbar"
+    ></ProgressBar>
+    <div class="thresholds">
+      <div
+        v-for="(threshold, name) in thresholds"
+        :key="name"
+        class="threshold-marker"
+        :style="{ left: `${(threshold / maxValue) * 100}%` }"
+        :title="name"
+      ></div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
