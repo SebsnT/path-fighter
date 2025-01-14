@@ -9,5 +9,5 @@ export type Creature = {
   creature_family_markdown: string;
   size: string[];
   trait_markdown: string[];
-  count?: number;
+  count: number;
 };

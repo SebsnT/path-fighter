@@ -4,7 +4,7 @@
     :size="'small'"
     :value="encounterArray"
     scrollable
-    :scroll-height="manualThresholds ? '57vh' : 'calc(65vh)'"
+    :scroll-height="manualThresholds ? '57vh' : 'calc(64vh)'"
   >
     <Column
       v-for="col in encounterColumns"
@@ -29,11 +29,19 @@
           />
 
           <Button
-            icon="pi pi-times"
+            icon="pi pi-minus"
             severity="danger"
             aria-label="Cancel"
             size="small"
             @click="deleteOneFromEncounter(slotProps.data)"
+          />
+
+          <Button
+            icon="pi pi-times"
+            severity="warn"
+            aria-label="Delete"
+            size="small"
+            @click="deleteAllOfOneCreatureFromEncounter(slotProps.data)"
           />
         </template>
       </template>
@@ -45,7 +53,11 @@
 <script setup>
 import { encounterColumns } from "~/config/columnConfig";
 
-const { encounterArray, addOneToEncounter, deleteOneFromEncounter } =
-  useEncounter();
+const {
+  encounterArray,
+  addOneToEncounter,
+  deleteOneFromEncounter,
+  deleteAllOfOneCreatureFromEncounter,
+} = useEncounter();
 const { manualThresholds } = useDifficulty();
 </script>

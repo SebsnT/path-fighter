@@ -6,7 +6,7 @@
     :size="'small'"
     show-gridlines
     scrollable
-    :scroll-height="manualThresholds ? '57vh' : 'calc(65vh)'"
+    :scroll-height="manualThresholds ? '57vh' : 'calc(64vh)'"
     :virtual-scroller-options="{ itemSize: 50 }"
     sort-field="name"
     :sort-order="1"
@@ -15,8 +15,8 @@
     :expanded-rows="expandedRows"
     @row-expand="onRowExpand"
   >
-    <!--   <Column expander style="width: 10px" /> -->
-
+    <!-- For the row expansion -->
+    <!-- <Column expander style="width: 10px" /> -->
     <Column
       v-for="col in columns"
       :key="col.key"
@@ -31,6 +31,32 @@
           <a :href="baseUrl + row.data.url" target="_blank">{{
             row.data[col.key]
           }}</a>
+        </template>
+        <template v-else-if="col.type == 'markdown_string'">
+          <template v-if="hasMutipleMarkdownEntries(row.data[col.key])">
+            <span
+              v-for="(link, index) in parseMultipleMarkdown(row.data[col.key])"
+              :key="index"
+            >
+              <a :href="baseUrl + link.link" target="_blank">{{
+                link.label
+              }}</a>
+              <span
+                v-if="
+                  index < parseMultipleMarkdown(row.data[col.key]).length - 1
+                "
+                >,
+              </span>
+            </span>
+          </template>
+          <template v-else-if="hasOneMarkdownEntry(row.data[col.key])">
+            <a
+              :href="baseUrl + parseOneMarkdown(row.data[col.key]).link"
+              target="_blank"
+              >{{ parseOneMarkdown(row.data[col.key]).label }}</a
+            >
+          </template>
+          <template v-else> <div>-</div> </template>
         </template>
         <template v-else-if="col.key != 'action'">
           {{ row.data[col.key] }}
@@ -64,8 +90,6 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
 import { columns } from "~/config/columnConfig";
-
-import { loadCreatures } from "../utils/loadData";
 import type { Creature } from "~/models/creature";
 
 // Load creatures data

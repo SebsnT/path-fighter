@@ -67,6 +67,21 @@ export const useEncounter = () => {
   }
 
   /**
+   * Deletes all entries of one creature
+   *
+   * @param creature
+   */
+  function deleteAllOfOneCreatureFromEncounter(creature: Creature) {
+    const existingCreature = encounter.value.get(creature.name)!;
+
+    for (let i = 0; i < existingCreature.count; i++) {
+      decreaseDifficulty(creature.level);
+    }
+
+    encounter.value.delete(creature.name);
+  }
+
+  /**
    * Deletes all creatures from the encounter and resets the difficulty
    */
   function deleteAllFromEncounter() {
@@ -84,6 +99,7 @@ export const useEncounter = () => {
     addMultipleToEncounter,
     deleteOneFromEncounter,
     deleteAllFromEncounter,
+    deleteAllOfOneCreatureFromEncounter,
     clearEncounter,
   };
 };
