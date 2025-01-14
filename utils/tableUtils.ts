@@ -1,27 +1,27 @@
-/* import type { Column } from "../config/columnConfig";
-import type { Creature } from "../types/creature"; */
-
-// Function to convert markdown-like links to HTML anchor tags
-export function convertMarkdownToLinks(
-  markdown: string,
-  baseUrl: string,
-): string {
-  return markdown.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, text, url) => {
-    return `${text} <a href="${baseUrl}${url}" target="_blank"> #</a>`;
-  });
+export function parseOneMarkdown(markdown: string): {
+  label: string;
+  link?: string;
+} {
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
+  const match = regex.exec(markdown);
+  if (match) {
+    return {
+      label: match[1],
+      link: match[2],
+    };
+  }
+  return { label: "-" };
 }
 
-/* export function processArray(
-  item: { [x: string]: string[] },
-  key: keyof Creature,
-  column: Column,
-) {
-  return item[key]
-    .map((element: string) => {
-      if (column.containsMarkdown) {
-        return convertMarkdownToLinks(element, baseUrl);
-      }
-      return element;
-    })
-    .join(", ");
-} */
+/**
+ * Function to handle multiple markdown links separated by commas
+ */
+export function parseMultipleMarkdown(
+  markdown: string,
+): { label: string; link: string }[] {
+  const links = markdown
+    .split(",")
+    .map((link) => parseOneMarkdown(link.trim()))
+    .filter(Boolean);
+  return links as { label: string; link: string }[];
+}

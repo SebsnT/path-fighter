@@ -36,6 +36,22 @@ export const columns: Column[] = [
     maxValue: 25,
   },
   {
+    key: "creature_family_markdown",
+    label: "Family",
+    width: "250px",
+    sortable: true,
+    filterable: true,
+    type: "markdown_string",
+  },
+  {
+    key: "trait_markdown",
+    label: "Traits",
+    width: "250px",
+    sortable: false,
+    filterable: false,
+    type: "markdown_string",
+  },
+  /*   {
     key: "ac",
     label: "AC",
     width: "50px",
@@ -44,8 +60,8 @@ export const columns: Column[] = [
     type: "number",
     minValue: 0,
     maxValue: 54,
-  },
-  {
+  }, */
+  /*   {
     key: "hp",
     label: "HP",
     width: "50px",
@@ -54,7 +70,7 @@ export const columns: Column[] = [
     type: "number",
     minValue: 0,
     maxValue: 600,
-  },
+  }, */
   {
     key: "alignment",
     label: "Alignment",

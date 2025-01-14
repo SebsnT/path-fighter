@@ -1,3 +1,13 @@
+export function hasOneMarkdownEntry(markdown: string): boolean {
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
+  return regex.exec(markdown) ? true : false;
+}
+
+export function hasMutipleMarkdownEntries(markdown: string): boolean {
+  const regex = /^(?:\[[^\]]+\]\([^)]+\),\s*)+\[[^\]]+\]\([^)]+\)$/; // Matches [Label](Link)
+  return regex.exec(markdown) ? true : false;
+}
+
 export function calculateCreatureXP(
   creatureLevel: number,
   partySize: number,

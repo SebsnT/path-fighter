@@ -2,7 +2,9 @@
   <div class="filter-bar-container">
     <div class="filter-bar">
       <div v-for="col in filterableColumns" :key="col.key" class="filter-input">
-        <template v-if="col.type === 'string'">
+        <template
+          v-if="col.type === 'string' || col.type === 'markdown_string'"
+        >
           <InputText
             :id="'filter-' + col.key"
             v-model="filters[col.key].value as string | null"

@@ -1,6 +1,6 @@
 import type { Creature } from "./creature";
 
-type FieldType = "number" | "string" | "dropdown";
+type FieldType = "number" | "string" | "markdown_string" | "dropdown";
 
 export interface Column {
   key: keyof Creature & string;
