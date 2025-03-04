@@ -25,5 +25,5 @@ import "primeicons/primeicons.css";
 </script>
 
 <style lang="scss">
-@use "~/assets/scss/index.scss";
+@use "../assets/scss/index";
 </style>

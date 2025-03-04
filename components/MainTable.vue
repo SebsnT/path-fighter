@@ -2,7 +2,7 @@
   <DataTable
     data-key="id"
     class="data-table"
-    :value="data?.creatures.value"
+    :value="creatures"
     :size="'small'"
     show-gridlines
     scrollable
@@ -32,7 +32,7 @@
             row.data[col.key]
           }}</a>
         </template>
-        <template v-else-if="col.type == 'markdown_string'">
+        <template v-else-if="col.containsMarkdown">
           <template v-if="hasMutipleMarkdownEntries(row.data[col.key])">
             <span
               v-for="(link, index) in parseMultipleMarkdown(row.data[col.key])"
@@ -94,6 +94,10 @@ import type { Creature } from "~/models/creature";
 
 // Load creatures data
 const data = await loadCreatures();
+
+const creatures = data?.creatures?.value || [];
+
+// getUniqueValuesAsOptions(creatures, "immunity_markdown");
 
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();

@@ -47,5 +47,5 @@ const { encounterArray } = useEncounterState();
 </script>
 
 <style lang="scss">
-@use "~/assets/scss/toolbar.scss";
+@use "../assets/scss/toolbar";
 </style>

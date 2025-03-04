@@ -6,5 +6,5 @@
 </template>
 
 <style lang="scss">
-@use "~/assets/scss/default-layout.scss";
+@use "../assets/scss/default-layout";
 </style>

@@ -2,9 +2,7 @@
   <div class="filter-bar-container">
     <div class="filter-bar">
       <div v-for="col in filterableColumns" :key="col.key" class="filter-input">
-        <template
-          v-if="col.type === 'string' || col.type === 'markdown_string'"
-        >
+        <template v-if="col.type === 'string' || col.containsMarkdown">
           <InputText
             :id="'filter-' + col.key"
             v-model="filters[col.key].value as string | null"
@@ -26,16 +24,34 @@
         </template>
 
         <template v-else-if="col.type === 'dropdown'">
-          <Select
-            :id="'filter-' + col.key"
-            v-model="filters[col.key].value"
-            class="filter-input-field"
-            :options="col.options"
-            option-label="label"
-            option-value="value"
-            :placeholder="'Select ' + col.label"
-            show-clear
-          />
+          <template v-if="col.select === 'multiple'">
+            <MultiSelect
+              :id="'filter-' + col.key"
+              v-model="filters[col.key].value"
+              filter
+              class="filter-input-field"
+              :options="col.options"
+              :placeholder="'Select ' + col.label"
+              :max-selected-labels="3"
+              option-label="label"
+              option-value="value"
+              variant="filled"
+              show-clear
+            >
+            </MultiSelect>
+          </template>
+          <template v-else>
+            <Select
+              :id="'filter-' + col.key"
+              v-model="filters[col.key].value"
+              class="filter-input-field"
+              :options="col.options"
+              option-label="label"
+              option-value="value"
+              :placeholder="'Select ' + col.label"
+              show-clear
+            />
+          </template>
         </template>
       </div>
       <Button

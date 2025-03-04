@@ -1,6 +1,8 @@
 import type { Creature } from "./creature";
 
-type FieldType = "number" | "string" | "markdown_string" | "dropdown";
+type FieldType = "number" | "string" | "dropdown";
+
+type SelectionType = "single" | "multiple";
 
 export interface Column {
   key: keyof Creature & string;
@@ -11,6 +13,8 @@ export interface Column {
   containsMarkdown?: boolean;
   filterable?: boolean;
   type?: FieldType;
+  select?: SelectionType;
+  getUniqueValues?: boolean;
   minValue?: number;
   maxValue?: number;
   options?: {

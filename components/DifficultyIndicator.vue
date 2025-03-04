@@ -43,5 +43,5 @@ const label = computed(() => {
 </script>
 
 <style lang="scss">
-@use "~/assets/scss/progress-bar.scss";
+@use "../assets/scss/progress-bar";
 </style>
