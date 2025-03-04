@@ -82,8 +82,6 @@ export const useDifficulty = () => {
 
       // Calculate the XP for each creature in the encounter, multiply it by the count and sum it up
       encounterArray.value.forEach((element) => {
-        console.log(encounterArray.value);
-
         if (element.count) {
           xp +=
             calculateCreatureXP(

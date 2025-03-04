@@ -1,5 +1,6 @@
 import type { InputNumberInputEvent } from "primevue/inputnumber";
-import type { Column } from "~/models/column";
+import type { Column, SelectionOption } from "~/models/column";
+import type { Creature } from "~/models/creature";
 
 /**
  * generates Filters from column config
@@ -8,7 +9,10 @@ import type { Column } from "~/models/column";
  */
 export function generateFilters(columns: Column[]) {
   const filters: {
-    [key: string]: { value: string | number | null; matchMode: string };
+    [key: string]: {
+      value: string | number | null;
+      matchMode: string;
+    };
   } = {
     global: { value: null, matchMode: "contains" },
   };
@@ -18,7 +22,7 @@ export function generateFilters(columns: Column[]) {
         col.type === "number"
           ? (null as number | null)
           : (null as string | null),
-      matchMode: "contains",
+      matchMode: col.matchMode ?? "contains",
     };
   });
   return filters;
@@ -34,4 +38,53 @@ export function onNumberInput(event: InputNumberInputEvent) {
   const target = event.originalEvent.target as HTMLElement;
   target.blur();
   target.focus();
+}
+
+export function getSelectionOptions(
+  creatures: Creature[],
+  keyField: string,
+  valueField?: string,
+  isMarkdown: boolean = false,
+): SelectionOption[] {
+  const options = isMarkdown
+    ? selectionOptionsFromMarkdown(creatures, keyField)
+    : selectionOptionsFromKeyAndValue(creatures, keyField, valueField);
+
+  return options.sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function selectionOptionsFromKeyAndValue(
+  creatures: Creature[],
+  keyField: string,
+  valueField?: string,
+) {
+  //TODO use value field
+
+  const uniqueKeys = [
+    ...new Set(
+      creatures?.map((creature) => {
+        return creature[keyField as keyof Creature];
+      }),
+    ),
+  ];
+  return uniqueKeys.map((value) => ({
+    label: value?.toString() || "Unknown",
+    value: value?.toString() || "Unknown",
+  }));
+}
+
+function selectionOptionsFromMarkdown(creatures: Creature[], keyField: string) {
+  const uniqueMap = new Map<string, SelectionOption>();
+
+  creatures?.forEach((creature) => {
+    const option = parseOneMarkdownAsSelectionOption(
+      String(creature[keyField as keyof Creature]),
+    );
+
+    if (!uniqueMap.has(option.value)) {
+      uniqueMap.set(option.value, option); // Store only unique values
+    }
+  });
+
+  return Array.from(uniqueMap.values());
 }

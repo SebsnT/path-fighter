@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <FilterBar :creatures="creatures" />
+  </div>
   <DataTable
     data-key="id"
     class="data-table"
@@ -28,9 +31,9 @@
     >
       <template #body="row">
         <template v-if="col.key == 'name'">
-          <a :href="baseUrl + row.data.url" target="_blank">{{
-            row.data[col.key]
-          }}</a>
+          <a :href="baseUrl + row.data.url" target="_blank">
+            {{ row.data[col.key] }}
+          </a>
         </template>
         <template v-else-if="col.containsMarkdown">
           <template v-if="hasMutipleMarkdownEntries(row.data[col.key])">
@@ -97,7 +100,7 @@ const data = await loadCreatures();
 
 const creatures = data?.creatures?.value || [];
 
-// getUniqueValuesAsOptions(creatures, "immunity_markdown");
+getSelectionOptions(creatures, "trait_markdown", undefined, true);
 
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();

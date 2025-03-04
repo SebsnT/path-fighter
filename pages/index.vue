@@ -4,7 +4,6 @@
     <ThresholdInputs />
     <PartyInputs />
     <DifficultyIndicator />
-    <FilterBar />
 
     <div class="slot-container">
       <div class="slot-left">
@@ -20,7 +19,6 @@
 
 <script setup lang="ts">
 import EncounterTable from "~/components/EncounterTable.vue";
-import FilterBar from "~/components/FilterBar.vue";
 import "primeicons/primeicons.css";
 </script>
 

@@ -43,6 +43,7 @@ export const columns: Column[] = [
     filterable: true,
     type: "dropdown",
     select: "multiple",
+    matchMode: "in",
     getUniqueValues: true,
     containsMarkdown: true,
   },
@@ -54,6 +55,7 @@ export const columns: Column[] = [
     filterable: true,
     type: "dropdown",
     select: "multiple",
+    matchMode: "in",
     getUniqueValues: true,
     containsMarkdown: true,
   },
@@ -64,7 +66,8 @@ export const columns: Column[] = [
     filterable: true,
     type: "dropdown",
     select: "multiple",
-    options: [
+    matchMode: "in",
+    selectionOptions: [
       { label: "Any", value: "Any" },
       { label: "Lawful Good", value: "LG" },
       { label: "Lawful Neutral", value: "LN" },
