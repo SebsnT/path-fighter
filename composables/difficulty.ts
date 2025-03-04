@@ -16,28 +16,28 @@ export const useDifficulty = () => {
   /**
    * Resets the difficulty to default value
    */
-  function resetDifficulty() {
+  function resetDifficulty(): void {
     currentValue.value = 0;
   }
 
   /**
    * Resets the party size to default value
    */
-  function resetPartySize() {
+  function resetPartySize(): void {
     partySize.value = 4;
   }
 
   /**
    * Resets the party level to default value
    */
-  function resetPartyLevel() {
+  function resetPartyLevel(): void {
     partyLevel.value = 1;
   }
 
   /**
    * Resets the manual threshold boolean to default value
    */
-  function resetManualThresholds() {
+  function resetManualThresholds(): void {
     manualThresholds.value = false;
   }
 
@@ -46,7 +46,7 @@ export const useDifficulty = () => {
    *
    * @param level of the creature
    */
-  function increaseDifficulty(level: number, count: number = 1) {
+  function increaseDifficulty(level: number, count: number = 1): void {
     currentValue.value +=
       calculateCreatureXP(level, partySize.value, partyLevel.value) * count;
   }
@@ -56,7 +56,7 @@ export const useDifficulty = () => {
    *
    * @param level of the creature
    */
-  function decreaseDifficulty(level: number) {
+  function decreaseDifficulty(level: number): void {
     currentValue.value -= calculateCreatureXP(
       level,
       partySize.value,
@@ -69,7 +69,7 @@ export const useDifficulty = () => {
    *
    * @param event to update the value immidiatly
    */
-  function adjustXPGained(event: InputNumberInputEvent) {
+  function adjustXPGained(event: InputNumberInputEvent): void {
     // Update value immidiatly
     onNumberInput(event);
 
@@ -95,7 +95,7 @@ export const useDifficulty = () => {
     }
   }
 
-  function adjustThreholds() {
+  function adjustThreholds(): void {
     const partySizeAdjustment = partySize.value - 4;
 
     // Adjust each threshold dynamically based on the party size adjustment

@@ -1,7 +1,7 @@
 /**
  * function for resetting the state of the application
  */
-export function reset() {
+export function reset(): void {
   const { clearEncounter } = useEncounter();
   const { clearFilters } = useFilters();
   const {

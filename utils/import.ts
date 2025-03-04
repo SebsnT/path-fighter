@@ -1,6 +1,6 @@
 import type { FileUploadSelectEvent } from "primevue/fileupload";
 
-export function importJSON(event: FileUploadSelectEvent) {
+export function importJSON(event: FileUploadSelectEvent): void {
   // Get the selected file
   const file = event.files[0]; // Assuming only one file is selected
 

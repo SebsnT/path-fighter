@@ -1,9 +1,6 @@
-import type { SelectionOption } from "~/models/column";
+import type { MardownLink, SelectionOption } from "~/models/column";
 
-export function parseOneMarkdown(markdown: string): {
-  label: string;
-  link?: string;
-} {
+export function parseOneMarkdown(markdown: string): MardownLink {
   const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
   const match = regex.exec(markdown);
   if (match) {
@@ -23,18 +20,19 @@ export function parseOneMarkdownAsSelectionOption(
   if (match) {
     return {
       label: match[1],
-      value: match[0],
+      value: match[1],
     };
   }
   return { label: "-", value: "" };
 }
 
 /**
- * Function to handle multiple markdown links separated by commas
+ *Function to handle multiple markdown links separated by commas
+ *
+ * @param markdown
+ * @returns
  */
-export function parseMultipleMarkdown(
-  markdown: string,
-): { label: string; link: string }[] {
+export function parseMultipleMarkdown(markdown: string): MardownLink[] {
   const links = markdown
     .split(",")
     .map((link) => parseOneMarkdown(link.trim()))

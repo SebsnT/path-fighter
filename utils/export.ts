@@ -10,7 +10,7 @@ export function exportPDF() {
  *
  * @param creatures is an Array of {@link Creature} objects
  */
-export function exportJSON(creatures: Creature[]) {
+export function exportJSON(creatures: Creature[]): void {
   // Convert creatures array into a JSON string
   const json = JSON.stringify(creatures, null, 2); // Pretty format with 2 spaces indentation
 

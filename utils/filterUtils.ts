@@ -2,18 +2,21 @@ import type { InputNumberInputEvent } from "primevue/inputnumber";
 import type { Column, SelectionOption } from "~/models/column";
 import type { Creature } from "~/models/creature";
 
+interface Filters {
+  [key: string]: {
+    value: string | number | null;
+    matchMode: string;
+  };
+}
+
 /**
  * generates Filters from column config
+ *
  * @param columns of column config
  * @returns filters with value and matchMode
  */
-export function generateFilters(columns: Column[]) {
-  const filters: {
-    [key: string]: {
-      value: string | number | null;
-      matchMode: string;
-    };
-  } = {
+export function generateFilters(columns: Column[]): Filters {
+  const filters: Filters = {
     global: { value: null, matchMode: "contains" },
   };
   columns.forEach((col) => {
@@ -59,6 +62,7 @@ function selectionOptionsFromKeyAndValue(
   valueField?: string,
 ): SelectionOption[] {
   //TODO use value field
+  console.log(valueField);
 
   const uniqueKeys = [
     ...new Set(

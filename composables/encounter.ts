@@ -12,7 +12,7 @@ export const useEncounter = () => {
    *
    * @param creature
    */
-  function addOneToEncounter(creature: Creature) {
+  function addOneToEncounter(creature: Creature): void {
     // Check if the creature is already in the map
     if (encounter.value.has(creature.name)) {
       // Increment the count of the existing creature
@@ -31,7 +31,7 @@ export const useEncounter = () => {
    *
    * @param creatures Array of creatures to add to the encounter.
    */
-  function addMultipleToEncounter(creatures: Creature[]) {
+  function addMultipleToEncounter(creatures: Creature[]): void {
     // Iterate over the array of creatures
     creatures.forEach((creature) => {
       // Check if the creature is already in the map
@@ -57,7 +57,7 @@ export const useEncounter = () => {
    *
    * @param creature
    */
-  function deleteOneFromEncounter(creature: Creature) {
+  function deleteOneFromEncounter(creature: Creature): void {
     const existingCreature = encounter.value.get(creature.name)!;
     existingCreature.count = (existingCreature.count || 1) - 1;
     if (existingCreature.count == 0) {
@@ -71,7 +71,7 @@ export const useEncounter = () => {
    *
    * @param creature
    */
-  function deleteAllOfOneCreatureFromEncounter(creature: Creature) {
+  function deleteAllOfOneCreatureFromEncounter(creature: Creature): void {
     const existingCreature = encounter.value.get(creature.name)!;
 
     for (let i = 0; i < existingCreature.count; i++) {
@@ -84,7 +84,7 @@ export const useEncounter = () => {
   /**
    * Deletes all creatures from the encounter and resets the difficulty
    */
-  function deleteAllFromEncounter() {
+  function deleteAllFromEncounter(): void {
     encounter.value.clear();
     resetDifficulty();
   }

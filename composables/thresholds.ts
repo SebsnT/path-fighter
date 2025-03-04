@@ -10,7 +10,7 @@ const thresholds = ref({
 });
 
 export const useThresholds = () => {
-  function resetThresholds() {
+  function resetThresholds(): void {
     thresholds.value.trivialThreshold = 40;
     thresholds.value.lowThreshold = 60;
     thresholds.value.moderateThreshold = 80;
