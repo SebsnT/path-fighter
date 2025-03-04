@@ -33,7 +33,7 @@ export function generateFilters(columns: Column[]) {
  *
  * @param event is a {@link InputNumberInputEvent}
  */
-export function onNumberInput(event: InputNumberInputEvent) {
+export function onNumberInput(event: InputNumberInputEvent): void {
   //refocus the input to update it
   const target = event.originalEvent.target as HTMLElement;
   target.blur();
@@ -57,7 +57,7 @@ function selectionOptionsFromKeyAndValue(
   creatures: Creature[],
   keyField: string,
   valueField?: string,
-) {
+): SelectionOption[] {
   //TODO use value field
 
   const uniqueKeys = [
@@ -73,7 +73,10 @@ function selectionOptionsFromKeyAndValue(
   }));
 }
 
-function selectionOptionsFromMarkdown(creatures: Creature[], keyField: string) {
+function selectionOptionsFromMarkdown(
+  creatures: Creature[],
+  keyField: string,
+): SelectionOption[] {
   const uniqueMap = new Map<string, SelectionOption>();
 
   creatures?.forEach((creature) => {
@@ -82,7 +85,7 @@ function selectionOptionsFromMarkdown(creatures: Creature[], keyField: string) {
     );
 
     if (!uniqueMap.has(option.value)) {
-      uniqueMap.set(option.value, option); // Store only unique values
+      uniqueMap.set(option.value, option);
     }
   });
 

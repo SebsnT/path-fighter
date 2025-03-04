@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <FilterBar :creatures="creatures" />
-  </div>
   <DataTable
     data-key="id"
     class="data-table"
-    :value="creatures"
+    :value="props.creatures"
     :size="'small'"
     show-gridlines
     scrollable
@@ -95,12 +92,12 @@ import Column from "primevue/column";
 import { columns } from "~/config/columnConfig";
 import type { Creature } from "~/models/creature";
 
-// Load creatures data
-const data = await loadCreatures();
-
-const creatures = data?.creatures?.value || [];
-
-getSelectionOptions(creatures, "trait_markdown", undefined, true);
+const props = defineProps({
+  creatures: {
+    type: Array<Creature>,
+    required: true,
+  },
+});
 
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();

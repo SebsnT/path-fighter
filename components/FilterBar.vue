@@ -52,7 +52,16 @@
               :id="'filter-' + col.key"
               v-model="filters[col.key].value"
               class="filter-input-field"
-              :options="col.selectionOptions"
+              :options="
+                col.getUniqueValues
+                  ? getSelectionOptions(
+                      props.creatures,
+                      col.key,
+                      undefined,
+                      col.containsMarkdown,
+                    )
+                  : col.selectionOptions
+              "
               option-label="label"
               option-value="value"
               :placeholder="'Select ' + col.label"

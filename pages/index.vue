@@ -4,10 +4,11 @@
     <ThresholdInputs />
     <PartyInputs />
     <DifficultyIndicator />
+    <FilterBar :creatures="creatures" />
 
     <div class="slot-container">
       <div class="slot-left">
-        <MainTable />
+        <MainTable :creatures="creatures" />
       </div>
 
       <div class="slot-right">
@@ -20,6 +21,11 @@
 <script setup lang="ts">
 import EncounterTable from "~/components/EncounterTable.vue";
 import "primeicons/primeicons.css";
+
+// Load creatures data
+const data = await loadCreatures();
+
+const creatures = data?.creatures?.value || [];
 </script>
 
 <style lang="scss">
