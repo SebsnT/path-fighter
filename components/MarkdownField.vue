@@ -1,0 +1,29 @@
+<template>
+  <template v-if="hasMutipleMarkdownEntries(props.data)">
+    <span
+      v-for="(link, index) in parseMultipleMarkdown(props.data)"
+      :key="index"
+    >
+      <a :href="baseUrl + link.link" target="_blank">{{ link.label }}</a>
+      <span v-if="index < parseMultipleMarkdown(props.data).length - 1"
+        >,
+      </span>
+    </span>
+  </template>
+  <template v-else-if="hasOneMarkdownEntry(props.data)">
+    <a :href="baseUrl + parseOneMarkdown(props.data).link" target="_blank">{{
+      parseOneMarkdown(props.data).label
+    }}</a>
+  </template>
+  <template v-else><div>-</div></template>
+</template>
+
+<script setup lang="ts">
+const props = defineProps({
+  data: {
+    type: String,
+    required: true,
+  },
+});
+const baseUrl = "https://2e.aonprd.com";
+</script>

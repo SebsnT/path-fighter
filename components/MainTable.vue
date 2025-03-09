@@ -35,39 +35,7 @@
           </a>
         </template>
         <template v-else-if="col.markdownField">
-          <template
-            v-if="hasMutipleMarkdownEntries(row.data[col.markdownField])"
-          >
-            <span
-              v-for="(link, index) in parseMultipleMarkdown(
-                row.data[col.markdownField],
-              )"
-              :key="index"
-            >
-              <a :href="baseUrl + link.link" target="_blank">{{
-                link.label
-              }}</a>
-              <span
-                v-if="
-                  index <
-                  parseMultipleMarkdown(row.data[col.markdownField]).length - 1
-                "
-                >,
-              </span>
-            </span>
-          </template>
-          <template
-            v-else-if="hasOneMarkdownEntry(row.data[col.markdownField])"
-          >
-            <a
-              :href="
-                baseUrl + parseOneMarkdown(row.data[col.markdownField]).link
-              "
-              target="_blank"
-              >{{ parseOneMarkdown(row.data[col.markdownField]).label }}</a
-            >
-          </template>
-          <template v-else> <div>-</div> </template>
+          <MarkdownField :data="row.data[col.markdownField]" />
         </template>
         <template v-else-if="col.key != 'action'">
           {{ row.data[col.key] }}
@@ -113,8 +81,6 @@ const props = defineProps({
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();
 const { manualThresholds } = useDifficulty();
-
-console.log(filters);
 
 const expandedRows = ref({});
 
