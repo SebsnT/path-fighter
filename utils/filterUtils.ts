@@ -45,53 +45,31 @@ export function onNumberInput(event: InputNumberInputEvent): void {
 
 export function getSelectionOptions(
   creatures: Creature[],
-  keyField: string,
-  valueField?: string,
-  isMarkdown: boolean = false,
+  keyField: string, // Single field name, but values inside are string[]
 ): SelectionOption[] {
-  const options = isMarkdown
-    ? selectionOptionsFromMarkdown(creatures, keyField)
-    : selectionOptionsFromKeyAndValue(creatures, keyField, valueField);
+  const options = selectionOptionsFromKeyAndValue(creatures, keyField);
+
+  console.log(options);
 
   return options.sort((a, b) => a.label.localeCompare(b.label));
 }
 
 function selectionOptionsFromKeyAndValue(
   creatures: Creature[],
-  keyField: string,
-  valueField?: string,
+  keyField: string, // Single field name
 ): SelectionOption[] {
-  //TODO use value field
-  console.log(valueField);
+  const uniqueKeys = new Set<string>();
 
-  const uniqueKeys = [
-    ...new Set(
-      creatures?.map((creature) => {
-        return creature[keyField as keyof Creature];
-      }),
-    ),
-  ];
-  return uniqueKeys.map((value) => ({
-    label: value?.toString() || "Unknown",
-    value: value?.toString() || "Unknown",
-  }));
-}
+  creatures.forEach((creature) => {
+    const values = creature[keyField as keyof Creature];
 
-function selectionOptionsFromMarkdown(
-  creatures: Creature[],
-  keyField: string,
-): SelectionOption[] {
-  const uniqueMap = new Map<string, SelectionOption>();
-
-  creatures?.forEach((creature) => {
-    const option = parseOneMarkdownAsSelectionOption(
-      String(creature[keyField as keyof Creature]),
-    );
-
-    if (!uniqueMap.has(option.value)) {
-      uniqueMap.set(option.value, option);
+    if (Array.isArray(values)) {
+      values.forEach((value) => uniqueKeys.add(value));
     }
   });
 
-  return Array.from(uniqueMap.values());
+  return Array.from(uniqueKeys).map((value) => ({
+    label: value,
+    value: value,
+  }));
 }

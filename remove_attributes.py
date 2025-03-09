@@ -27,7 +27,6 @@ attributes_to_remove = [
     "charisma_scale_number",
     "constitution_scale",
     "constitution_scale_number",
-    "creature_family",
     "dexterity_scale",
     "dexterity_scale_number",
     "exclude_from_search",

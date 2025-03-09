@@ -25,6 +25,8 @@
       :sortable="col.sortable"
       :virtual-scroller-options="{ itemSize: 50 }"
       :style="{ width: col.width || '150px' }"
+      :filter-field="col.key"
+      :filter-match-mode="col.matchMode"
     >
       <template #body="row">
         <template v-if="col.key == 'name'">
@@ -32,10 +34,14 @@
             {{ row.data[col.key] }}
           </a>
         </template>
-        <template v-else-if="col.containsMarkdown">
-          <template v-if="hasMutipleMarkdownEntries(row.data[col.key])">
+        <!-- <template v-else-if="col.markdownField">
+          <template
+            v-if="hasMutipleMarkdownEntries(row.data[col.markdownField])"
+          >
             <span
-              v-for="(link, index) in parseMultipleMarkdown(row.data[col.key])"
+              v-for="(link, index) in parseMultipleMarkdown(
+                row.data[col.markdownField],
+              )"
               :key="index"
             >
               <a :href="baseUrl + link.link" target="_blank">{{
@@ -43,21 +49,26 @@
               }}</a>
               <span
                 v-if="
-                  index < parseMultipleMarkdown(row.data[col.key]).length - 1
+                  index <
+                  parseMultipleMarkdown(row.data[col.markdownField]).length - 1
                 "
                 >,
               </span>
             </span>
           </template>
-          <template v-else-if="hasOneMarkdownEntry(row.data[col.key])">
+          <template
+            v-else-if="hasOneMarkdownEntry(row.data[col.markdownField])"
+          >
             <a
-              :href="baseUrl + parseOneMarkdown(row.data[col.key]).link"
+              :href="
+                baseUrl + parseOneMarkdown(row.data[col.markdownField]).link
+              "
               target="_blank"
-              >{{ parseOneMarkdown(row.data[col.key]).label }}</a
+              >{{ parseOneMarkdown(row.data[col.markdownField]).label }}</a
             >
           </template>
           <template v-else> <div>-</div> </template>
-        </template>
+        </template> -->
         <template v-else-if="col.key != 'action'">
           {{ row.data[col.key] }}
         </template>
@@ -102,6 +113,8 @@ const props = defineProps({
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();
 const { manualThresholds } = useDifficulty();
+
+console.log(filters);
 
 const expandedRows = ref({});
 

@@ -22,7 +22,6 @@ export interface Column {
   sortable?: boolean;
   width?: string;
   isArray?: boolean;
-  containsMarkdown?: boolean;
   filterable?: boolean;
   type?: FieldType;
   select?: SelectionType;
@@ -30,5 +29,6 @@ export interface Column {
   getUniqueValues?: boolean;
   minValue?: number;
   maxValue?: number;
+  markdownField?: string;
   selectionOptions?: SelectionOption[];
 }

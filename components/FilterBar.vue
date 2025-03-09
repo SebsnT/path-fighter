@@ -32,12 +32,7 @@
               class="filter-input-field"
               :options="
                 col.getUniqueValues
-                  ? getSelectionOptions(
-                      props.creatures,
-                      col.key,
-                      undefined,
-                      col.containsMarkdown,
-                    )
+                  ? getSelectionOptions(props.creatures, col.key)
                   : col.selectionOptions
               "
               :placeholder="'Select ' + col.label"
@@ -55,12 +50,7 @@
               filter
               :options="
                 col.getUniqueValues
-                  ? getSelectionOptions(
-                      props.creatures,
-                      col.key,
-                      undefined,
-                      col.containsMarkdown,
-                    )
+                  ? getSelectionOptions(props.creatures, col.key)
                   : col.selectionOptions
               "
               option-label="label"
