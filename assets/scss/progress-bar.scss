@@ -1,0 +1,70 @@
+.difficulty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 80px;
+}
+
+.difficulty-label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.yellow {
+  .p-progressbar-value {
+    background-color: yellow;
+  }
+}
+
+.lime {
+  .p-progressbar-value {
+    background-color: lime;
+  }
+}
+
+.orange {
+  .p-progressbar-value {
+    background-color: orange;
+  }
+}
+
+.red {
+  .p-progressbar-value {
+    background-color: red;
+  }
+}
+
+.fast-animation-progressbar .p-progressbar-value {
+  transition: width 0.5s ease-in-out !important; /* Adjust duration to 0.2s */
+}
+
+.progress-container {
+  position: relative;
+  width: 100%;
+}
+
+.thresholds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.threshold-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: black;
+  pointer-events: auto;
+}

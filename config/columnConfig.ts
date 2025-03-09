@@ -1,57 +1,110 @@
-import type { Creature } from "../types/creature";
+import type { Column } from "~/models/column";
 
-export interface Column {
-  key: keyof Creature;
-  label: string;
-  sortable?: boolean;
-  isArray?: boolean;
-  containsMarkdown?: boolean;
-}
-
-export const columns: Column[] = [
+export const encounterColumns: Column[] = [
+  {
+    key: "count",
+    label: "Number",
+  },
   {
     key: "name",
     label: "Name",
     sortable: true,
   },
   {
+    key: "action",
+    label: "Action",
+  },
+];
+
+export const columns: Column[] = [
+  {
+    key: "name",
+    label: "Name",
+    width: "250px",
+    sortable: true,
+    filterable: true,
+    type: "string",
+  },
+  {
     key: "level",
     label: "Level",
+    width: "50px",
     sortable: true,
-  },
-  {
-    key: "ac",
-    label: "AC",
-    sortable: true,
-  },
-  {
-    key: "hp",
-    label: "HP",
-    sortable: true,
+    filterable: true,
+    type: "number",
+    minValue: -1,
+    maxValue: 25,
   },
   {
     key: "creature_family_markdown",
     label: "Family",
+    width: "250px",
     sortable: true,
+    filterable: true,
+    type: "dropdown",
+    select: "single",
+    matchMode: "contains",
+    getUniqueValues: true,
     containsMarkdown: true,
-  },
-  {
-    key: "size",
-    label: "Size",
-    sortable: true,
-    isArray: true,
   },
   {
     key: "trait_markdown",
     label: "Traits",
-    isArray: true,
+    width: "250px",
+    sortable: false,
+    filterable: true,
+    type: "dropdown",
+    select: "single",
+    matchMode: "contains",
+    getUniqueValues: true,
     containsMarkdown: true,
   },
-
   {
-    key: "immunity_markdown",
-    label: "Immunities",
-    isArray: true,
-    containsMarkdown: true,
+    key: "alignment",
+    label: "Alignment",
+    width: "50px",
+    filterable: true,
+    type: "dropdown",
+    select: "multiple",
+    matchMode: "in",
+    selectionOptions: [
+      { label: "Any", value: "Any" },
+      { label: "Lawful Good", value: "LG" },
+      { label: "Lawful Neutral", value: "LN" },
+      { label: "Lawful Evil", value: "LE" },
+      { label: "Neutral Good", value: "NG" },
+      { label: "True Neutral", value: "TN" },
+      { label: "Neutral Evil", value: "NE" },
+      { label: "Chaotic Good", value: "CG" },
+      { label: "Chaotic Neutral", value: "CE" },
+      { label: "Chaotic Evil", value: "CE" },
+      { label: "No Alignment", value: "No Alignment" },
+    ],
   },
+  {
+    key: "action",
+    width: "5%",
+    label: "Action",
+    filterable: false,
+  },
+  /*   {
+    key: "ac",
+    label: "AC",
+    width: "50px",
+    sortable: true,
+    filterable: true,
+    type: "number",
+    minValue: 0,
+    maxValue: 54,
+  }, */
+  /*   {
+    key: "hp",
+    label: "HP",
+    width: "50px",
+    sortable: true,
+    filterable: true,
+    type: "number",
+    minValue: 0,
+    maxValue: 600,
+  }, */
 ];

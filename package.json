@@ -8,16 +8,22 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "@nuxt/ui": "^2.18.4",
+    "@primevue/themes": "^4.0.7",
     "nuxt": "^3.12.4",
+    "nuxt-app": "file:",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.0.7",
     "vue": "latest"
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.5.1",
     "@nuxt/eslint-config": "^0.5.1",
+    "@nuxt/test-utils": "^3.15.1",
+    "@primevue/nuxt-module": "^4.0.7",
     "@vue/typescript-plugin": "^2.0.29",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
