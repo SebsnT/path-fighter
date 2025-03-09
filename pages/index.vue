@@ -22,10 +22,7 @@
 import EncounterTable from "~/components/EncounterTable.vue";
 import "primeicons/primeicons.css";
 
-// Load creatures data
-const data = await loadCreatures();
-
-const creatures = data?.creatures?.value || [];
+const { creatures } = useCreatures();
 </script>
 
 <style lang="scss">
