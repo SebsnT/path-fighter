@@ -49,14 +49,12 @@ export function getSelectionOptions(
 ): SelectionOption[] {
   const options = selectionOptionsFromKeyAndValue(creatures, keyField);
 
-  console.log(options);
-
   return options.sort((a, b) => a.label.localeCompare(b.label));
 }
 
 function selectionOptionsFromKeyAndValue(
   creatures: Creature[],
-  keyField: string, // Single field name
+  keyField: string,
 ): SelectionOption[] {
   const uniqueKeys = new Set<string>();
 
@@ -65,6 +63,8 @@ function selectionOptionsFromKeyAndValue(
 
     if (Array.isArray(values)) {
       values.forEach((value) => uniqueKeys.add(value));
+    } else {
+      uniqueKeys.add(values as string);
     }
   });
 

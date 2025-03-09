@@ -34,7 +34,7 @@
             {{ row.data[col.key] }}
           </a>
         </template>
-        <!-- <template v-else-if="col.markdownField">
+        <template v-else-if="col.markdownField">
           <template
             v-if="hasMutipleMarkdownEntries(row.data[col.markdownField])"
           >
@@ -68,7 +68,7 @@
             >
           </template>
           <template v-else> <div>-</div> </template>
-        </template> -->
+        </template>
         <template v-else-if="col.key != 'action'">
           {{ row.data[col.key] }}
         </template>

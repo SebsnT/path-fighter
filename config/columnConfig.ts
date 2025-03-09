@@ -55,8 +55,8 @@ export const columns: Column[] = [
     sortable: false,
     filterable: true,
     type: "dropdown",
-    select: "multiple",
-    matchMode: "in",
+    select: "single",
+    matchMode: "contains",
     getUniqueValues: true,
   },
   {
