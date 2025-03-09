@@ -52,6 +52,7 @@
               :id="'filter-' + col.key"
               v-model="filters[col.key].value"
               class="filter-input-field"
+              filter
               :options="
                 col.getUniqueValues
                   ? getSelectionOptions(
