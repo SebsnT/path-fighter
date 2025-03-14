@@ -21,32 +21,32 @@ export function calculateCreatureXP(
 
   // Base XP based on level difference
   let baseXP;
-  switch (levelDiff) {
-    case 4:
+  switch (true) {
+    case levelDiff >= 4:
       baseXP = 160;
       break;
-    case 3:
+    case levelDiff == 3:
       baseXP = 120;
       break;
-    case 2:
+    case levelDiff == 2:
       baseXP = 80;
       break;
-    case 1:
+    case levelDiff == 1:
       baseXP = 60;
       break;
-    case 0:
+    case levelDiff == 0:
       baseXP = 40;
       break;
-    case -1:
+    case levelDiff == -1:
       baseXP = 30;
       break;
-    case -2:
+    case levelDiff == -2:
       baseXP = 20;
       break;
-    case -3:
+    case levelDiff == -3:
       baseXP = 15;
       break;
-    case -4:
+    case levelDiff <= -4:
       baseXP = 10;
       break;
     default:

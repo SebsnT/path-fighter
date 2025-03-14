@@ -52,6 +52,7 @@ export const useDifficulty = () => {
       partySize.value,
       partyLevel.value,
     );
+
     baseValue.value += baseXP;
     currentValue.value += scaledXP * count;
   }
