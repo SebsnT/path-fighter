@@ -12,8 +12,12 @@ export function calculateCreatureXP(
   creatureLevel: number,
   partySize: number,
   partyLevel: number,
-): number {
+): { baseXP: number; scaledXP: number } {
   const levelDiff = creatureLevel - partyLevel;
+
+  if (partySize == 0) {
+    return { baseXP: 0, scaledXP: 0 };
+  }
 
   // Base XP based on level difference
   let baseXP;
@@ -40,6 +44,9 @@ export function calculateCreatureXP(
       baseXP = 20;
       break;
     case -3:
+      baseXP = 15;
+      break;
+    case -4:
       baseXP = 10;
       break;
     default:
@@ -47,10 +54,10 @@ export function calculateCreatureXP(
   }
 
   // Apply scaling based on party size
-  const scalingFactor = Math.min(4 / partySize, 1);
+  const scalingFactor = 4 / partySize;
 
   // Calculate scaled XP
-  const scaledXP = Math.round(baseXP * scalingFactor);
+  const scaledXP = Math.max(Math.floor(baseXP * scalingFactor), 10);
 
-  return scaledXP;
+  return { baseXP, scaledXP };
 }

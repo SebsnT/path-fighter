@@ -1,10 +1,12 @@
 <template class="difficulty">
   <div class="difficulty-label">{{ label }} {{ currentValue }}</div>
+  <div class="difficulty-label-base">Base XP {{ baseValue }}</div>
   <div class="progress-container">
     <ProgressBar
       :value="(currentValue / maxValue) * 100"
       :class="color"
       class="fast-animation-progressbar"
+      :show-value="false"
     />
     <div class="thresholds">
       <div
@@ -22,7 +24,7 @@
 import { computed } from "vue";
 
 const { thresholds } = useThresholds();
-const { currentValue, maxValue } = useDifficulty();
+const { baseValue, currentValue, maxValue } = useDifficulty();
 
 const color = computed(() => {
   if (currentValue.value >= thresholds.value.extremeThreshold) return "red";

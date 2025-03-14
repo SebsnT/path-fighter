@@ -3,9 +3,9 @@ import type { InputNumberInputEvent } from "primevue/inputnumber";
 const { encounterArray } = useEncounterState();
 const { thresholds } = useThresholds();
 // Reactive state for difficulty indicator
+const baseValue = ref(0);
 const currentValue = ref(0);
 const maxValue = thresholds.value.extremeThreshold;
-const adjustedValue = ref(0);
 
 const partySize = ref(4);
 const partyLevel = ref(1);
@@ -47,8 +47,13 @@ export const useDifficulty = () => {
    * @param level of the creature
    */
   function increaseDifficulty(level: number, count: number = 1): void {
-    currentValue.value +=
-      calculateCreatureXP(level, partySize.value, partyLevel.value) * count;
+    const { baseXP, scaledXP } = calculateCreatureXP(
+      level,
+      partySize.value,
+      partyLevel.value,
+    );
+    baseValue.value += baseXP;
+    currentValue.value += scaledXP * count;
   }
 
   /**
@@ -57,11 +62,13 @@ export const useDifficulty = () => {
    * @param level of the creature
    */
   function decreaseDifficulty(level: number): void {
-    currentValue.value -= calculateCreatureXP(
+    const { baseXP, scaledXP } = calculateCreatureXP(
       level,
       partySize.value,
       partyLevel.value,
     );
+    baseValue.value -= baseXP;
+    currentValue.value -= scaledXP;
   }
 
   /**
@@ -75,7 +82,8 @@ export const useDifficulty = () => {
 
     // Only update value if valid values are set
     if (partyLevel.value != null && partySize.value != null) {
-      let xp = 0;
+      let current_xp = 0;
+      let current_base_xp = 0;
       if (!manualThresholds.value) {
         adjustThreholds();
       }
@@ -83,15 +91,17 @@ export const useDifficulty = () => {
       // Calculate the XP for each creature in the encounter, multiply it by the count and sum it up
       encounterArray.value.forEach((element) => {
         if (element.count) {
-          xp +=
-            calculateCreatureXP(
-              element.level,
-              partySize.value,
-              partyLevel.value,
-            ) * element.count;
+          const { baseXP, scaledXP } = calculateCreatureXP(
+            element.level,
+            partySize.value,
+            partyLevel.value,
+          );
+          current_base_xp += baseXP;
+          current_xp += scaledXP * element.count;
         }
       });
-      currentValue.value = xp;
+      baseValue.value = current_base_xp;
+      currentValue.value = current_xp;
     }
   }
 
@@ -107,8 +117,8 @@ export const useDifficulty = () => {
   }
 
   return {
+    baseValue,
     currentValue,
-    adjustedValue,
     maxValue,
     partySize,
     partyLevel,
