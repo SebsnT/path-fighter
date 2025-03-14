@@ -14,36 +14,45 @@
       :sortable="col.sortable"
     >
       <template #body="slotProps">
-        <template v-if="col.key != 'action'">
-          {{ slotProps.data[col.key] }}</template
-        >
+        <template v-if="col.key == 'action'">
+          <div class="action-buttons">
+            <Button
+              icon="pi pi-plus"
+              severity="success"
+              size="small"
+              raised
+              aria-label="Add"
+              @click="addOneToEncounter(slotProps.data)"
+            />
 
-        <template v-else>
-          <Button
-            icon="pi pi-plus"
-            severity="success"
-            size="small"
-            raised
-            aria-label="Add"
-            @click="addOneToEncounter(slotProps.data)"
-          />
+            <Button
+              icon="pi pi-minus"
+              severity="danger"
+              aria-label="Cancel"
+              size="small"
+              @click="deleteOneFromEncounter(slotProps.data)"
+            />
 
-          <Button
-            icon="pi pi-minus"
-            severity="danger"
-            aria-label="Cancel"
-            size="small"
-            @click="deleteOneFromEncounter(slotProps.data)"
-          />
+            <Button
+              icon="pi pi-times"
+              severity="warn"
+              aria-label="Delete"
+              size="small"
+              @click="deleteAllOfOneCreatureFromEncounter(slotProps.data)"
+            />
+          </div>
+        </template>
 
-          <Button
-            icon="pi pi-times"
-            severity="warn"
-            aria-label="Delete"
-            size="small"
-            @click="deleteAllOfOneCreatureFromEncounter(slotProps.data)"
+        <template v-else-if="col.key == 'challenge_type'">
+          <SelectButton
+            v-model="slotProps.data.challenge_type"
+            :options="challengeOptions"
+            option-label="label"
+            data-key="value"
+            aria-labelledby="custom"
           />
         </template>
+        <template v-else> {{ slotProps.data[col.key] }}</template>
       </template>
     </Column>
     <template #empty> No creature selected </template>
@@ -59,5 +68,28 @@ const {
   deleteOneFromEncounter,
   deleteAllOfOneCreatureFromEncounter,
 } = useEncounter();
+
+const challengeOptions = [
+  {
+    label: "Weak",
+    value: "weak",
+  },
+  {
+    label: "Base",
+    value: "base",
+  },
+  {
+    label: "Elite",
+    value: "elite",
+  },
+];
+
 const { manualThresholds } = useDifficulty();
 </script>
+
+<style scoped>
+.action-buttons {
+  display: flex;
+  gap: 0.25rem;
+}
+</style>

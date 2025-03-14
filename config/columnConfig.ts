@@ -11,6 +11,10 @@ export const encounterColumns: Column[] = [
     sortable: true,
   },
   {
+    key: "challenge_type",
+    label: "Type",
+  },
+  {
     key: "action",
     label: "Action",
   },
