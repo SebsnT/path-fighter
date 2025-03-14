@@ -10,4 +10,7 @@ export type Creature = {
   size: string[];
   trait_markdown: string[];
   count: number;
+  challenge_type: ChallengeType;
 };
+
+type ChallengeType = "weak" | "base" | "elite";

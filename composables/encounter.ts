@@ -20,7 +20,11 @@ export const useEncounter = () => {
       existingCreature.count = (existingCreature.count || 1) + 1;
     } else {
       // Add new creature with count set to 1
-      encounter.value.set(creature.name, { ...creature, count: 1 });
+      encounter.value.set(creature.name, {
+        ...creature,
+        count: 1,
+        challenge_type: "base",
+      });
     }
 
     increaseDifficulty(creature.level);
