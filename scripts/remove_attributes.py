@@ -57,6 +57,6 @@ cleaned_data = remove_attributes(data, attributes_to_remove, ids_to_remove)
 
 # Save the cleaned data
 with open("public/output.json", "w", encoding="utf-8") as f:
-    json.dump(cleaned_data, f, indent=4)
+    json.dump(cleaned_data, f, indent=None)
 
 print("Attributes removed and result saved to 'output.json'")
