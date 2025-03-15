@@ -32,7 +32,7 @@
               class="filter-input-field"
               :options="
                 col.getUniqueValues
-                  ? filters[col.key].options
+                  ? computedOptions[col.key]
                   : col.selectionOptions
               "
               :placeholder="'Select ' + col.label"
@@ -40,6 +40,7 @@
               option-value="value"
               variant="filled"
               show-clear
+              :virtual-scroller-options="{ itemSize: 40 }"
             />
           </template>
           <template v-else>
@@ -57,6 +58,7 @@
               option-value="value"
               :placeholder="'Select ' + col.label"
               show-clear
+              :virtual-scroller-options="{ itemSize: 40 }"
             />
           </template>
         </template>
@@ -78,6 +80,7 @@ import Select from "primevue/select";
 import { columns } from "../config/columnConfig";
 import { onNumberInput } from "~/utils/filterUtils";
 import type { Creature } from "~/models/creature";
+import type { SelectionOption } from "~/models/column";
 
 const props = defineProps({
   creatures: {
@@ -105,4 +108,18 @@ watch(
   },
   { immediate: true },
 ); // Run immediately on component mount
+
+const computedOptions = computed(() => {
+  return filterableColumns.value.reduce(
+    (acc, col) => {
+      if (col.type === "dropdown") {
+        acc[col.key] = getSelectionOptions(props.creatures, col.key);
+      }
+      return acc;
+    },
+    {} as Record<string, SelectionOption[]>,
+  );
+});
+
+console.log(computedOptions);
 </script>

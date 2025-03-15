@@ -31,22 +31,21 @@ export function getSelectionOptions(
 
 function selectionOptionsFromKeyAndValue(
   creatures: Creature[],
-  keyField: string,
+  key: string,
 ): SelectionOption[] {
-  const uniqueKeys = new Set<string>();
+  const uniqueKeys = new Map<string, string>();
 
-  creatures.forEach((creature) => {
-    const values = creature[keyField as keyof Creature];
+  for (let i = 0; i < creatures.length; i++) {
+    const values = creatures[i][key as keyof Creature];
 
     if (Array.isArray(values)) {
-      values.forEach((value) => uniqueKeys.add(value));
+      for (let j = 0; j < values.length; j++) {
+        uniqueKeys.set(values[j], values[j]);
+      }
     } else {
-      uniqueKeys.add(values as string);
+      uniqueKeys.set(values as string, values as string);
     }
-  });
+  }
 
-  return Array.from(uniqueKeys).map((value) => ({
-    label: value,
-    value: value,
-  }));
+  return Array.from(uniqueKeys, ([value]) => ({ label: value, value }));
 }
