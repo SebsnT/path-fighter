@@ -1,6 +1,7 @@
 export type Creature = {
   [key: string]: unknown;
   id: string;
+  url: string;
   name: string;
   level: number;
   ac: string;

@@ -13,8 +13,11 @@
       :header="col.label"
       :sortable="col.sortable"
     >
-      <template #body="slotProps">
-        <template v-if="col.key == 'action'">
+      <template #body="row">
+        <template v-if="col.key == 'name'">
+          <CreatureLinkName :url="row.data.url" :name="row.data.name" />
+        </template>
+        <template v-else-if="col.key == 'action'">
           <div class="action-buttons">
             <Button
               icon="pi pi-plus"
@@ -22,7 +25,7 @@
               size="small"
               raised
               aria-label="Add"
-              @click="addOneToEncounter(slotProps.data)"
+              @click="addOneToEncounter(row.data)"
             />
 
             <Button
@@ -30,7 +33,7 @@
               severity="danger"
               aria-label="Cancel"
               size="small"
-              @click="deleteOneFromEncounter(slotProps.data)"
+              @click="deleteOneFromEncounter(row.data)"
             />
 
             <Button
@@ -38,25 +41,25 @@
               severity="warn"
               aria-label="Delete"
               size="small"
-              @click="deleteAllOfOneCreatureFromEncounter(slotProps.data)"
+              @click="deleteAllOfOneCreatureFromEncounter(row.data)"
             />
           </div>
         </template>
 
         <template v-else-if="col.key == 'challenge_type'">
           <SelectButton
-            :model-value="slotProps.data.challenge_type"
+            :model-value="row.data.challenge_type"
             class="challenge-buttons"
             :options="challengeOptions"
             option-value="value"
             option-label="label"
             data-key="value"
             @update:model-value="
-              (newType) => updateChallengeType(slotProps.data, newType)
+              (newType) => updateChallengeType(row.data, newType)
             "
           />
         </template>
-        <template v-else> {{ slotProps.data[col.key] }}</template>
+        <template v-else> {{ row.data[col.key] }}</template>
       </template>
     </Column>
     <template #empty> No creature selected </template>

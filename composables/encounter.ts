@@ -110,6 +110,8 @@ export const useEncounter = () => {
     const oldKey = `${creature.id}:${creature.challenge_type}`;
     const newKey = `${creature.id}:${newType}`;
 
+    adjustedChallengeTypeUrl(creature, newType);
+
     if (encounter.value.has(oldKey) && encounter.value.has(newKey)) {
       const existingCreatureOldCreature = encounter.value.get(oldKey)!;
       const existingCreatureNewCreature = encounter.value.get(newKey)!;
@@ -133,6 +135,19 @@ export const useEncounter = () => {
       });
     }
     recalculateDifficulty(encounterArray.value);
+  }
+
+  function adjustedChallengeTypeUrl(
+    creature: Creature,
+    challengeType: ChallengeType,
+  ) {
+    const typeQuery = `&${challengeType}=true`;
+
+    if (!creature.url.includes("&")) {
+      creature.url = creature.url + typeQuery;
+    } else {
+      creature.url = creature.url.replace(new RegExp(`&\\w+=true`), typeQuery);
+    }
   }
 
   function recalculateDifficulty(creatures: Creature[]) {

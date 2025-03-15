@@ -4,11 +4,13 @@ export const encounterColumns: Column[] = [
   {
     key: "count",
     label: "Number",
+    sortable: true,
   },
   {
     key: "name",
     label: "Name",
     sortable: true,
+    type: "string",
   },
   {
     key: "challenge_type",

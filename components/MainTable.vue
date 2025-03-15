@@ -30,9 +30,7 @@
     >
       <template #body="row">
         <template v-if="col.key == 'name'">
-          <a :href="baseUrl + row.data.url" target="_blank">
-            {{ row.data[col.key] }}
-          </a>
+          <CreatureLinkName :url="row.data.url" :name="row.data.name" />
         </template>
         <template v-else-if="col.markdownField">
           <MarkdownField :data="row.data[col.markdownField]" />
@@ -87,6 +85,4 @@ const expandedRows = ref({});
 const onRowExpand = (event: { data: Creature }) => {
   expandedRows.value = { [event.data.id]: true };
 };
-
-const baseUrl = "https://2e.aonprd.com";
 </script>

@@ -19,11 +19,12 @@
 </template>
 
 <script setup lang="ts">
+import { baseUrl } from "~/constants/url.constants";
+
 const props = defineProps({
   data: {
     type: String,
     required: true,
   },
 });
-const baseUrl = "https://2e.aonprd.com";
 </script>
