@@ -32,7 +32,7 @@
               class="filter-input-field"
               :options="
                 col.getUniqueValues
-                  ? getSelectionOptions(props.creatures, col.key)
+                  ? filters[col.key].options
                   : col.selectionOptions
               "
               :placeholder="'Select ' + col.label"
@@ -50,7 +50,7 @@
               filter
               :options="
                 col.getUniqueValues
-                  ? getSelectionOptions(props.creatures, col.key)
+                  ? filters[col.key].options
                   : col.selectionOptions
               "
               option-label="label"
@@ -90,4 +90,19 @@ const { filters, clearFilters } = useFilters();
 
 // Columns that can be filtered
 const filterableColumns = ref(columns.filter((col) => col.filterable));
+
+// Watch `props.creatures` and update dropdown options when data changes
+watch(
+  () => props.creatures,
+  (newCreatures) => {
+    filterableColumns.value.forEach((col) => {
+      if (col.type === "dropdown") {
+        const options = getSelectionOptions(newCreatures, col.key);
+        // Store options in the filters object
+        filters.value[col.key].options = options;
+      }
+    });
+  },
+  { immediate: true },
+); // Run immediately on component mount
 </script>

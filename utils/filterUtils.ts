@@ -1,35 +1,6 @@
 import type { InputNumberInputEvent } from "primevue/inputnumber";
-import type { Column, SelectionOption } from "~/models/column";
+import type { SelectionOption } from "~/models/column";
 import type { Creature } from "~/models/creature";
-
-interface Filters {
-  [key: string]: {
-    value: string | number | null;
-    matchMode: string;
-  };
-}
-
-/**
- * generates Filters from column config
- *
- * @param columns of column config
- * @returns filters with value and matchMode
- */
-export function generateFilters(columns: Column[]): Filters {
-  const filters: Filters = {
-    global: { value: null, matchMode: "contains" },
-  };
-  columns.forEach((col) => {
-    filters[col.key] = {
-      value:
-        col.type === "number"
-          ? (null as number | null)
-          : (null as string | null),
-      matchMode: col.matchMode ?? "contains",
-    };
-  });
-  return filters;
-}
 
 /**
  * Updates Input of InputNumebr immidiatly
@@ -49,7 +20,13 @@ export function getSelectionOptions(
 ): SelectionOption[] {
   const options = selectionOptionsFromKeyAndValue(creatures, keyField);
 
-  return options.sort((a, b) => a.label.localeCompare(b.label));
+  return options.sort((a, b) => {
+    // Ensure that both labels are strings, fallback to empty string if undefined or null
+    const labelA = a.label != null ? String(a.label) : ""; // Convert to string or default to ''
+    const labelB = b.label != null ? String(b.label) : ""; // Convert to string or default to ''
+
+    return labelA.localeCompare(labelB);
+  });
 }
 
 function selectionOptionsFromKeyAndValue(
