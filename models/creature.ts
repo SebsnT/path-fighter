@@ -13,4 +13,4 @@ export type Creature = {
   challenge_type: ChallengeType;
 };
 
-type ChallengeType = "weak" | "base" | "elite";
+export type ChallengeType = "weak" | "base" | "elite";

@@ -1,4 +1,5 @@
 import type { InputNumberInputEvent } from "primevue/inputnumber";
+import type { ChallengeType } from "~/models/creature";
 
 const { encounterArray } = useEncounterState();
 const { thresholds } = useThresholds();
@@ -18,6 +19,7 @@ export const useDifficulty = () => {
    */
   function resetDifficulty(): void {
     currentValue.value = 0;
+    baseValue.value = 0;
   }
 
   /**
@@ -46,14 +48,19 @@ export const useDifficulty = () => {
    *
    * @param level of the creature
    */
-  function increaseDifficulty(level: number, count: number = 1): void {
+  function increaseDifficulty(
+    level: number,
+    count: number = 1,
+    challengeType: ChallengeType = "base",
+  ): void {
     const { baseXP, scaledXP } = calculateCreatureXP(
-      level,
       partySize.value,
       partyLevel.value,
+      level,
+      challengeType,
     );
 
-    baseValue.value += baseXP;
+    baseValue.value += baseXP * count;
     currentValue.value += scaledXP * count;
   }
 
@@ -62,11 +69,15 @@ export const useDifficulty = () => {
    *
    * @param level of the creature
    */
-  function decreaseDifficulty(level: number): void {
+  function decreaseDifficulty(
+    level: number,
+    challengeType: ChallengeType = "base",
+  ): void {
     const { baseXP, scaledXP } = calculateCreatureXP(
-      level,
       partySize.value,
       partyLevel.value,
+      level,
+      challengeType,
     );
     baseValue.value -= baseXP;
     currentValue.value -= scaledXP;
@@ -93,11 +104,13 @@ export const useDifficulty = () => {
       encounterArray.value.forEach((element) => {
         if (element.count) {
           const { baseXP, scaledXP } = calculateCreatureXP(
-            element.level,
             partySize.value,
             partyLevel.value,
+            element.level,
+            element.challenge_type,
           );
-          current_base_xp += baseXP;
+
+          current_base_xp += baseXP * element.count;
           current_xp += scaledXP * element.count;
         }
       });

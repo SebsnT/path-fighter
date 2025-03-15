@@ -1,3 +1,5 @@
+import type { ChallengeType } from "~/models/creature";
+
 export function hasOneMarkdownEntry(markdown: string): boolean {
   const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
   return regex.exec(markdown) ? true : false;
@@ -9,10 +11,19 @@ export function hasMutipleMarkdownEntries(markdown: string): boolean {
 }
 
 export function calculateCreatureXP(
-  creatureLevel: number,
   partySize: number,
   partyLevel: number,
+  creatureLevel: number,
+  challengeType: ChallengeType = "base",
 ): { baseXP: number; scaledXP: number } {
+  if (challengeType == "elite") {
+    creatureLevel += 1;
+  }
+
+  if (challengeType == "weak") {
+    creatureLevel -= 1;
+  }
+
   const levelDiff = creatureLevel - partyLevel;
 
   if (partySize == 0) {

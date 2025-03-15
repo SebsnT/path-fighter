@@ -45,11 +45,15 @@
 
         <template v-else-if="col.key == 'challenge_type'">
           <SelectButton
-            v-model="slotProps.data.challenge_type"
+            :model-value="slotProps.data.challenge_type"
+            class="challenge-buttons"
             :options="challengeOptions"
+            option-value="value"
             option-label="label"
             data-key="value"
-            aria-labelledby="custom"
+            @update:model-value="
+              (newType) => updateChallengeType(slotProps.data, newType)
+            "
           />
         </template>
         <template v-else> {{ slotProps.data[col.key] }}</template>
@@ -65,6 +69,7 @@ import { encounterColumns } from "~/config/columnConfig";
 const {
   encounterArray,
   addOneToEncounter,
+  updateChallengeType,
   deleteOneFromEncounter,
   deleteAllOfOneCreatureFromEncounter,
 } = useEncounter();
