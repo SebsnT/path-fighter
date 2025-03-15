@@ -18,32 +18,7 @@
           <CreatureLinkName :url="row.data.url" :name="row.data.name" />
         </template>
         <template v-else-if="col.key == 'action'">
-          <div class="action-buttons">
-            <Button
-              icon="pi pi-plus"
-              severity="success"
-              size="small"
-              raised
-              aria-label="Add"
-              @click="addOneToEncounter(row.data)"
-            />
-
-            <Button
-              icon="pi pi-minus"
-              severity="danger"
-              aria-label="Cancel"
-              size="small"
-              @click="deleteOneFromEncounter(row.data)"
-            />
-
-            <Button
-              icon="pi pi-times"
-              severity="warn"
-              aria-label="Delete"
-              size="small"
-              @click="deleteAllOfOneCreatureFromEncounter(row.data)"
-            />
-          </div>
+          <ActionButtons :creature="row.data" />
         </template>
 
         <template v-else-if="col.key == 'challenge_type'">
@@ -69,13 +44,9 @@
 <script setup>
 import { encounterColumns } from "~/config/columnConfig";
 
-const {
-  encounterArray,
-  addOneToEncounter,
-  updateChallengeType,
-  deleteOneFromEncounter,
-  deleteAllOfOneCreatureFromEncounter,
-} = useEncounter();
+const { encounterArray, updateChallengeType } = useEncounter();
+
+const { manualThresholds } = useDifficulty();
 
 const challengeOptions = [
   {
@@ -91,13 +62,4 @@ const challengeOptions = [
     value: "elite",
   },
 ];
-
-const { manualThresholds } = useDifficulty();
 </script>
-
-<style scoped>
-.action-buttons {
-  display: flex;
-  gap: 0.25rem;
-}
-</style>

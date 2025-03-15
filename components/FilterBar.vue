@@ -2,66 +2,14 @@
   <div class="filter-bar-container">
     <div class="filter-bar">
       <div v-for="col in filterableColumns" :key="col.key" class="filter-input">
-        <template v-if="col.type === 'string'">
-          <InputText
-            :id="'filter-' + col.key"
-            v-model="filters[col.key].value as string | null"
-            class="filter-input-field"
-            :placeholder="'Search ' + col.label"
-          />
-        </template>
-
-        <template v-else-if="col.type === 'number'">
-          <InputNumber
-            :id="'filter-' + col.key"
-            v-model="filters[col.key].value as number | null"
-            class="filter-input-field"
-            :placeholder="'Search ' + col.label"
-            :min="col.minValue"
-            :max="col.maxValue"
-            @input="onNumberInput($event)"
-          />
-        </template>
-
-        <template v-else-if="col.type === 'dropdown'">
-          <template v-if="col.select === 'multiple'">
-            <MultiSelect
-              :id="'filter-' + col.key"
-              v-model="filters[col.key].value"
-              filter
-              class="filter-input-field"
-              :options="
-                col.getUniqueValues
-                  ? computedOptions[col.key]
-                  : col.selectionOptions
-              "
-              :placeholder="'Select ' + col.label"
-              option-label="label"
-              option-value="value"
-              variant="filled"
-              show-clear
-              :virtual-scroller-options="{ itemSize: 40 }"
-            />
-          </template>
-          <template v-else>
-            <Select
-              :id="'filter-' + col.key"
-              v-model="filters[col.key].value"
-              class="filter-input-field"
-              filter
-              :options="
-                col.getUniqueValues
-                  ? filters[col.key].options
-                  : col.selectionOptions
-              "
-              option-label="label"
-              option-value="value"
-              :placeholder="'Select ' + col.label"
-              show-clear
-              :virtual-scroller-options="{ itemSize: 40 }"
-            />
-          </template>
-        </template>
+        <component
+          :is="getFilterComponent(col)"
+          :id="`filter-${col.key}`"
+          v-model="filters[col.key].value"
+          class="filter-input-field"
+          :placeholder="`Search ${col.label}`"
+          v-bind="getComponentProps(col)"
+        />
       </div>
       <Button
         type="button"
@@ -77,10 +25,14 @@
 
 <script setup lang="ts">
 import Select from "primevue/select";
+import MultiSelect from "primevue/multiselect";
+import InputText from "primevue/inputtext";
+import InputNumber from "primevue/inputnumber";
+import { computed, ref, watch } from "vue";
 import { columns } from "../config/columnConfig";
 import { onNumberInput } from "~/utils/filterUtils";
 import type { Creature } from "~/models/creature";
-import type { SelectionOption } from "~/models/column";
+import type { Column, SelectionOption } from "~/models/column";
 
 const props = defineProps({
   creatures: {
@@ -90,24 +42,7 @@ const props = defineProps({
 });
 
 const { filters, clearFilters } = useFilters();
-
-// Columns that can be filtered
 const filterableColumns = ref(columns.filter((col) => col.filterable));
-
-// Watch `props.creatures` and update dropdown options when data changes
-watch(
-  () => props.creatures,
-  (newCreatures) => {
-    filterableColumns.value.forEach((col) => {
-      if (col.type === "dropdown") {
-        const options = getSelectionOptions(newCreatures, col.key);
-        // Store options in the filters object
-        filters.value[col.key].options = options;
-      }
-    });
-  },
-  { immediate: true },
-); // Run immediately on component mount
 
 const computedOptions = computed(() => {
   return filterableColumns.value.reduce(
@@ -121,5 +56,50 @@ const computedOptions = computed(() => {
   );
 });
 
-console.log(computedOptions);
+watch(
+  () => props.creatures,
+  (newCreatures) => {
+    filterableColumns.value.forEach((col) => {
+      if (col.type === "dropdown") {
+        filters.value[col.key].options = getSelectionOptions(
+          newCreatures,
+          col.key,
+        );
+      }
+    });
+  },
+  { immediate: true },
+);
+
+const getFilterComponent = (col: Column) => {
+  switch (col.type) {
+    case "string":
+      return InputText;
+    case "number":
+      return InputNumber;
+    case "dropdown":
+      return col.select === "multiple" ? MultiSelect : Select;
+    default:
+      return "div";
+  }
+};
+
+const getComponentProps = (col: Column) => {
+  if (col.type === "number") {
+    return { min: col.minValue, max: col.maxValue, onInput: onNumberInput };
+  }
+  if (col.type === "dropdown") {
+    return {
+      filter: true,
+      options: col.getUniqueValues
+        ? computedOptions.value[col.key]
+        : col.selectionOptions,
+      "option-label": "label",
+      "option-value": "value",
+      "show-clear": true,
+      "virtual-scroller-options": { itemSize: 40 },
+    };
+  }
+  return {};
+};
 </script>

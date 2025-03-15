@@ -33,7 +33,7 @@ const { partySize, partyLevel, manualThresholds, adjustXPGained } =
   useDifficulty();
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .party-inputs {
   display: flex;
   gap: 10px;
