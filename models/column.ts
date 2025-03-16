@@ -4,7 +4,19 @@ type FieldType = "number" | "string" | "dropdown";
 
 type SelectionType = "single" | "multiple";
 
-type MatchMode = "contains" | "in";
+type MatchMode =
+  | "startsWith"
+  | "contains"
+  | "notContains"
+  | "endsWith"
+  | "equals"
+  | "notEquals"
+  | "in"
+  | "lt"
+  | "lte"
+  | "gt"
+  | "gte"
+  | "between";
 
 export interface SelectionOption {
   label: string;

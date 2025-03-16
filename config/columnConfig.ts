@@ -37,6 +37,7 @@ export const columns: Column[] = [
     width: "50px",
     sortable: true,
     filterable: true,
+    matchMode: "gte",
     type: "number",
     minValue: -1,
     maxValue: 25,
