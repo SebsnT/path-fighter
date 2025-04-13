@@ -16,7 +16,7 @@
     @row-expand="onRowExpand"
   >
     <!-- For the row expansion -->
-    <!-- <Column expander style="width: 10px" /> -->
+    <Column expander style="width: 10px" />
     <Column
       v-for="col in columns"
       :key="col.key"
@@ -52,11 +52,7 @@
       </template>
     </Column>
     <template #expansion="row">
-      <div class="expanded-row-content">
-        <p>TODO</p>
-
-        {{ row.data.id }}
-      </div>
+      <TableRowDetails :creature="row.data" />
     </template>
     <!-- Detail view for the expanded row -->
   </DataTable>
