@@ -20,6 +20,7 @@ export type Creature = {
   size: string[];
   skill_mod: NumberObject;
   speed_raw: string;
+  spell: string[];
   strength: string;
   trait: string;
   trait_markdown: string[];
