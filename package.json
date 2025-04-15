@@ -12,12 +12,12 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@primevue/themes": "^4.0.7",
-    "jspdf": "^3.0.0",
+    "@primevue/themes": "^4.3.3",
+    "jspdf": "^3.0.1",
     "nuxt": "^3.16.2",
     "nuxt-app": "file:",
     "primeicons": "^7.0.0",
-    "primevue": "^4.0.7",
+    "primevue": "^4.3.3",
     "vue": "latest"
   },
   "devDependencies": {
