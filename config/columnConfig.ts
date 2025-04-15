@@ -59,11 +59,12 @@ export const columns: Column[] = [
     markdownField: "trait_markdown",
     label: "Traits",
     width: "250px",
-    sortable: false,
+    sortable: true,
     filterable: true,
     type: "dropdown",
-    select: "single",
-    matchMode: "contains",
+    select: "multiple",
+    containsMultipleValues: true,
+    matchMode: "in",
     getUniqueValues: true,
   },
   {
@@ -94,24 +95,4 @@ export const columns: Column[] = [
     label: "Action",
     filterable: false,
   },
-  /*   {
-    key: "ac",
-    label: "AC",
-    width: "50px",
-    sortable: true,
-    filterable: true,
-    type: "number",
-    minValue: 0,
-    maxValue: 54,
-  }, */
-  /*   {
-    key: "hp",
-    label: "HP",
-    width: "50px",
-    sortable: true,
-    filterable: true,
-    type: "number",
-    minValue: 0,
-    maxValue: 600,
-  }, */
 ];

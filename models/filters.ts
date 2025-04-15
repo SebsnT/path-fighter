@@ -1,9 +1,12 @@
 import type { SelectionOption } from "./column";
 
+export type FilterValue = string | string[] | number | null;
+
 export interface Filters {
   [key: string]: {
-    value: string | string[] | number | null;
+    value: FilterValue;
     matchMode: string;
-    options?: SelectionOption[];
+    containsMultipleValues?: boolean;
+    selectionOptions?: SelectionOption[];
   };
 }

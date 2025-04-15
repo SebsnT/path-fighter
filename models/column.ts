@@ -43,4 +43,5 @@ export interface Column {
   maxValue?: number;
   markdownField?: string;
   selectionOptions?: SelectionOption[];
+  containsMultipleValues?: boolean;
 }

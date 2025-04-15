@@ -18,6 +18,7 @@ export const useFilters = () => {
             ? (null as number | null)
             : (null as string | null),
         matchMode: col.matchMode ?? "contains",
+        containsMultipleValues: col.containsMultipleValues ?? false,
       };
     });
     return filters;
