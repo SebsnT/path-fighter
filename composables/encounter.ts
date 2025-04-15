@@ -107,31 +107,67 @@ export const useEncounter = () => {
     encounter.value.delete(key);
   }
 
+  /**
+   * Merges two entries if they are the same creature and challange type
+   *
+   * @param oldKey
+   * @param newKey
+   * @param newType
+   */
+  function mergeExistingCreatures(
+    oldKey: string,
+    newKey: string,
+    newType: ChallengeType,
+  ) {
+    const existingCreatureOldCreature = encounter.value.get(oldKey)!;
+    const existingCreatureNewCreature = encounter.value.get(newKey)!;
+
+    encounter.value.delete(oldKey);
+
+    encounter.value.set(newKey, {
+      ...existingCreatureNewCreature,
+      challenge_type: newType,
+      count:
+        existingCreatureNewCreature.count + existingCreatureOldCreature.count,
+    });
+  }
+
+  /**
+   * Updates the challenge type of an existing creature
+   *
+   * @param oldKey
+   * @param newKey
+   * @param newType
+   */
+  function updateExistingCreature(
+    oldKey: string,
+    newKey: string,
+    newType: ChallengeType,
+  ) {
+    const existingCreature = encounter.value.get(oldKey)!;
+
+    encounter.value.delete(oldKey);
+
+    encounter.value.set(newKey, {
+      ...existingCreature,
+      challenge_type: newType,
+    });
+  }
+
+  /**
+   * Updates the challenge type of a creature in the encounter table
+   *
+   * @param creature
+   * @param newType
+   */
   function updateChallengeType(creature: Creature, newType: ChallengeType) {
     const oldKey = `${creature.id}:${creature.challenge_type}`;
     const newKey = `${creature.id}:${newType}`;
 
     if (encounter.value.has(oldKey) && encounter.value.has(newKey)) {
-      const existingCreatureOldCreature = encounter.value.get(oldKey)!;
-      const existingCreatureNewCreature = encounter.value.get(newKey)!;
-
-      encounter.value.delete(oldKey);
-
-      encounter.value.set(newKey, {
-        ...existingCreatureNewCreature,
-        challenge_type: newType,
-        count:
-          existingCreatureNewCreature.count + existingCreatureOldCreature.count,
-      });
+      mergeExistingCreatures(oldKey, newKey, newType);
     } else if (encounter.value.has(oldKey)) {
-      const existingCreature = encounter.value.get(oldKey)!;
-
-      encounter.value.delete(oldKey);
-
-      encounter.value.set(newKey, {
-        ...existingCreature,
-        challenge_type: newType,
-      });
+      updateExistingCreature(oldKey, newKey, newType);
     }
     adjustedChallengeTypeUrl(creature, newType);
     recalculateDifficulty(encounterArray.value);
@@ -156,6 +192,11 @@ export const useEncounter = () => {
     }
   }
 
+  /**
+   * Recalculates the difficulty (xp) of the encounter table
+   *
+   * @param creatures
+   */
   function recalculateDifficulty(creatures: Creature[]) {
     deleteAllFromEncounter();
     addMultipleToEncounter(creatures);
@@ -169,6 +210,9 @@ export const useEncounter = () => {
     resetDifficulty();
   }
 
+  /**
+   * Clears the encounter table
+   */
   function clearEncounter() {
     encounter.value.clear();
   }
@@ -179,7 +223,6 @@ export const useEncounter = () => {
     addMultipleToEncounter,
     updateChallengeType,
     deleteOneFromEncounter,
-    deleteAllFromEncounter,
     deleteAllOfOneCreatureFromEncounter,
     clearEncounter,
   };

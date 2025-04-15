@@ -1,9 +1,12 @@
 <template>
   <div class="difficulty-label">{{ label }}</div>
-  <div class="difficulty-label-base">XP Gained: {{ baseValue }}</div>
+  <div class="difficulty-label-base">Base XP Gained: {{ baseValue }}</div>
+  <div class="difficulty-label-base">
+    Adjusted XP Gained: {{ currentValue }}
+  </div>
   <div class="progress-container">
     <ProgressBar
-      :value="(currentValue / maxValue) * 100"
+      :value="(baseValue / maxValue) * 100"
       :class="color"
       class="fast-animation-progressbar"
       :show-value="false"
@@ -27,19 +30,18 @@ const { thresholds } = useThresholds();
 const { baseValue, currentValue, maxValue } = useDifficulty();
 
 const color = computed(() => {
-  if (currentValue.value >= thresholds.value.extremeThreshold) return "red";
-  if (currentValue.value >= thresholds.value.severeThreshold) return "orange";
-  if (currentValue.value >= thresholds.value.moderateThreshold) return "yellow";
-  if (currentValue.value >= thresholds.value.lowThreshold) return "lime";
+  if (baseValue.value >= thresholds.value.extremeThreshold) return "red";
+  if (baseValue.value >= thresholds.value.severeThreshold) return "orange";
+  if (baseValue.value >= thresholds.value.moderateThreshold) return "yellow";
+  if (baseValue.value >= thresholds.value.lowThreshold) return "lime";
   return "green";
 });
 
 const label = computed(() => {
-  if (currentValue.value >= thresholds.value.extremeThreshold) return "Extreme";
-  if (currentValue.value >= thresholds.value.severeThreshold) return "Severe";
-  if (currentValue.value >= thresholds.value.moderateThreshold)
-    return "Moderate";
-  if (currentValue.value >= thresholds.value.lowThreshold) return "Low";
+  if (baseValue.value >= thresholds.value.extremeThreshold) return "Extreme";
+  if (baseValue.value >= thresholds.value.severeThreshold) return "Severe";
+  if (baseValue.value >= thresholds.value.moderateThreshold) return "Moderate";
+  if (baseValue.value >= thresholds.value.lowThreshold) return "Low";
   return "Trivial";
 });
 </script>
