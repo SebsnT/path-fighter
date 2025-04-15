@@ -1,3 +1,4 @@
+import type { MardownLink } from "~/models/markdownLink";
 import type { SelectionOption } from "~/models/selectionOptions";
 
 export class TableUtils {
