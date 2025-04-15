@@ -48,9 +48,8 @@
       <span> Skills: {{ props.creature.skill_mod }} </span>
     </div>
 
-    TODO attacks
     <div class="row">
-      <span> Attacks: {{ props.creature.text }} </span>
+      <span> Attacks: {{ props.creature.attacks }} </span>
     </div>
   </div>
 </template>
