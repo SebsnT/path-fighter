@@ -1,4 +1,4 @@
-import type { ChallengeType } from "~/models/creature";
+import type { ChallengeType } from "~/models/challengeType";
 
 export function hasOneMarkdownEntry(markdown: string): boolean {
   const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)

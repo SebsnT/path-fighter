@@ -1,3 +1,5 @@
+import type { ChallengeType } from "./challengeType";
+
 export type Creature = {
   [key: string]: unknown;
   id: string;
@@ -33,5 +35,3 @@ export type Creature = {
 type NumberObject = {
   [key: string]: number;
 };
-
-export type ChallengeType = "weak" | "base" | "elite";

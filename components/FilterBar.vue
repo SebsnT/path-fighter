@@ -32,7 +32,8 @@ import { computed, ref, watch } from "vue";
 import { columns } from "../config/columnConfig";
 import { onNumberInput } from "~/utils/filterUtils";
 import type { Creature } from "~/models/creature";
-import type { Column, SelectionOption } from "~/models/column";
+import type { Column } from "~/models/column";
+import type { SelectionOption } from "~/models/selectionOptions";
 
 const props = defineProps({
   creatures: {

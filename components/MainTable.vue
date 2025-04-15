@@ -62,7 +62,7 @@ import Column from "primevue/column";
 
 import { columns } from "~/config/columnConfig";
 import type { Creature } from "~/models/creature";
-import type { FilterValue } from "~/models/filters";
+import type { FilterValue } from "~/models/filterValue";
 
 const props = defineProps({
   creatures: {

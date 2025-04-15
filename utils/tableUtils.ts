@@ -1,51 +1,54 @@
-import type { MardownLink, SelectionOption } from "~/models/column";
+import type { SelectionOption } from "~/models/selectionOptions";
 
-export function parseOneMarkdown(markdown: string): MardownLink {
-  const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
-  const match = regex.exec(markdown);
-  if (match) {
-    return {
-      label: match[1],
-      link: match[2],
-    };
+export class TableUtils {
+  /**
+   *
+   * @param markdown
+   * @returns
+   */
+  static parseOneMarkdownLink(markdown: string): MardownLink {
+    const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
+    const match = regex.exec(markdown);
+    if (match) {
+      return {
+        label: match[1],
+        link: match[2],
+      };
+    }
+    return { label: "-" };
   }
-  return { label: "-" };
-}
 
-export function parseOneMarkdownAsSelectionOption(
-  markdown: string,
-): SelectionOption {
-  const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
-  const match = regex.exec(markdown);
-  if (match) {
-    return {
-      label: match[1],
-      value: match[1],
-    };
+  /**
+   * Parses one markdown link as {@link SelectionOption}
+   *
+   * @param markdown
+   * @returns
+   */
+  static parseOneMarkdownStringAsSelectionOption(
+    markdown: string,
+  ): SelectionOption {
+    const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
+    const match = regex.exec(markdown);
+    if (match) {
+      return {
+        label: match[1],
+        value: match[1],
+      };
+    }
+    return { label: "-", value: "" };
   }
-  return { label: "-", value: "" };
-}
 
-/**
- *Function to handle multiple markdown links separated by commas
- *
- * @param markdown
- * @returns
- */
-export function parseMultipleMarkdown(markdown: string): MardownLink[] {
-  const links = markdown
-    .split(",")
-    .map((link) => parseOneMarkdown(link.trim()))
-    .filter(Boolean);
-  return links as { label: string; link: string }[];
-}
-
-export function parseMultipleMarkdownAsSelection(
-  markdown: string,
-): SelectionOption[] {
-  const selections = markdown
-    .split(",")
-    .map((value) => parseOneMarkdownAsSelectionOption(value.trim()))
-    .filter(Boolean);
-  return selections;
+  /**
+   * Parses multiple strings seperated by comma to a {@link MardownLink} array
+   *
+   * @param markdown string that contains
+   * @returns
+   */
+  static parseMultipleMarkdownStrings(markdown: string): MardownLink[] {
+    const links = markdown
+      .split(",")
+      .map((link) => this.parseOneMarkdownLink(link.trim()))
+      .filter(Boolean);
+    return links as { label: string; link: string }[];
+  }
 }

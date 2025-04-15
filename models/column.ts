@@ -1,4 +1,5 @@
 import type { Creature } from "./creature";
+import type { SelectionOption } from "./selectionOptions";
 
 type FieldType = "number" | "string" | "dropdown";
 
@@ -17,16 +18,6 @@ type MatchMode =
   | "gt"
   | "gte"
   | "between";
-
-export interface SelectionOption {
-  label: string;
-  value: string;
-}
-
-export interface MardownLink {
-  label: string;
-  link?: string;
-}
 
 export interface Column {
   key: keyof Creature & string;

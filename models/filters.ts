@@ -1,6 +1,5 @@
-import type { SelectionOption } from "./column";
-
-export type FilterValue = string | string[] | number | null;
+import type { FilterValue } from "./filterValue";
+import type { SelectionOption } from "./selectionOptions";
 
 export interface Filters {
   [key: string]: {
