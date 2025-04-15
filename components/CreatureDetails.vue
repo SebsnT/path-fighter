@@ -61,6 +61,4 @@ import type { Creature } from "~/models/creature";
 const props = defineProps<{
   creature: Creature;
 }>();
-
-console.log(props.creature);
 </script>
