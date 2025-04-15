@@ -12,6 +12,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@primevue/forms": "^4.3.3",
     "@primevue/themes": "^4.3.3",
     "jspdf": "^3.0.1",
     "nuxt": "^3.16.2",
