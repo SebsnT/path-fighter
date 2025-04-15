@@ -61,7 +61,7 @@ watch(
   (newCreatures) => {
     filterableColumns.value.forEach((col) => {
       if (col.type === "dropdown") {
-        filters.value[col.key].options = getSelectionOptions(
+        filters.value[col.key].selectionOptions = getSelectionOptions(
           newCreatures,
           col.key,
         );
