@@ -6,5 +6,6 @@
         <li><NuxtLink to="/">Home</NuxtLink></li>
       </ul>
     </nav>
+    <OptionToolbar />
   </header>
 </template>

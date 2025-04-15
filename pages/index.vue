@@ -1,6 +1,5 @@
 <template>
   <div>
-    <OptionToolbar />
     <ThresholdInputs />
     <PartyInputs />
     <DifficultyIndicator />
