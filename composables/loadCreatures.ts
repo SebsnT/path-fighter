@@ -1,4 +1,5 @@
 import { ref, onBeforeMount } from "vue";
+import { repositoryUrl } from "~/constants/fetch.consants";
 import type { Creature } from "~/models/creature";
 
 export const useCreatures = () => {
@@ -10,7 +11,7 @@ export const useCreatures = () => {
     try {
       const { data, status } = await useLazyAsyncData<Creature[]>(
         "creatures",
-        () => $fetch("https://sebsnt.github.io/creature.json"),
+        () => $fetch(repositoryUrl),
       );
       creatures.value = data.value ?? [];
       isLoaded.value = true;
