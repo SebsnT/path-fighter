@@ -1,6 +1,14 @@
 import { defineNuxtConfig } from "nuxt/config";
 import Aura from "@primevue/themes/aura";
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: "PathFighter",
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
   modules: ["@nuxt/eslint", "@primevue/nuxt-module", "@nuxt/test-utils"],
   primevue: {
     options: {
