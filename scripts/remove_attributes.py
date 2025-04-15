@@ -1,4 +1,5 @@
 import json
+import re
 from attributes_to_remove import attributes_to_remove
 
 
@@ -28,6 +29,10 @@ def remove_attributes(data, attributes_to_remove, ids_to_remove):
         if "id" in data and data["id"] in ids_to_remove:
             return None
 
+        # If "text" exists, extract attacks
+        if "text" in data:
+            data["attacks"] = extract_attacks(data["text"])
+
         return {
             key: remove_attributes(value, attributes_to_remove, ids_to_remove)
             for key, value in data.items()
@@ -43,6 +48,29 @@ def remove_attributes(data, attributes_to_remove, ids_to_remove):
         return [item for item in cleaned_items if item is not None]
 
     return data
+
+
+def extract_attacks(text):
+    text = re.sub(r"\s+", " ", text.strip())
+
+    # Improved pattern: match only up to end of single attack line
+    pattern = re.compile(
+        r"(Melee|Ranged)\s+\w+(?:\s+\w+)*\s+Action[s]?\s+[^,]+?,\s*Damage\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+(?:\s+plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+)?",
+        flags=re.IGNORECASE,
+    )
+
+    results = []
+
+    for match in pattern.finditer(text):
+        attack = match.group(0).strip()
+        if "plus" in attack:
+            # Check if 'plus' is followed by another damage dice
+            # if not, tag it
+            if not re.search(r"plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+", attack):
+                attack += " (see Creature)"
+        results.append(attack)
+
+    return results
 
 
 # Load JSON data
