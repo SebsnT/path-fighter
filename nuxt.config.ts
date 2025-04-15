@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      NotoSans: true,
+      "Noto+Sans": true,
     },
   },
   modules: [
