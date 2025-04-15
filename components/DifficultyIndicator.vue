@@ -1,6 +1,6 @@
 <template>
-  <div class="difficulty-label">{{ label }} {{ currentValue }}</div>
-  <div class="difficulty-label-base">Base XP {{ baseValue }}</div>
+  <div class="difficulty-label">{{ label }}</div>
+  <div class="difficulty-label-base">XP Gained: {{ baseValue }}</div>
   <div class="progress-container">
     <ProgressBar
       :value="(currentValue / maxValue) * 100"

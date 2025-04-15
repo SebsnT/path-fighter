@@ -26,7 +26,7 @@ export const columns: Column[] = [
   {
     key: "name",
     label: "Name",
-    width: "250px",
+    width: "25%",
     sortable: true,
     filterable: true,
     type: "string",
@@ -34,7 +34,7 @@ export const columns: Column[] = [
   {
     key: "level",
     label: "Level",
-    width: "50px",
+    width: "5%",
     sortable: true,
     filterable: true,
     matchMode: "gte",
@@ -46,7 +46,7 @@ export const columns: Column[] = [
     key: "creature_family",
     markdownField: "creature_family_markdown",
     label: "Family",
-    width: "250px",
+    width: "200px",
     sortable: true,
     filterable: true,
     type: "dropdown",
@@ -70,7 +70,7 @@ export const columns: Column[] = [
   {
     key: "alignment",
     label: "Alignment",
-    width: "50px",
+    width: "5%",
     filterable: true,
     type: "dropdown",
     select: "multiple",

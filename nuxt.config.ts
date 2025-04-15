@@ -9,7 +9,17 @@ export default defineNuxtConfig({
       },
     },
   },
-  modules: ["@nuxt/eslint", "@primevue/nuxt-module", "@nuxt/test-utils"],
+  googleFonts: {
+    families: {
+      NotoSans: true,
+    },
+  },
+  modules: [
+    "@nuxt/eslint",
+    "@primevue/nuxt-module",
+    "@nuxt/test-utils",
+    "@nuxtjs/google-fonts",
+  ],
   primevue: {
     options: {
       theme: {
