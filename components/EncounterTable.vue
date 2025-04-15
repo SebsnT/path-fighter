@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { encounterColumns } from "~/config/columnConfig";
+import { encounterColumns } from "~/config/column.config";
 
 const { encounterArray, updateChallengeType } = useEncounter();
 

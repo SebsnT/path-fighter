@@ -1,7 +1,7 @@
 import type { Column } from "~/models/column";
 import type { Filters } from "~/models/filters";
 
-import { columns } from "~/config/columnConfig";
+import { columns } from "~/config/column.config";
 
 export const useFilters = () => {
   const filters = useState<Filters>("filters", () => generateFilters(columns));

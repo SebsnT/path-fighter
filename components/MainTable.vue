@@ -60,7 +60,7 @@
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
-import { columns } from "~/config/columnConfig";
+import { columns } from "~/config/column.config";
 import type { Creature } from "~/models/creature";
 import type { FilterValue } from "~/models/filterValue";
 
