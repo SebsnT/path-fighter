@@ -1,6 +1,6 @@
 import type { InputNumberInputEvent } from "primevue/inputnumber";
-import type { SelectionOption } from "~/models/column";
 import type { Creature } from "~/models/creature";
+import type { SelectionOption } from "~/models/selectionOptions";
 
 /**
  * Updates Input of InputNumebr immidiatly

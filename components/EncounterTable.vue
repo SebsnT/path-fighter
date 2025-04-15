@@ -4,6 +4,8 @@
     :size="'small'"
     :value="encounterArray"
     scrollable
+    sort-field="name"
+    :sort-order="1"
     :scroll-height="manualThresholds ? '52vh' : 'calc(60vh)'"
   >
     <Column
@@ -23,12 +25,14 @@
 
         <template v-else-if="col.key == 'challenge_type'">
           <SelectButton
+            :key="`${row.data.id}-${row.data.challenge_type}`"
             :model-value="row.data.challenge_type"
             class="challenge-buttons"
             :options="challengeOptions"
             option-value="value"
             option-label="label"
             data-key="value"
+            :allow-empty="false"
             @update:model-value="
               (newType) => updateChallengeType(row.data, newType)
             "

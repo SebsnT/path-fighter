@@ -1,12 +1,4 @@
-.difficulty {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 20px;
-  padding-left: 50px;
-  padding-right: 80px;
-}
+
 
 .difficulty-label {
   margin-top: 10px;
@@ -53,12 +45,12 @@
 
 .fast-animation-progressbar .p-progressbar-value {
   transition: width 0.5s ease-in-out !important; /* Adjust duration to 0.2s */
+
 }
 
 .progress-container {
   position: relative;
   width: 100%;
-  padding: 0 12px;
 }
 
 .thresholds {

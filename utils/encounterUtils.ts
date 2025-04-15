@@ -1,12 +1,14 @@
 import type { ChallengeType } from "~/models/challengeType";
+// Matches [Label](Link)
 
 export function hasOneMarkdownEntry(markdown: string): boolean {
-  const regex = /\[([^\]]+)\]\(([^)]+)\)/; // Matches [Label](Link)
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/;
   return regex.exec(markdown) ? true : false;
 }
 
 export function hasMutipleMarkdownEntries(markdown: string): boolean {
-  const regex = /^(?:\[[^\]]+\]\([^)]+\),\s*)+\[[^\]]+\]\([^)]+\)$/; // Matches [Label](Link)
+  // Matches [Label](Link)
+  const regex = /^(?:\[[^\]]+\]\([^)]+\),\s*)+\[[^\]]+\]\([^)]+\)$/;
   return regex.exec(markdown) ? true : false;
 }
 

@@ -1,4 +1,4 @@
-<template class="difficulty">
+<template>
   <div class="difficulty-label">{{ label }} {{ currentValue }}</div>
   <div class="difficulty-label-base">Base XP {{ baseValue }}</div>
   <div class="progress-container">

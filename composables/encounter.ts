@@ -1,5 +1,6 @@
 import { useDifficulty } from "~/composables/difficulty";
-import type { ChallengeType, Creature } from "~/models/creature";
+import type { ChallengeType } from "~/models/challengeType";
+import type { Creature } from "~/models/creature";
 
 const { encounterArray, encounter } = useEncounterState();
 
@@ -110,8 +111,6 @@ export const useEncounter = () => {
     const oldKey = `${creature.id}:${creature.challenge_type}`;
     const newKey = `${creature.id}:${newType}`;
 
-    adjustedChallengeTypeUrl(creature, newType);
-
     if (encounter.value.has(oldKey) && encounter.value.has(newKey)) {
       const existingCreatureOldCreature = encounter.value.get(oldKey)!;
       const existingCreatureNewCreature = encounter.value.get(newKey)!;
@@ -134,9 +133,16 @@ export const useEncounter = () => {
         challenge_type: newType,
       });
     }
+    adjustedChallengeTypeUrl(creature, newType);
     recalculateDifficulty(encounterArray.value);
   }
 
+  /**
+   * Adjusts the url to the page of the creature
+   *
+   * @param creature
+   * @param challengeType
+   */
   function adjustedChallengeTypeUrl(
     creature: Creature,
     challengeType: ChallengeType,
