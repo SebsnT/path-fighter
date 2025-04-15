@@ -1,9 +1,20 @@
 <template>
   <div class="difficulty-label">{{ label }}</div>
-  <div class="difficulty-label-base">Base XP Gained: {{ baseValue }}</div>
-  <div class="difficulty-label-base">
-    Adjusted XP Gained: {{ currentValue }}
+
+  <div class="difficulty-label-wrapper">
+    <div class="difficulty-label-inner">
+      <div class="label">Base XP Gained:</div>
+      <div class="value">{{ baseValue }}</div>
+    </div>
   </div>
+
+  <div class="difficulty-label-wrapper">
+    <div class="difficulty-label-inner">
+      <div class="label">Adjusted XP Gained:</div>
+      <div class="value">{{ currentValue }}</div>
+    </div>
+  </div>
+
   <div class="progress-container">
     <ProgressBar
       :value="(baseValue / maxValue) * 100"
