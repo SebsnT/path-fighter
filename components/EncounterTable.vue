@@ -4,7 +4,7 @@
     :size="'small'"
     :value="encounterArray"
     scrollable
-    :scroll-height="manualThresholds ? '57vh' : 'calc(64vh)'"
+    :scroll-height="manualThresholds ? '52vh' : 'calc(60vh)'"
   >
     <Column
       v-for="col in encounterColumns"
