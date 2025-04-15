@@ -50,7 +50,7 @@
       </template>
     </Column>
     <template #expansion="row">
-      <TableRowDetails :creature="row.data" />
+      <CreatureDetails :creature="row.data" />
     </template>
     <!-- Detail view for the expanded row -->
   </DataTable>
