@@ -1,23 +1,4 @@
 import type { ChallengeType } from "~/models/challengeType";
-// Matches [Label](Link)
-
-/**
- *
- *
- * @param markdown
- * @returns
- */
-export function hasOneMarkdownEntry(markdown: string): boolean {
-  // Matches [Label](Link)
-  const regex = /\[([^\]]+)\]\(([^)]+)\)/;
-  return regex.exec(markdown) ? true : false;
-}
-
-export function hasMutipleMarkdownEntries(markdown: string): boolean {
-  // Matches [Label](Link)
-  const regex = /^(?:\[[^\]]+\]\([^)]+\),\s*)+\[[^\]]+\]\([^)]+\)$/;
-  return regex.exec(markdown) ? true : false;
-}
 
 export function calculateCreatureXP(
   partySize: number,

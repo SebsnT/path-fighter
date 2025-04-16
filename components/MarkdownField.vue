@@ -22,10 +22,6 @@
 
 <script setup lang="ts">
 import { baseUrl } from "~/constants/url.constants";
-import { hasOneMarkdownEntry } from "~/utils/encounterUtils";
-import { hasMutipleMarkdownEntries } from "~/utils/encounterUtils";
-import { parseMultipleMarkdownStrings } from "~/utils/tableUtils";
-import { parseOneMarkdownLink } from "~/utils/tableUtils";
 
 const props = defineProps({
   data: {

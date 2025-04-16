@@ -3,6 +3,24 @@ import type { SelectionOption } from "~/models/selectionOptions";
 
 /**
  *
+ *
+ * @param markdown
+ * @returns
+ */
+export function hasOneMarkdownEntry(markdown: string): boolean {
+  // Matches [Label](Link)
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/;
+  return regex.exec(markdown) ? true : false;
+}
+
+export function hasMutipleMarkdownEntries(markdown: string): boolean {
+  // Matches [Label](Link)
+  const regex = /^(?:\[[^\]]+\]\([^)]+\),\s*)+\[[^\]]+\]\([^)]+\)$/;
+  return regex.exec(markdown) ? true : false;
+}
+
+/**
+ *
  * @param markdown
  * @returns
  */
@@ -14,8 +32,9 @@ export function parseOneMarkdownLink(markdown: string): MardownLink {
       label: match[1],
       link: match[2],
     };
+  } else {
+    return { label: "-" };
   }
-  return { label: "-" };
 }
 
 /**

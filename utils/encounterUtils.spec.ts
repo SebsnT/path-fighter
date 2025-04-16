@@ -1,9 +1,5 @@
 import { describe, expect, it, test } from "vitest";
-import {
-  calculateCreatureXP,
-  hasMutipleMarkdownEntries,
-  hasOneMarkdownEntry,
-} from "./encounterUtils";
+import { calculateCreatureXP } from "./encounterUtils";
 import type { ChallengeType } from "~/models/challengeType";
 
 type TestCase = {
@@ -18,36 +14,6 @@ type TestCase = {
 };
 
 describe("Encounter Utils", () => {
-  describe("hasOneMarkdownEntry", () => {
-    it("should return false for non markdownEntry", () => {
-      const testString = "Test 123";
-      expect(hasOneMarkdownEntry(testString)).toBe(false);
-    });
-
-    it("should return true for a markdownEntry", () => {
-      const testString = "lorem ipsum [Test](/Traits.aspx?ID=1) lorem ipsum";
-      expect(hasOneMarkdownEntry(testString)).toStrictEqual(true);
-    });
-  });
-
-  describe("hasMutipleMarkdownEntries", () => {
-    it("should return false for non if it contains no markdown entries", () => {
-      const testString = "Test 123";
-      expect(hasMutipleMarkdownEntries(testString)).toStrictEqual(false);
-    });
-
-    it("should return false for non if it contains one markdown entries", () => {
-      const testString = "[Test](/Traits.aspx?ID=1)";
-      expect(hasMutipleMarkdownEntries(testString)).toStrictEqual(false);
-    });
-
-    it("should return false for non if it contains two markdown entries", () => {
-      const testString =
-        "[Test1](/Traits.aspx?ID=1), [Test2](/Traits.aspx?ID=2)";
-      expect(hasMutipleMarkdownEntries(testString)).toStrictEqual(true);
-    });
-  });
-
   describe("calculateCreatureXP", () => {
     const testCases: TestCase[] = [
       {
