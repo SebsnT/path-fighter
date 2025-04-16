@@ -1,25 +1,20 @@
 <template>
   <template v-if="hasMutipleMarkdownEntries(props.data)">
     <span
-      v-for="(link, index) in TableUtils.parseMultipleMarkdownStrings(
-        props.data,
-      )"
+      v-for="(link, index) in parseMultipleMarkdownStrings(props.data)"
       :key="index"
     >
       <a :href="baseUrl + link.link" target="_blank">{{ link.label }}</a>
-      <span
-        v-if="
-          index < TableUtils.parseMultipleMarkdownStrings(props.data).length - 1
-        "
+      <span v-if="index < parseMultipleMarkdownStrings(props.data).length - 1"
         >,
       </span>
     </span>
   </template>
   <template v-else-if="hasOneMarkdownEntry(props.data)">
     <a
-      :href="baseUrl + TableUtils.parseOneMarkdownLink(props.data).link"
+      :href="baseUrl + parseOneMarkdownLink(props.data).link"
       target="_blank"
-      >{{ TableUtils.parseOneMarkdownLink(props.data).label }}</a
+      >{{ parseOneMarkdownLink(props.data).label }}</a
     >
   </template>
   <template v-else><div>-</div></template>
@@ -27,6 +22,10 @@
 
 <script setup lang="ts">
 import { baseUrl } from "~/constants/url.constants";
+import { hasOneMarkdownEntry } from "~/utils/encounterUtils";
+import { hasMutipleMarkdownEntries } from "~/utils/encounterUtils";
+import { parseMultipleMarkdownStrings } from "~/utils/tableUtils";
+import { parseOneMarkdownLink } from "~/utils/tableUtils";
 
 const props = defineProps({
   data: {

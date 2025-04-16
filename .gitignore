@@ -18,6 +18,7 @@ logs
 .fleet
 .idea
 __pycache__
+coverage
 
 # Local env files
 .env

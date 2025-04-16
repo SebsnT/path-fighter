@@ -17,8 +17,8 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/eslint",
     "@primevue/nuxt-module",
-    "@nuxt/test-utils",
     "@nuxtjs/google-fonts",
+    "@nuxt/test-utils/module",
   ],
   primevue: {
     options: {
