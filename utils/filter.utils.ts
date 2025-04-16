@@ -14,6 +14,13 @@ export function onNumberInput(event: InputNumberInputEvent): void {
   target.focus();
 }
 
+/**
+ * Gets selection options for {@link keyField} of given {@link creatures}
+ *
+ * @param creatures
+ * @param keyField
+ * @returns
+ */
 export function getSelectionOptions(
   creatures: Creature[],
   keyField: string, // Single field name, but values inside are string[]
@@ -22,13 +29,19 @@ export function getSelectionOptions(
 
   return options.sort((a, b) => {
     // Ensure that both labels are strings, fallback to empty string if undefined or null
-    const labelA = a.label != null ? String(a.label) : ""; // Convert to string or default to ''
-    const labelB = b.label != null ? String(b.label) : ""; // Convert to string or default to ''
+    const labelA = a.label ? String(a.label) : ""; // Convert to string or default to ''
+    const labelB = b.label ? String(b.label) : ""; // Convert to string or default to ''
 
     return labelA.localeCompare(labelB);
   });
 }
 
+/**
+ *
+ * @param creatures
+ * @param key
+ * @returns
+ */
 function selectionOptionsFromKeyAndValue(
   creatures: Creature[],
   key: string,

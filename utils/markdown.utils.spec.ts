@@ -5,7 +5,7 @@ import {
   parseOneMarkdownLink,
   parseOneMarkdownStringAsSelectionOption,
   parseMultipleMarkdownStrings,
-} from "./markdownUtils";
+} from "./markdown.utils";
 
 describe("Markdown Utils", () => {
   describe("hasOneMarkdownEntry", () => {

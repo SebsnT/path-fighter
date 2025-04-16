@@ -1,5 +1,5 @@
-import { describe, expect, it, test } from "vitest";
-import { calculateCreatureXP } from "./encounterUtils";
+import { describe, expect, test } from "vitest";
+import { calculateCreatureXP } from "./encounter.utils";
 import type { ChallengeType } from "~/models/challengeType";
 
 type TestCase = {
