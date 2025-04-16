@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { exportJSON, exportPDF } from "~/utils/export";
+import { exportJSON, exportPDF } from "~/utils/export.utils";
 import { importJSON } from "~/utils/import";
 import { reset } from "~/utils/reset";
 
