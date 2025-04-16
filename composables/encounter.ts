@@ -164,12 +164,14 @@ export const useEncounter = () => {
     const oldKey = `${creature.id}:${creature.challenge_type}`;
     const newKey = `${creature.id}:${newType}`;
 
+    adjustedChallengeTypeUrl(creature, newType);
+
     if (encounter.value.has(oldKey) && encounter.value.has(newKey)) {
       mergeExistingCreatures(oldKey, newKey, newType);
     } else if (encounter.value.has(oldKey)) {
       updateExistingCreature(oldKey, newKey, newType);
     }
-    adjustedChallengeTypeUrl(creature, newType);
+
     recalculateDifficulty(encounterArray.value);
   }
 
