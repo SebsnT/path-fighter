@@ -30,7 +30,7 @@ import InputText from "primevue/inputtext";
 import InputNumber from "primevue/inputnumber";
 import { computed, ref, watch } from "vue";
 import { columns } from "../config/column.config";
-import { onNumberInput } from "~/utils/filterUtils";
+import { onNumberInput } from "~/utils/filter.utils";
 import type { Creature } from "~/models/creature";
 import type { Column } from "~/models/column";
 import type { SelectionOption } from "~/models/selectionOptions";
