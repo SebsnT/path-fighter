@@ -40,6 +40,17 @@ import { reset } from "~/utils/reset";
 const { encounterArray } = useEncounterState();
 </script>
 
-<style lang="scss">
-@use "../assets/scss/toolbar";
+<style scoped lang="scss">
+.buttons {
+  display: flex;
+  flex: 1;
+  justify-content: end;
+  align-items: center;
+  gap: 12px;
+  margin-right: 12px;
+
+  button {
+    max-height: 40px;
+  }
+}
 </style>
