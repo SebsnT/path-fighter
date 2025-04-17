@@ -16,8 +16,7 @@
 </template>
 
 <script setup lang="ts">
-const { thresholds } = useThresholds();
-const { manualThresholds } = useDifficulty();
+const { thresholds, manualThresholds } = useThresholds();
 
 // Define labels for each threshold type
 const thresholdLabels = {

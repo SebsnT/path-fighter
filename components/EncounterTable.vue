@@ -50,7 +50,7 @@ import { encounterColumns } from "~/config/column.config";
 
 const { encounterArray, updateChallengeType } = useEncounter();
 
-const { manualThresholds } = useDifficulty();
+const { manualThresholds } = useThresholds();
 
 const challengeOptions = [
   {

@@ -1,6 +1,7 @@
-import { useDifficulty } from "~/composables/difficulty";
 import type { ChallengeType } from "~/models/challengeType";
 import type { Creature } from "~/models/creature";
+import { useEncounterState } from "./encounterState";
+import { useDifficulty } from "./difficulty";
 
 const { encounterArray, encounter } = useEncounterState();
 
@@ -87,7 +88,7 @@ export const useEncounter = () => {
     if (existingCreature.count == 0) {
       encounter.value.delete(key);
     }
-    decreaseDifficulty(creature.level, creature.challenge_type);
+    decreaseDifficulty(creature.level, creature.count, creature.challenge_type);
   }
 
   /**
@@ -98,11 +99,7 @@ export const useEncounter = () => {
   function deleteAllOfOneCreatureFromEncounter(creature: Creature): void {
     const key = `${creature.id}:${creature.challenge_type}`;
 
-    const existingCreature = encounter.value.get(key)!;
-
-    for (let i = 0; i < existingCreature.count; i++) {
-      decreaseDifficulty(creature.level, creature.challenge_type);
-    }
+    decreaseDifficulty(creature.level, creature.count, creature.challenge_type);
 
     encounter.value.delete(key);
   }

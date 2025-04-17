@@ -36,9 +36,13 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { useDifficulty } from "~/composables/difficulty";
+import { useThresholds } from "~/composables/thresholds";
 
 const { thresholds } = useThresholds();
-const { baseValue, currentValue, maxValue } = useDifficulty();
+const { baseValue, currentValue } = useDifficulty();
+
+const { maxValue } = useThresholds();
 
 const color = computed(() => {
   if (baseValue.value >= thresholds.value.extremeThreshold) return "red";

@@ -73,7 +73,7 @@ const props = defineProps({
 
 const { filters } = useFilters();
 const { addOneToEncounter } = useEncounter();
-const { manualThresholds } = useDifficulty();
+const { manualThresholds } = useThresholds();
 
 // Filtered creatures computed property
 const filteredCreatures = computed(() => {
