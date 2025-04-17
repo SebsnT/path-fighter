@@ -1,5 +1,5 @@
 import { ref, onBeforeMount } from "vue";
-import { repositoryUrl } from "~/constants/fetch.consants";
+import { repositoryUrl } from "~/constants/fetch.constants";
 import type { Creature } from "~/models/creature";
 
 export const useCreatures = () => {

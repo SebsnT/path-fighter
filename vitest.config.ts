@@ -17,6 +17,7 @@ export default defineVitestConfig({
     coverage: {
       exclude: [
         "**/*.config.*",
+        "**/*.constants.*",
         "**/app.vue",
         "**/layouts/**",
         ...coverageConfigDefaults.exclude,
