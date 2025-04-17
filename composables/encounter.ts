@@ -53,18 +53,12 @@ export const useEncounter = () => {
     // Iterate over the array of creatures
     creatures.forEach((creature) => {
       const key = `${creature.id}:${creature.challenge_type}`;
-      // Check if the creature is already in the map
-      if (encounter.value.has(key)) {
-        // Increment the count of the existing creature
-        const existingCreature = encounter.value.get(key)!;
-        existingCreature.count = creature.count;
-      } else {
-        // Add new creature with count set to 1
-        encounter.value.set(key, {
-          ...creature,
-          count: creature.count,
-        });
-      }
+
+      // Set creature in the map
+      encounter.value.set(key, {
+        ...creature,
+        count: creature.count,
+      });
 
       // Increase difficulty based on the creature's level
       increaseDifficulty(
@@ -217,7 +211,6 @@ export const useEncounter = () => {
   }
 
   return {
-    encounterArray,
     addOneToEncounter,
     addMultipleToEncounter,
     updateChallengeType,

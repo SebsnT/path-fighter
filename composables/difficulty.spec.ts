@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 
 import { useDifficulty } from "./difficulty";
 
-describe("Description", () => {
+describe("Difficulty composable", () => {
   const {
     baseValue,
     currentValue,

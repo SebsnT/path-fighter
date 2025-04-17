@@ -19,6 +19,7 @@ export default defineVitestConfig({
         "**/*.config.*",
         "**/*.constants.*",
         "**/app.vue",
+        "**/AppHeader.vue",
         "**/layouts/**",
         ...coverageConfigDefaults.exclude,
       ],
