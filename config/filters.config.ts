@@ -8,12 +8,20 @@ export const filterConfig: Filter[] = [
     type: "string",
   },
   {
-    key: "level",
+    key: "level_min",
     label: "Min Level",
     matchMode: "gte",
+    type: "number",
     minValue: -1,
     maxValue: 25,
+  },
+  {
+    key: "level_max",
+    label: "Max Level",
+    matchMode: "lte",
     type: "number",
+    minValue: -1,
+    maxValue: 25,
   },
   {
     key: "creature_family",

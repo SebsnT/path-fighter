@@ -93,9 +93,16 @@ const filteredCreatures = computed(() => {
       const matchMode = filter.matchMode;
 
       if (filterValue && matchMode) {
-        const fieldValue = creature[field]
-          ? creature[field].toString().toLowerCase()
-          : "";
+        let fieldValue;
+
+        // Special handling for level_min and level_max
+        if (field === "level_min" || field === "level_max") {
+          fieldValue = creature.level?.toString().toLowerCase() ?? "";
+        } else {
+          fieldValue = creature[field]
+            ? creature[field].toString().toLowerCase()
+            : "";
+        }
 
         switch (matchMode) {
           case "in":
@@ -108,6 +115,8 @@ const filteredCreatures = computed(() => {
             return containsFilter(filterValue, fieldValue);
           case "gte":
             return gteFilter(filterValue, fieldValue);
+          case "lte":
+            return lteFilter(filterValue, fieldValue);
 
           default:
             return true; // If no filter or match mode is applied
@@ -163,6 +172,17 @@ function containsFilter(filterValue: FilterValue, fieldValue: string) {
 function gteFilter(filterValue: FilterValue, fieldValue: string) {
   if (typeof filterValue === "number") {
     return Number(fieldValue) >= filterValue;
+  }
+}
+
+/**
+ *
+ * @param filterValue
+ * @param fieldValue
+ */
+function lteFilter(filterValue: FilterValue, fieldValue: string) {
+  if (typeof filterValue === "number") {
+    return Number(fieldValue) <= filterValue;
   }
 }
 
