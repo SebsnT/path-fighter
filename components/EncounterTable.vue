@@ -48,7 +48,8 @@
 <script setup>
 import { encounterColumns } from "~/config/column.config";
 
-const { encounterArray, updateChallengeType } = useEncounter();
+const { updateChallengeType } = useEncounter();
+const { encounterArray } = useEncounterState();
 
 const { manualThresholds } = useThresholds();
 
