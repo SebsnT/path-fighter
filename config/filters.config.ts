@@ -1,54 +1,23 @@
-import type { Column } from "~/models/column";
+import type { Filter } from "~/models/filter";
 
-export const encounterColumns: Column[] = [
-  {
-    key: "count",
-    label: "Number",
-    sortable: true,
-  },
+export const filterConfig: Filter[] = [
   {
     key: "name",
     label: "Name",
-    sortable: true,
-    type: "string",
-  },
-  {
-    key: "challenge_type",
-    label: "Type",
-  },
-  {
-    key: "action",
-    label: "Action",
-  },
-];
-
-export const columns: Column[] = [
-  {
-    key: "name",
-    label: "Name",
-    width: "25%",
-    sortable: true,
-    filterable: true,
+    matchMode: "contains",
     type: "string",
   },
   {
     key: "level",
-    label: "Level",
-    width: "5%",
-    sortable: true,
-    filterable: true,
+    label: "Min Level",
     matchMode: "gte",
-    type: "number",
     minValue: -1,
     maxValue: 25,
+    type: "number",
   },
   {
     key: "creature_family",
-    markdownField: "creature_family_markdown",
     label: "Family",
-    width: "200px",
-    sortable: true,
-    filterable: true,
     type: "dropdown",
     select: "multiple",
     matchMode: "in",
@@ -56,11 +25,7 @@ export const columns: Column[] = [
   },
   {
     key: "trait_raw",
-    markdownField: "trait_markdown",
     label: "Traits",
-    width: "250px",
-    sortable: true,
-    filterable: true,
     type: "dropdown",
     select: "multiple",
     containsMultipleValues: true,
@@ -70,8 +35,6 @@ export const columns: Column[] = [
   {
     key: "alignment",
     label: "Alignment",
-    width: "5%",
-    filterable: true,
     type: "dropdown",
     select: "multiple",
     matchMode: "in",
@@ -88,11 +51,5 @@ export const columns: Column[] = [
       { label: "Chaotic Evil", value: "CE" },
       { label: "No Alignment", value: "No Alignment" },
     ],
-  },
-  {
-    key: "action",
-    width: "5%",
-    label: "Action",
-    filterable: false,
   },
 ];

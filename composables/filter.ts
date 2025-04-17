@@ -1,24 +1,26 @@
-import type { Column } from "~/models/column";
 import type { Filters } from "~/models/filters";
 
-import { columns } from "~/config/column.config";
+import { filterConfig } from "~/config/filters.config";
+import type { Filter } from "~/models/filter";
 
 export const useFilters = () => {
-  const filters = useState<Filters>("filters", () => generateFilters(columns));
+  const filters = useState<Filters>("filters", () =>
+    generateFilters(filterConfig),
+  );
 
   // Function to generate filters from columns configuration
-  function generateFilters(columns: Column[]): Filters {
+  function generateFilters(filterArray: Filter[]): Filters {
     const filters: Filters = {
       global: { value: null, matchMode: "contains" },
     };
-    columns.forEach((col) => {
-      filters[col.key] = {
+    filterArray.forEach((filter) => {
+      filters[filter.key] = {
         value:
-          col.type === "number"
+          filter.type === "number"
             ? (null as number | null)
             : (null as string | null),
-        matchMode: col.matchMode ?? "contains",
-        containsMultipleValues: col.containsMultipleValues ?? false,
+        matchMode: filter.matchMode ?? "contains",
+        containsMultipleValues: filter.containsMultipleValues ?? false,
       };
     });
     return filters;

@@ -1,14 +1,18 @@
 <template>
   <div class="filter-bar-container">
     <div class="filter-bar">
-      <div v-for="col in filterableColumns" :key="col.key" class="filter-input">
+      <div
+        v-for="filter in filterConfig"
+        :key="filter.key"
+        class="filter-input"
+      >
         <component
-          :is="getFilterComponent(col)"
-          :id="`filter-${col.key}`"
-          v-model="filters[col.key].value"
+          :is="getFilterComponent(filter)"
+          :id="`filter-${filter.key}`"
+          v-model="filters[filter.key].value"
           class="filter-input-field"
-          :placeholder="`Search ${col.label}`"
-          v-bind="getComponentProps(col)"
+          :placeholder="`Search ${filter.label}`"
+          v-bind="getComponentProps(filter)"
         />
       </div>
       <Button
@@ -28,12 +32,12 @@ import Select from "primevue/select";
 import MultiSelect from "primevue/multiselect";
 import InputText from "primevue/inputtext";
 import InputNumber from "primevue/inputnumber";
-import { computed, ref, watch } from "vue";
-import { columns } from "../config/column.config";
+import { computed, watch } from "vue";
 import { onNumberInput } from "~/utils/filter.utils";
+import { filterConfig } from "~/config/filters.config";
 import type { Creature } from "~/models/creature";
-import type { Column } from "~/models/column";
 import type { SelectionOption } from "~/models/selectionOptions";
+import type { Filter } from "~/models/filter";
 
 const props = defineProps({
   creatures: {
@@ -43,10 +47,9 @@ const props = defineProps({
 });
 
 const { filters, clearFilters } = useFilters();
-const filterableColumns = ref(columns.filter((col) => col.filterable));
 
 const computedOptions = computed(() => {
-  return filterableColumns.value.reduce(
+  return filterConfig.reduce(
     (acc, col) => {
       if (col.type === "dropdown") {
         acc[col.key] = getSelectionOptions(props.creatures, col.key);
@@ -60,7 +63,7 @@ const computedOptions = computed(() => {
 watch(
   () => props.creatures,
   (newCreatures) => {
-    filterableColumns.value.forEach((col) => {
+    filterConfig.forEach((col) => {
       if (col.type === "dropdown") {
         filters.value[col.key].selectionOptions = getSelectionOptions(
           newCreatures,
@@ -72,29 +75,33 @@ watch(
   { immediate: true },
 );
 
-const getFilterComponent = (col: Column) => {
-  switch (col.type) {
+const getFilterComponent = (filter: Filter) => {
+  switch (filter.type) {
     case "string":
       return InputText;
     case "number":
       return InputNumber;
     case "dropdown":
-      return col.select === "multiple" ? MultiSelect : Select;
+      return filter.select === "multiple" ? MultiSelect : Select;
     default:
       return "div";
   }
 };
 
-const getComponentProps = (col: Column) => {
-  if (col.type === "number") {
-    return { min: col.minValue, max: col.maxValue, onInput: onNumberInput };
+const getComponentProps = (filter: Filter) => {
+  if (filter.type === "number") {
+    return {
+      min: filter.minValue,
+      max: filter.maxValue,
+      onInput: onNumberInput,
+    };
   }
-  if (col.type === "dropdown") {
+  if (filter.type === "dropdown") {
     return {
       filter: true,
-      options: col.getUniqueValues
-        ? computedOptions.value[col.key]
-        : col.selectionOptions,
+      options: filter.getUniqueValues
+        ? computedOptions.value[filter.key]
+        : filter.selectionOptions,
       "option-label": "label",
       "option-value": "value",
       "show-clear": true,

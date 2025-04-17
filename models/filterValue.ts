@@ -1,1 +1,6 @@
-export type FilterValue = string | string[] | number | null;
+export type FilterValue =
+  | string
+  | string[]
+  | number
+  | { min: number; max: number }
+  | null;

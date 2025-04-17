@@ -60,7 +60,7 @@
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 
-import { columns } from "~/config/column.config";
+import { columns } from "~/config/columns.config";
 import type { Creature } from "~/models/creature";
 import type { FilterValue } from "~/models/filterValue";
 
@@ -162,7 +162,7 @@ function containsFilter(filterValue: FilterValue, fieldValue: string) {
  */
 function gteFilter(filterValue: FilterValue, fieldValue: string) {
   if (typeof filterValue === "number") {
-    return Number(fieldValue) > filterValue;
+    return Number(fieldValue) >= filterValue;
   }
 }
 

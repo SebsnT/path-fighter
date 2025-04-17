@@ -2,9 +2,8 @@ import { expect, describe, it } from "vitest";
 import { useFilters } from "./filter";
 
 describe("useFilters", () => {
-  const { filters, clearFilters } = useFilters();
   describe("filters", () => {
-    const { filters, clearFilters } = useFilters();
+    const { filters } = useFilters();
     it("should contain only Filter-like objects", () => {
       expect(typeof filters.value).toBe("object");
       expect(filters.value).not.toBeNull();
