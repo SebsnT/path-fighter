@@ -1,4 +1,4 @@
 export interface SelectionOption {
   label: string;
-  value: string;
+  value: string | boolean;
 }

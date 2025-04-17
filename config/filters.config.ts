@@ -60,4 +60,15 @@ export const filterConfig: Filter[] = [
       { label: "No Alignment", value: "No Alignment" },
     ],
   },
+  {
+    key: "npc",
+    label: "Type",
+    type: "dropdown",
+    select: "single",
+    matchMode: "contains",
+    selectionOptions: [
+      { label: "Creature", value: false },
+      { label: "NPC", value: "true" },
+    ],
+  },
 ];
