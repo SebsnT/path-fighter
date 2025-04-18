@@ -17,12 +17,13 @@
       />
     </div>
 
-    <div class="party-entry center">
+    //TODO later
+    <!-- <div class="party-entry center">
       <label for="partyLevel">Manual Thresholds</label>
       <div class="checkbox-container">
         <Checkbox v-model="manualThresholds" binary />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -40,7 +41,7 @@ const { adjustXPGained } = useExperiencePoints();
 <style scoped lang="scss">
 .party-inputs {
   display: flex;
-  gap: 10px;
+  gap: 40px;
   padding-top: 10px;
   padding-bottom: 10px;
   justify-content: center;
@@ -59,6 +60,7 @@ const { adjustXPGained } = useExperiencePoints();
 .party-entry {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .party-input {
