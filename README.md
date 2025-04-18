@@ -2,6 +2,11 @@
 
 PathFighter is a free Pathfighter 2e (second edition) encounter builder designed for dungeon masters to quickly create encounters for their games.
 
+This tool is heavily inspired by https://github.com/maxiride/pf2e-encounters. So check out his work and project.
+
+The data for this project was gatherd using this tool:
+https://github.com/LukeHagar/archives-of-nethys-scraper
+
 ## Features
 
 - Allows dynamic party sizes and levels
