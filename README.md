@@ -1,59 +1,58 @@
-# Nuxt 3 Minimal Starter
+# PathFighter
+
+PathFighter is a free Pathfighter 2e (second edition) encounter builder designed for dungeon masters to quickly create encounters for their games.
+
+## Features
+
+- Allows dynamic party sizes and levels
+- Encounter difficulty indicator
+- Links to all [Archives of Nethys](https://2e.aonprd.com) content used.
+- JSON export / import 
+- PDF export
+
+## Legal Information
+
+This tool and the associated website uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Fan Content Policy [paizo.com/licenses/fancontent]([https://paizo.com/licenses/fancontent]). We are expressly prohibited from charging you to use or access this content. This tool and the associated website is not published, endorsed, or specifically approved by Paizo nor Archives of Nethys. For more information about Paizo Inc. and Paizo products, visit [paizo.com](https://paizo.com).
+
+Link to the open gaming license:
+https://opengamingfoundation.org/ogl.html
+
+As this uses all creature releated material from pathfinder 2e (second edition) present on archives of nethys please refer to their sources:
+
+https://2e.aonprd.com/Sources.aspx
+
+
+## Development
+
+This tool and the associated website are build with [Nuxt 3](https://nuxt.com).
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+### Setup
 
 Make sure to install the dependencies:
 
 ```bash
 # npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+### Development Server
 
 Start the development server on `http://localhost:3000`:
 
 ```bash
 # npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
 ```bash
 # npm
 npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
@@ -61,15 +60,4 @@ Locally preview production build:
 ```bash
 # npm
 npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
