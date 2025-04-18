@@ -17,6 +17,7 @@
     "@primevue/forms": "^4.3.3",
     "@primevue/themes": "^4.3.3",
     "jspdf": "^3.0.1",
+    "markdown-it": "^14.1.0",
     "nuxt": "^3.16.2",
     "nuxt-app": "file:",
     "primeicons": "^7.0.0",
