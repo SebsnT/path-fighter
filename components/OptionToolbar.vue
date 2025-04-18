@@ -31,6 +31,7 @@
     />
 
     <LegalInformation />
+    <BuyMeACoffee />
   </div>
 </template>
 
@@ -51,6 +52,7 @@ const { encounterArray } = useEncounterState();
   gap: 12px;
   margin-right: 12px;
 
+  a,
   button {
     max-height: 40px;
   }
