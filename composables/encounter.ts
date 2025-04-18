@@ -82,7 +82,7 @@ export const useEncounter = () => {
     if (existingCreature.count == 0) {
       encounter.value.delete(key);
     }
-    decreaseDifficulty(creature.level, creature.count, creature.challenge_type);
+    decreaseDifficulty(creature.level, 1, creature.challenge_type);
   }
 
   /**
