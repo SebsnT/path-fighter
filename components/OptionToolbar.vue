@@ -29,6 +29,8 @@
       severity="secondary"
       @click="exportPDF()"
     />
+
+    <LegalInformation />
   </div>
 </template>
 
