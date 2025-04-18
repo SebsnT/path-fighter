@@ -55,7 +55,7 @@ def extract_attacks(text):
 
     # Improved pattern: match only up to end of single attack line
     pattern = re.compile(
-        r"(Melee|Ranged)\s+\w+(?:\s+\w+)*\s+Action[s]?\s+[^,]+?,\s*Damage\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+(?:\s+plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+)?",
+        r"(Melee|Ranged)\s+\w+(?:\s+\w+)*\s+Action.+?,\s*Damage\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+(?:\s+plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+)?",
         flags=re.IGNORECASE,
     )
 
