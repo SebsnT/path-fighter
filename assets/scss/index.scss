@@ -11,9 +11,11 @@
 }
 
 .slot-right {
+  display: flex;
+  flex: 1;
   border: #f5f5f5 2px solid;
   margin-right: 5px;
-  width: 600px;
+  max-width: 600px;
 }
 
 .data-table {
@@ -73,3 +75,22 @@ a:active {
   color: #9e9eff;
 }
 
+.p-fileupload-choose-button {
+  max-height: 40px;
+}
+
+button {
+  max-height: 40px;
+}
+
+.party-entry {
+  .p-inputnumber-input {
+    max-width: 60px;
+  }
+}
+
+.filter-input {
+  .p-inputnumber-input {
+    max-width: 160px;
+  }
+}

@@ -6,3 +6,9 @@
       style="max-height: 40px !important; max-width: 136px !important"
   /></a>
 </template>
+
+<style lang="css" scoped>
+a {
+  max-height: 40px;
+}
+</style>

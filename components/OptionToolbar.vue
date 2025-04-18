@@ -51,10 +51,5 @@ const { encounterArray } = useEncounterState();
   align-items: center;
   gap: 12px;
   margin-right: 12px;
-
-  a,
-  button {
-    max-height: 40px;
-  }
 }
 </style>
