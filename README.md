@@ -38,7 +38,7 @@ If you like my work, support me with a small donation on my "buy me a coffee". C
   /></a>
 
 
-## Development
+## Local Development
 
 This tool and the associated website are build with [Nuxt 3](https://nuxt.com).
 
@@ -52,6 +52,14 @@ Make sure to install the dependencies:
 # npm
 npm install
 ```
+
+If you want to run purely local then:
+
+1. change from "loadCreaturesFromRemote" to "loadCreaturesFromLocal" in the loadCreatures.ts file.
+
+2. Run "prepare_data" python script to generate
+
+Now with these steps you have a local version of the data and you can safely start the application.
 
 ### Development Server
 
