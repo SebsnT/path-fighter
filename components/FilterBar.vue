@@ -111,3 +111,36 @@ const getComponentProps = (filter: Filter) => {
   return {};
 };
 </script>
+
+<style lang="css" scoped>
+.filter-bar-container {
+  width: 100%;
+  color: white;
+  margin-top: 10px;
+}
+
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 15px 0 10px;
+  gap: 0.5rem;
+}
+
+.filter-input {
+  flex: 1 1;
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-input label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.filter-input-field {
+  width: 100%;
+  min-width: 100px;
+}
+</style>

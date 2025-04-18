@@ -6,7 +6,7 @@
     scrollable
     sort-field="name"
     :sort-order="1"
-    :scroll-height="manualThresholds ? '52vh' : 'calc(60vh)'"
+    :scroll-height="manualThresholds ? '56vh' : 'calc(64vh)'"
   >
     <Column
       v-for="col in encounterColumns"

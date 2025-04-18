@@ -60,8 +60,8 @@ export const columns: Column[] = [
   },
   {
     key: "action",
+    label: "Add",
     width: "5%",
-    label: "Action",
     filterable: false,
   },
 ];

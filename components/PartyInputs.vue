@@ -1,20 +1,28 @@
 <template>
   <div class="party-inputs">
     <div class="party-entry">
-      <label for="partySize">Party Size:</label>
-      <InputNumber
-        v-model="partySize"
-        class="party-input"
-        @input="adjustXPGained($event)"
-      />
+      <FloatLabel variant="over">
+        <InputNumber
+          v-model="partySize"
+          :min="1"
+          :max="999"
+          class="party-input"
+          @input="adjustXPGained($event)"
+        />
+        <label for="partySize">Party Size:</label>
+      </FloatLabel>
     </div>
     <div class="party-entry">
-      <label for="partyLevel">Party Level:</label>
-      <InputNumber
-        v-model="partyLevel"
-        class="party-input"
-        @input="adjustXPGained($event)"
-      />
+      <FloatLabel variant="over">
+        <InputNumber
+          v-model="partyLevel"
+          :min="1"
+          :max="999"
+          class="party-input"
+          @input="adjustXPGained($event)"
+        />
+        <label for="partyLevel">Party Level</label>
+      </FloatLabel>
     </div>
 
     <!-- TODO later -->
@@ -41,9 +49,9 @@ const { adjustXPGained } = useExperiencePoints();
 <style scoped lang="scss">
 .party-inputs {
   display: flex;
+  margin-left: 48px;
   gap: 40px;
   padding-top: 10px;
-  padding-bottom: 10px;
   justify-content: center;
 }
 .center {
@@ -59,13 +67,7 @@ const { adjustXPGained } = useExperiencePoints();
 
 .party-entry {
   display: flex;
-  flex-direction: column;
+  gap: 8px;
   align-items: center;
-}
-
-.party-input {
-  .p-inputnumber-input {
-    max-width: 100px;
-  }
 }
 </style>

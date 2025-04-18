@@ -6,7 +6,7 @@
     :size="'small'"
     show-gridlines
     scrollable
-    :scroll-height="manualThresholds ? '52vh' : 'calc(60vh)'"
+    :scroll-height="manualThresholds ? '56vh' : 'calc(64vh)'"
     :virtual-scroller-options="{ itemSize: 50 }"
     sort-field="name"
     :sort-order="1"
