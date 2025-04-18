@@ -62,7 +62,12 @@ import Column from "primevue/column";
 
 import { columns } from "~/config/columns.config";
 import type { Creature } from "~/models/creature";
-import type { FilterValue } from "~/models/filterValue";
+import {
+  inFilter,
+  containsFilter,
+  gteFilter,
+  lteFilter,
+} from "~/utils/filter.utils";
 
 const props = defineProps({
   creatures: {
@@ -71,7 +76,7 @@ const props = defineProps({
   },
 });
 
-const { filters } = useFilters();
+const { cleanFilters } = useFilters();
 const { addOneToEncounter } = useEncounter();
 const { manualThresholds } = useThresholds();
 
@@ -125,81 +130,6 @@ const filteredCreatures = computed(() => {
     });
   });
 });
-
-/**
- *
- * @param field
- * @param filterValue
- * @param fieldValue
- */
-function inFilter(
-  filterValue: FilterValue,
-  fieldValue: string,
-  containsMultipleValues: boolean,
-) {
-  // Custom filter logic for multiple values in one column
-  if (Array.isArray(filterValue) && containsMultipleValues) {
-    return filterValue.some((filterItem: string) =>
-      fieldValue.includes(filterItem.toLowerCase()),
-    );
-  }
-
-  // Default "in" filtering behavior
-  if (Array.isArray(filterValue)) {
-    return filterValue.some((filterItem: string) =>
-      fieldValue.includes(filterItem.toLowerCase()),
-    );
-  }
-}
-
-/**
- * Contains filter ()
- *
- * @param filterValue
- * @param fieldValue
- */
-function containsFilter(filterValue: FilterValue, fieldValue: string) {
-  if (typeof filterValue === "string") {
-    return fieldValue.includes(filterValue.toLowerCase());
-  }
-}
-
-/**
- *
- * @param filterValue
- * @param fieldValue
- */
-function gteFilter(filterValue: FilterValue, fieldValue: string) {
-  if (typeof filterValue === "number") {
-    return Number(fieldValue) >= filterValue;
-  }
-}
-
-/**
- *
- * @param filterValue
- * @param fieldValue
- */
-function lteFilter(filterValue: FilterValue, fieldValue: string) {
-  if (typeof filterValue === "number") {
-    return Number(fieldValue) <= filterValue;
-  }
-}
-
-/**
- *  Remove filters with empty, null, or empty array values
- */
-function cleanFilters() {
-  return Object.fromEntries(
-    Object.entries(filters.value).filter(([_, filter]) => {
-      const filterValue = filter.value;
-      return (
-        filterValue &&
-        (Array.isArray(filterValue) ? filterValue.length > 0 : true)
-      );
-    }),
-  );
-}
 
 const expandedRows = ref({});
 

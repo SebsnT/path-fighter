@@ -1,5 +1,7 @@
 import type { InputNumberInputEvent } from "primevue/inputnumber";
 import type { Creature } from "~/models/creature";
+import type { Filters } from "~/models/filters";
+import type { FilterValue } from "~/models/filterValue";
 import type { SelectionOption } from "~/models/selectionOptions";
 
 /**
@@ -61,4 +63,64 @@ function selectionOptionsFromKeyAndValue(
   }
 
   return Array.from(uniqueKeys, ([value]) => ({ label: value, value }));
+}
+
+/**
+ *
+ * @param field
+ * @param filterValue
+ * @param fieldValue
+ */
+export function inFilter(
+  filterValue: FilterValue,
+  fieldValue: string,
+  containsMultipleValues: boolean,
+) {
+  // Custom filter logic for multiple values in one column
+  if (Array.isArray(filterValue) && containsMultipleValues) {
+    return filterValue.some((filterItem: string) =>
+      fieldValue.includes(filterItem.toLowerCase()),
+    );
+  }
+
+  // Default "in" filtering behavior
+  if (Array.isArray(filterValue)) {
+    return filterValue.some((filterItem: string) =>
+      fieldValue.includes(filterItem.toLowerCase()),
+    );
+  }
+}
+
+/**
+ * Contains filter ()
+ *
+ * @param filterValue
+ * @param fieldValue
+ */
+export function containsFilter(filterValue: FilterValue, fieldValue: string) {
+  if (typeof filterValue === "string") {
+    return fieldValue.includes(filterValue.toLowerCase());
+  }
+}
+
+/**
+ *
+ * @param filterValue
+ * @param fieldValue
+ */
+export function gteFilter(filterValue: FilterValue, fieldValue: string) {
+  if (typeof filterValue === "number") {
+    return Number(fieldValue) >= filterValue;
+  }
+}
+
+/**
+ *
+ * @param filterValue
+ * @param fieldValue
+ */
+export function lteFilter(filterValue: FilterValue, fieldValue: string) {
+  if (typeof filterValue === "number") {
+    return Number(fieldValue) <= filterValue;
+  }
 }

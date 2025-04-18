@@ -33,8 +33,24 @@ export const useFilters = () => {
     });
   };
 
+  /**
+   *  Remove filters with empty, null, or empty array values
+   */
+  function cleanFilters() {
+    return Object.fromEntries(
+      Object.entries(filters.value).filter(([_, filter]) => {
+        const filterValue = filter.value;
+        return (
+          filterValue &&
+          (Array.isArray(filterValue) ? filterValue.length > 0 : true)
+        );
+      }),
+    );
+  }
+
   return {
     filters,
     clearFilters,
+    cleanFilters,
   };
 };
