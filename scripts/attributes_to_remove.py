@@ -42,7 +42,6 @@ attributes_to_remove = [
     "search_markdown",
     "sense",
     "sense_markdown",
-    "size",
     "size_id",
     "skill",
     "skill_markdown",

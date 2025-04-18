@@ -24,6 +24,22 @@ export const filterConfig: Filter[] = [
     maxValue: 25,
   },
   {
+    key: "size",
+    label: "Size",
+    type: "dropdown",
+    select: "multiple",
+    matchMode: "in",
+    containsMultipleValues: true,
+    selectionOptions: [
+      { label: "Tiny", value: "Tiny" },
+      { label: "Small", value: "Small" },
+      { label: "Medium", value: "Medium" },
+      { label: "Large", value: "Large" },
+      { label: "Huge", value: "Huge" },
+      { label: "Gargantuan ", value: "Gargantuan" },
+    ],
+  },
+  {
     key: "creature_family",
     label: "Family",
     type: "dropdown",
