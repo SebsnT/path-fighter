@@ -17,7 +17,7 @@
       />
     </div>
 
-    //TODO later
+    <!-- TODO later -->
     <!-- <div class="party-entry center">
       <label for="partyLevel">Manual Thresholds</label>
       <div class="checkbox-container">
