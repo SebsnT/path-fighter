@@ -51,6 +51,6 @@ const label = computed(() => {
   display: grid;
   align-items: center;
   justify-content: center;
-  width: 250px;
+  width: 200px;
 }
 </style>

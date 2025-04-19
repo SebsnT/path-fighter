@@ -124,7 +124,7 @@ const getComponentProps = (filter: Filter) => {
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 0 15px 0 10px;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .filter-input {

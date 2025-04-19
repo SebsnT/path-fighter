@@ -41,9 +41,15 @@ const props = defineProps<{
 }>();
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .action-buttons {
   display: flex;
   gap: 0.25rem;
+}
+
+@media (max-width: 1200px) {
+  .action-buttons {
+    flex-direction: column;
+  }
 }
 </style>

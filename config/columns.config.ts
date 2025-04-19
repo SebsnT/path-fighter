@@ -26,6 +26,12 @@ export const encounterColumns: Column[] = [
 
 export const columns: Column[] = [
   {
+    key: "action",
+    label: "Add",
+    width: "5%",
+    filterable: false,
+  },
+  {
     key: "name",
     label: "Name",
     width: "25%",
@@ -60,11 +66,5 @@ export const columns: Column[] = [
     label: "Alignment",
     width: "5%",
     filterable: true,
-  },
-  {
-    key: "action",
-    label: "Add",
-    width: "5%",
-    filterable: false,
   },
 ];
