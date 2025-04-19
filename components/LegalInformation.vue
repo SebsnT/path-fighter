@@ -57,11 +57,4 @@ const renderedLicenses = md.render(licenses);
 .licenses-text a:hover {
   text-decoration: underline;
 }
-
-/* Optional: More styling to handle images, if included in LICENSE.md */
-.licenses-text img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
 </style>

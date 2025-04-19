@@ -40,6 +40,7 @@
         <template v-else>
           <Button
             icon="pi pi-plus"
+            class="add-button"
             severity="success"
             size="small"
             raised
