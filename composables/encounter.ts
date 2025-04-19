@@ -17,30 +17,36 @@ export const useEncounter = () => {
   function addOneToEncounter(creature: Creature): void {
     const key = `${creature.id}:${creature.challenge_type ?? "base"}`;
 
+    const xp = increaseDifficulty(creature.level, 1, creature.challenge_type);
+
     if (encounter.value.has(key)) {
       const existingCreature = encounter.value.get(key)!;
       existingCreature.count += 1;
+      existingCreature.xp += xp;
     } else if (encounter.value.get(key)?.challenge_type != "base") {
-      addCreature(creature);
+      addCreature(creature, xp);
     }
-
-    increaseDifficulty(creature.level, 1, creature.challenge_type);
   }
 
   /**
    * Add new creature with count set to 1
    * and challenge type "base"
    *
+   *
    * @param creature
+   * @param xp
+   * @param challenge_type
    */
   function addCreature(
     creature: Creature,
+    xp: number,
     challenge_type: ChallengeType = "base",
   ) {
     encounter.value.set(`${creature.id}:${challenge_type}`, {
       ...creature,
       count: 1,
-      challenge_type: challenge_type,
+      challenge_type,
+      xp,
     });
   }
 
@@ -54,18 +60,20 @@ export const useEncounter = () => {
     creatures.forEach((creature) => {
       const key = `${creature.id}:${creature.challenge_type}`;
 
-      // Set creature in the map
-      encounter.value.set(key, {
-        ...creature,
-        count: creature.count,
-      });
-
-      // Increase difficulty based on the creature's level
-      increaseDifficulty(
+      const xp = increaseDifficulty(
         creature.level,
         creature.count,
         creature.challenge_type,
       );
+
+      // Set creature in the map
+      encounter.value.set(key, {
+        ...creature,
+        count: creature.count,
+        xp: xp * creature.count,
+      });
+
+      // Increase difficulty based on the creature's level
     });
   }
 
@@ -77,12 +85,14 @@ export const useEncounter = () => {
   function deleteOneFromEncounter(creature: Creature): void {
     const key = `${creature.id}:${creature.challenge_type}`;
 
+    const xp = decreaseDifficulty(creature.level, 1, creature.challenge_type);
+
     const existingCreature = encounter.value.get(key)!;
     existingCreature.count = (existingCreature.count || 1) - 1;
+    existingCreature.xp -= xp;
     if (existingCreature.count == 0) {
       encounter.value.delete(key);
     }
-    decreaseDifficulty(creature.level, 1, creature.challenge_type);
   }
 
   /**

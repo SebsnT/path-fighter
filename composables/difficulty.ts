@@ -22,7 +22,7 @@ export const useDifficulty = () => {
     level: number,
     count: number = 1,
     challengeType: ChallengeType = "base",
-  ): void {
+  ): number {
     const { baseXP, scaledXP } = calculateCreatureXP(
       partySize.value,
       partyLevel.value,
@@ -32,18 +32,23 @@ export const useDifficulty = () => {
 
     baseValue.value += baseXP * count;
     currentValue.value += scaledXP * count;
+
+    return baseXP;
   }
 
   /**
    * Decrease the difficulty of the encounter based on player level, party size and monster level
    *
    * @param level of the creature
+   * @param count
+   * @param challengeType
+   * @returns
    */
   function decreaseDifficulty(
     level: number,
     count: number = 1,
     challengeType: ChallengeType = "base",
-  ): void {
+  ): number {
     const { baseXP, scaledXP } = calculateCreatureXP(
       partySize.value,
       partyLevel.value,
@@ -52,6 +57,8 @@ export const useDifficulty = () => {
     );
     baseValue.value -= baseXP * count;
     currentValue.value -= scaledXP * count;
+
+    return baseXP;
   }
 
   /**

@@ -4,7 +4,10 @@ export const encounterColumns: Column[] = [
   {
     key: "count",
     label: "Number",
-    sortable: true,
+  },
+  {
+    key: "xp",
+    label: "Xp",
   },
   {
     key: "name",

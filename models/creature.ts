@@ -30,6 +30,7 @@ export type Creature = {
   wisdom: number;
   weakness_raw: string;
   will_save: number;
+  xp: number;
 };
 
 type NumberObject = {
