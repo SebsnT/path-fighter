@@ -4,7 +4,6 @@ import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
 
 const config = {
   ...eslintPluginPrettierRecommended,
-  staticOnly: true,
 };
 
 export default withNuxt(config);

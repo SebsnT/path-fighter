@@ -12,7 +12,7 @@ https://github.com/LukeHagar/archives-of-nethys-scraper
 - Allows dynamic party sizes and levels
 - Encounter difficulty indicator
 - Links to all [Archives of Nethys](https://2e.aonprd.com) content used.
-- JSON export / import 
+- JSON export / import
 - PDF export
 
 ## Legal Information
@@ -30,13 +30,12 @@ https://2e.aonprd.com/Sources.aspx
 
 If you like my work, support me with a small donation on my "buy me a coffee". Coffee is the energy on which this project is build upon :)
 
-  <a href="https://www.buymeacoffee.com/SebsnT" target="_blank"
+<a href="https://www.buymeacoffee.com/SebsnT" target="_blank"
     ><img
       src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png"
       alt="Buy Me A Coffee"
       style="max-width: 200px !important"
   /></a>
-
 
 ## Local Development
 

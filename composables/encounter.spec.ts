@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { useEncounter } from "./encounter";
 import { useEncounterState } from "./encounterState";
 import type { Creature } from "~/models/creature";

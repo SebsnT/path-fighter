@@ -1,4 +1,4 @@
-<template #end>
+<template>
   <div class="buttons">
     <Button
       label="Reset"
@@ -31,7 +31,7 @@
     />
     <PdfNameDialog
       v-model="showDialog"
-      :defaultName="defaultPdfName"
+      :default-name="defaultPdfName"
       @confirm="handleExport"
     />
 

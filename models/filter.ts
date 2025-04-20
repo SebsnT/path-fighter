@@ -1,4 +1,3 @@
-import type { FilterValue } from "./filterValue";
 import type { SelectionOption } from "./selectionOptions";
 
 type MatchMode =

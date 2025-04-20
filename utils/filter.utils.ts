@@ -1,6 +1,5 @@
 import type { InputNumberInputEvent } from "primevue/inputnumber";
 import type { Creature } from "~/models/creature";
-import type { Filters } from "~/models/filters";
 import type { FilterValue } from "~/models/filterValue";
 import type { SelectionOption } from "~/models/selectionOptions";
 

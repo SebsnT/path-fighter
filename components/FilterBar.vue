@@ -103,7 +103,7 @@ const getComponentProps = (filter: Filter) => {
         ? computedOptions.value[filter.key]
         : filter.selectionOptions,
       "option-label": "label",
-      maxSelectedLabels: "2",
+      maxSelectedLabels: 2,
       "option-value": "value",
       "show-clear": true,
       "virtual-scroller-options": { itemSize: 40 },

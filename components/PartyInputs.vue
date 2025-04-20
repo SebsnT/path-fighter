@@ -36,13 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import Checkbox from "primevue/checkbox";
 import { useParty } from "~/composables/party";
-import { useThresholds } from "~/composables/thresholds";
 import { useExperiencePoints } from "~/composables/experiencePoints";
 
 const { partySize, partyLevel } = useParty();
-const { manualThresholds } = useThresholds();
 const { adjustXPGained } = useExperiencePoints();
 </script>
 

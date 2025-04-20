@@ -1,6 +1,6 @@
 import { defineVitestConfig } from "@nuxt/test-utils/config";
 import path from "path";
-import { coverageConfigDefaults, defineConfig } from "vitest/config";
+import { coverageConfigDefaults } from "vitest/config";
 
 export default defineVitestConfig({
   test: {

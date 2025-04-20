@@ -16,7 +16,7 @@
       />
       <div class="buttons">
         <Button label="Cancel" severity="secondary" @click="cancel" />
-        <Button label="Save" @click="confirm" :disabled="!name.trim()" />
+        <Button label="Save" :disabled="!name.trim()" @click="confirm" />
       </div>
     </div>
   </Dialog>
@@ -26,7 +26,6 @@
 import { ref, watch } from "vue";
 import Dialog from "primevue/dialog";
 import InputText from "primevue/inputtext";
-import Button from "primevue/button";
 
 const props = defineProps({
   modelValue: Boolean,

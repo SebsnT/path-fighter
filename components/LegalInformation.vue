@@ -3,6 +3,7 @@
     <Button label="Legal Information" @click="isOpen = true" />
 
     <Dialog v-model:visible="isOpen" header="License" modal>
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div class="licenses-text" v-html="renderedLicenses"></div>
     </Dialog>
   </div>
@@ -10,8 +11,8 @@
 
 <script setup>
 import { ref } from "vue";
-import { Button } from "primevue";
-import { Dialog } from "primevue";
+import Button from "primevue/button";
+import Dialog from "primevue/dialog";
 import MarkdownIt from "markdown-it";
 
 // Import the raw markdown file

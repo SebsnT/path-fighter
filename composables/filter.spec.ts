@@ -8,7 +8,7 @@ describe("useFilters", () => {
       expect(typeof filters.value).toBe("object");
       expect(filters.value).not.toBeNull();
 
-      for (const [key, filter] of Object.entries(filters.value)) {
+      for (const [_, filter] of Object.entries(filters.value)) {
         expect(filter).toMatchObject({
           matchMode: expect.any(String),
         });
