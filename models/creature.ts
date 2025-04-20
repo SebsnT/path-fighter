@@ -5,6 +5,7 @@ export type Creature = {
   id: string;
   ac: string;
   alignment: string;
+  attacks: string[];
   charisma: number;
   constitution: number;
   count: number;

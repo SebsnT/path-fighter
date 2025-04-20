@@ -1,9 +1,18 @@
 import type jsPDF from "jspdf";
-import { sectionsPerPage } from "~/constants/pdf.constants";
+import {
+  leftIndent,
+  lineHeight,
+  rightIdent,
+  sectionsPerPage,
+} from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
 
+/**
+ *
+ * @param creatures
+ */
 export async function exportPDF(creatures: Creature[]) {
-  const { jsPDF } = await import("jspdf"); // dynamic import
+  const { jsPDF } = await import("jspdf");
 
   const doc = new jsPDF();
 
@@ -14,14 +23,18 @@ export async function exportPDF(creatures: Creature[]) {
   // height of each creature section
   const sectionHeight = pageHeight / sectionsPerPage;
 
-  doc.setLineDashPattern([1, 2], 0); // Dotted lines
+  // Set line pattern to dotted
+  doc.setLineDashPattern([1, 2], 0);
+
+  // Font size
+  doc.setFontSize(12);
 
   creatures.forEach((creature, index) => {
     const sectionIndexOnPage = index % sectionsPerPage;
     const y = sectionHeight * sectionIndexOnPage;
 
     // Add information about the creature to its section
-    addCreatureInformationPDF(doc, creature, pageWidth, sectionHeight, y);
+    addCreatureInformationPDF(doc, creature, pageWidth, y);
 
     // Draw line at bottom of section
     doc.line(0, y + sectionHeight, pageWidth, y + sectionHeight);
@@ -54,11 +67,112 @@ function addCreatureInformationPDF(
   doc: jsPDF,
   creature: Creature,
   pageWidth: number,
-  sectionHeight: number,
   currentHeight: number,
 ) {
-  doc.text(creature.name, pageWidth / 2, currentHeight + sectionHeight / 2, {
-    align: "center",
+  // Name
+  addPdfEntry(
+    doc,
+    "Name: ",
+    creature.name,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+
+  // HP, AC and Speed
+  addPdfEntry(
+    doc,
+    "HP: ",
+    creature.hp,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+  addPdfEntry(doc, "AC: ", creature.hp, leftIndent + 20, currentHeight);
+  addPdfEntry(
+    doc,
+    "Speed: ",
+    creature.speed_raw,
+    leftIndent + 40,
+    currentHeight,
+  );
+
+  // Attributes
+  addPdfEntry(
+    doc,
+    "Attributes: ",
+    `Strength ${creature.strength}, Dexterity ${creature.dexterity}, Constitution ${creature.constitution}, Intelligence ${creature.intelligence}, Wisdom ${creature.wisdom}, Charisma ${creature.charisma}`,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+
+  // Resistances
+  addPdfEntry(
+    doc,
+    "Resistances: ",
+    `${creature.resistance_raw ?? "None"}`,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+
+  // Weaknesses
+  addPdfEntry(
+    doc,
+    "Weaknesses: ",
+    `${creature.weakness_raw ?? "None"}`,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+
+  // Attacks
+  doc.setFont("helvetica", "bold");
+  doc.text("Attacks:", leftIndent, (currentHeight += lineHeight));
+  doc.setFont("helvetica", "normal");
+  for (let i = 0; i < creature.attacks.length; i++) {
+    const attackLines = doc.splitTextToSize(
+      creature.attacks[i],
+      pageWidth - rightIdent,
+    );
+    for (const line of attackLines) {
+      doc.text(line, leftIndent, (currentHeight += lineHeight));
+    }
+  }
+
+  // Spells
+  doc.setFont("helvetica", "bold");
+  doc.text(`Spells:\n`, leftIndent, (currentHeight += lineHeight));
+  doc.setFont("helvetica", "normal");
+
+  doc.text(
+    `${creature.spell ?? "None"}`,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+}
+
+/**
+ * Adds entry to pdf with {@link name} in bold font weight and {@link value} in normal font weight
+ *
+ * @param doc
+ * @param name
+ * @param value
+ * @param xCoordinate
+ * @param yCoordinate
+ */
+function addPdfEntry(
+  doc: jsPDF,
+  name: string,
+  value: string | string[] | number,
+  xCoordinate: number,
+  yCoordinate: number,
+  maxWidth?: number,
+) {
+  const nameLength = doc.getTextWidth(name);
+
+  doc.setFont("helvetica", "bold");
+  doc.text(name, xCoordinate, yCoordinate);
+  doc.setFont("helvetica", "normal");
+
+  doc.text(`${value}`, xCoordinate + nameLength + 2, yCoordinate, {
+    maxWidth: maxWidth ?? 0,
   });
 }
 
