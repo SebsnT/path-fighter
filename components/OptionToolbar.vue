@@ -27,7 +27,7 @@
       label="Export PDF"
       icon="pi pi-upload"
       severity="secondary"
-      @click="exportPDF()"
+      @click="exportPDF(encounterArray)"
     />
 
     <LegalInformation />
