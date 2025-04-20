@@ -1,13 +1,13 @@
-name: Develop pipeline
+name: Release pipeline
 
 on:
   push:
-    branches:
-      - feature/*
-      - main
+    tags:
+      - 'v*.*.*'
 
 env:
   NODE_VERSION: 20.16.0
+
 
 jobs:
   lint-and-test:
@@ -62,3 +62,5 @@ jobs:
 
       - name: Build the app
         run: npm run build
+
+# TODO Deploy
