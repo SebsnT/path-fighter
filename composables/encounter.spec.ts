@@ -19,6 +19,7 @@ const testCreature = {
   challenge_type: "base",
   url: "/Traits.aspx?ID=1",
   count: 1,
+  xp: 0,
 } as Creature;
 
 const testCreature2 = {
@@ -27,6 +28,7 @@ const testCreature2 = {
   challenge_type: "base",
   url: "/Traits.aspx?ID=2",
   count: 1,
+  xp: 0,
 } as Creature;
 
 describe("Encounter composable", () => {
