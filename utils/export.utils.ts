@@ -8,10 +8,11 @@ import {
 import type { Creature } from "~/models/creature";
 
 /**
+ * Export given creatures to a pdf
  *
- * @param creatures
+ * @param creatures creatures to be exported to the PDF
  */
-export async function exportPDF(creatures: Creature[]) {
+export async function exportPDF(creatures: Creature[], fileName: string) {
   const { jsPDF } = await import("jspdf");
 
   const doc = new jsPDF();
@@ -51,17 +52,17 @@ export async function exportPDF(creatures: Creature[]) {
     }
   });
 
-  doc.save("path-fighter-encounter.pdf");
+  doc.save(`${fileName}.pdf`);
 }
 
 /**
  * Adds all information about the creature to the section
  *
  * @param doc current jsPDF
- * @param creature
- * @param pageWidth
- * @param sectionHeight
- * @param currentHeight
+ * @param creature creature
+ * @param pageWidth width of the page
+ * @param sectionHeight calculated height of the section
+ * @param currentHeight current height for the section
  */
 function addCreatureInformationPDF(
   doc: jsPDF,
@@ -151,11 +152,11 @@ function addCreatureInformationPDF(
 /**
  * Adds entry to pdf with {@link name} in bold font weight and {@link value} in normal font weight
  *
- * @param doc
- * @param name
- * @param value
- * @param xCoordinate
- * @param yCoordinate
+ * @param doc the {@link jsPDF}
+ * @param name the name of the field
+ * @param value the value of the field
+ * @param xCoordinate the starting x coordinate of the entry
+ * @param yCoordinate the starting y coordinate of the entry
  */
 function addPdfEntry(
   doc: jsPDF,

@@ -27,7 +27,12 @@
       label="Export PDF"
       icon="pi pi-upload"
       severity="secondary"
-      @click="exportPDF(encounterArray)"
+      @click="openDialog"
+    />
+    <PdfNameDialog
+      v-model="showDialog"
+      :defaultName="defaultPdfName"
+      @confirm="handleExport"
     />
 
     <LegalInformation />
@@ -41,6 +46,18 @@ import { importJSON } from "~/utils/import";
 import { reset } from "~/utils/reset";
 
 const { encounterArray } = useEncounterState();
+
+const showDialog = ref(false);
+const defaultPdfName = "path-fighter-encounter";
+
+function openDialog() {
+  showDialog.value = true;
+}
+
+async function handleExport(fileName: string) {
+  showDialog.value = false;
+  await exportPDF(encounterArray.value, fileName);
+}
 </script>
 
 <style scoped lang="scss">
