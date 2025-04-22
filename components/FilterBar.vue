@@ -11,7 +11,7 @@
           :id="`filter-${filter.key}`"
           v-model="filters[filter.key].value"
           class="filter-input-field"
-          :placeholder="`Search ${filter.label}`"
+          :placeholder="`${filter.label}`"
           v-bind="getComponentProps(filter)"
         />
       </div>

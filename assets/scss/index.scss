@@ -57,7 +57,7 @@ button {
 
 .party-entry {
   .p-inputnumber-input {
-    max-width: 120px;
+    max-width: 100px;
   }
 }
 
@@ -93,5 +93,9 @@ button {
 span,
 input,
 .p-inputtext {
+  font-size: 14px;
+}
+
+.p-multiselect {
   font-size: 14px;
 }

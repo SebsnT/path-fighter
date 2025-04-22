@@ -9,7 +9,7 @@
           class="party-input"
           @input="adjustXPGained($event)"
         />
-        <label for="partySize">Party Size:</label>
+        <label for="partySize">Party Size</label>
       </FloatLabel>
     </div>
     <div class="party-entry">
