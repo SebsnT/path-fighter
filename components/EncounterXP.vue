@@ -20,10 +20,13 @@ const { baseValue, currentValue } = useDifficulty();
 const { thresholds } = useThresholds();
 
 const label = computed(() => {
-  if (baseValue.value >= thresholds.value.extremeThreshold) return "Extreme";
-  if (baseValue.value >= thresholds.value.severeThreshold) return "Severe";
-  if (baseValue.value >= thresholds.value.moderateThreshold) return "Moderate";
-  if (baseValue.value >= thresholds.value.lowThreshold) return "Low";
+  if (baseValue.value >= thresholds.value.extremeThreshold.value)
+    return "Extreme";
+  if (baseValue.value >= thresholds.value.severeThreshold.value)
+    return "Severe";
+  if (baseValue.value >= thresholds.value.moderateThreshold.value)
+    return "Moderate";
+  if (baseValue.value >= thresholds.value.lowThreshold.value) return "Low";
   return "Trivial";
 });
 </script>
@@ -44,7 +47,7 @@ const label = computed(() => {
   justify-content: center;
   position: relative;
   font-weight: bold;
-  margin: 8px 0;
+  margin: 8px 8px 28px 8px;
 }
 
 .difficulty-label-inner {

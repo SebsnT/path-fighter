@@ -17,11 +17,26 @@ describe("useThresholds", () => {
   describe("thresholds", () => {
     it("should correctly set inital thresholds", () => {
       expect(thresholds.value).toStrictEqual({
-        trivialThreshold: 40,
-        lowThreshold: 60,
-        moderateThreshold: 80,
-        severeThreshold: 120,
-        extremeThreshold: 160,
+        trivialThreshold: {
+          label: "Trivial",
+          value: 40,
+        },
+        lowThreshold: {
+          label: "Low",
+          value: 60,
+        },
+        moderateThreshold: {
+          label: "Moderate",
+          value: 80,
+        },
+        severeThreshold: {
+          label: "Severe",
+          value: 120,
+        },
+        extremeThreshold: {
+          label: "Extreme",
+          value: 160,
+        },
       });
     });
   });
@@ -38,11 +53,26 @@ describe("useThresholds", () => {
       adjustThreholds();
 
       expect(thresholds.value).toStrictEqual({
-        trivialThreshold: 50,
-        lowThreshold: 75,
-        moderateThreshold: 100,
-        severeThreshold: 150,
-        extremeThreshold: 200,
+        trivialThreshold: {
+          label: "Trivial",
+          value: 50,
+        },
+        lowThreshold: {
+          label: "Low",
+          value: 75,
+        },
+        moderateThreshold: {
+          label: "Moderate",
+          value: 100,
+        },
+        severeThreshold: {
+          label: "Severe",
+          value: 150,
+        },
+        extremeThreshold: {
+          label: "Extreme",
+          value: 200,
+        },
       });
     });
   });
@@ -50,28 +80,73 @@ describe("useThresholds", () => {
   describe("resetThresholds", () => {
     it("should correctly reset thresholds", () => {
       thresholds.value = {
-        trivialThreshold: 1,
-        lowThreshold: 2,
-        moderateThreshold: 3,
-        severeThreshold: 4,
-        extremeThreshold: 5,
+        trivialThreshold: {
+          label: "Trivial",
+          value: 1,
+        },
+        lowThreshold: {
+          label: "Low",
+          value: 2,
+        },
+        moderateThreshold: {
+          label: "Moderate",
+          value: 3,
+        },
+        severeThreshold: {
+          label: "Severe",
+          value: 4,
+        },
+        extremeThreshold: {
+          label: "Extreme",
+          value: 5,
+        },
       };
 
       expect(thresholds.value).toStrictEqual({
-        trivialThreshold: 1,
-        lowThreshold: 2,
-        moderateThreshold: 3,
-        severeThreshold: 4,
-        extremeThreshold: 5,
+        trivialThreshold: {
+          label: "Trivial",
+          value: 1,
+        },
+        lowThreshold: {
+          label: "Low",
+          value: 2,
+        },
+        moderateThreshold: {
+          label: "Moderate",
+          value: 3,
+        },
+        severeThreshold: {
+          label: "Severe",
+          value: 4,
+        },
+        extremeThreshold: {
+          label: "Extreme",
+          value: 5,
+        },
       });
       resetThresholds();
 
       expect(thresholds.value).toStrictEqual({
-        trivialThreshold: 40,
-        lowThreshold: 60,
-        moderateThreshold: 80,
-        severeThreshold: 120,
-        extremeThreshold: 160,
+        trivialThreshold: {
+          label: "Trivial",
+          value: 40,
+        },
+        lowThreshold: {
+          label: "Low",
+          value: 60,
+        },
+        moderateThreshold: {
+          label: "Moderate",
+          value: 80,
+        },
+        severeThreshold: {
+          label: "Severe",
+          value: 120,
+        },
+        extremeThreshold: {
+          label: "Extreme",
+          value: 160,
+        },
       });
     });
   });

@@ -44,6 +44,31 @@
 
 .thresholds {
   position: absolute;
+  top: -20px; // Move labels above the progressbar
+  left: 0;
+  width: 100%;
+  height: 20px;
+  pointer-events: none;
+}
+
+.threshold-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  transform: translateX(-50%); // center the label
+}
+
+.threshold-label {
+  font-size: 0.75rem;
+  background: black;
+  padding: 0 4px;
+  border-radius: 4px;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.threshold-markers {
+  position: absolute;
   top: 0;
   left: 0;
   height: 100%;
