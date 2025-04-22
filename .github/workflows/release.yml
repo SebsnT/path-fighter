@@ -61,6 +61,6 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Build the app
-        run: npm run build
+        run: npm run build:cloudflare
 
 # TODO Deploy
