@@ -9,17 +9,21 @@ export const useCreatures = () => {
   // Fetch creatures from remote
   const loadCreaturesFromRemote = async () => {
     try {
-      const { data, status } = await useLazyAsyncData<Creature[]>(
-        "creatures",
-        () => $fetch(repositoryUrl),
-      );
-      creatures.value = data.value ?? [];
-      isLoaded.value = true;
-      return { creatures, status };
+      const response = await fetch(repositoryUrl);
+      if (response.ok) {
+        const data = await response.json();
+        creatures.value = data;
+        isLoaded.value = true;
+        return { creatures, status: "success" };
+      } else {
+        console.error("Failed to fetch from remote:", response.statusText);
+        isLoaded.value = true;
+        return { creatures: [], status: "failed" };
+      }
     } catch (error) {
       console.log(error);
       isLoaded.value = true;
-      return { creatures, status: "error" };
+      return { creatures: [], status: "error" };
     }
   };
 
@@ -46,7 +50,7 @@ export const useCreatures = () => {
 
   // On the initial page load, ensure creatures are loaded before rendering
   onBeforeMount(() => {
-    loadCreaturesFromLocal();
+    loadCreaturesFromRemote();
   });
 
   return {
