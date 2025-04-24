@@ -6,7 +6,7 @@
     :size="'small'"
     show-gridlines
     scrollable
-    :scroll-height="manualThresholds ? '54vh' : 'calc(62vh)'"
+    :scroll-height="'calc(65vh)'"
     :virtual-scroller-options="{ itemSize: 50 }"
     sort-field="name"
     :sort-order="1"
@@ -79,7 +79,6 @@ const props = defineProps({
 
 const { cleanFilters } = useFilters();
 const { addOneToEncounter } = useEncounter();
-const { manualThresholds } = useThresholds();
 
 // Filtered creatures computed property
 const filteredCreatures = computed(() => {

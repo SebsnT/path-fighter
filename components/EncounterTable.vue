@@ -6,7 +6,7 @@
     scrollable
     sort-field="name"
     :sort-order="1"
-    :scroll-height="manualThresholds ? '54vh' : 'calc(62vh)'"
+    :scroll-height="'calc(65vh)'"
   >
     <Column
       v-for="col in encounterColumns"
@@ -50,8 +50,6 @@ import { encounterColumns } from "~/config/columns.config";
 
 const { updateChallengeType } = useEncounter();
 const { encounterArray } = useEncounterState();
-
-const { manualThresholds } = useThresholds();
 
 const challengeOptions = [
   {
