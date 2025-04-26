@@ -2,10 +2,11 @@
   <div class="buttons">
     <Button
       label="Reset"
-      class="button-spacer"
+      class="button-spacer reset button"
       :severity="'warn'"
       @click="reset()"
-    ></Button>
+    />
+
     <FileUpload
       mode="basic"
       accept=".json"
@@ -14,25 +15,36 @@
       choose-label="Import JSON"
       auto
       custom-upload
-      :choose-button-props="{ severity: 'secondary' }"
+      :choose-button-props="{ severity: 'contrast' }"
       @select="importJSON($event)"
     />
+
     <Button
       label="Export JSON"
       icon="pi pi-upload"
-      severity="secondary"
-      @click="exportJSON(encounterArray)"
+      :severity="'contrast'"
+      @click="openJsonDialog"
     />
+    <ExportFileDialog
+      v-model="showJsonDialog"
+      :default-name="defaultPdfName"
+      type="json"
+      hint-text="Enter a name for your encounter"
+      @confirm="handleJsonExport"
+    />
+
     <Button
       label="Export PDF"
-      icon="pi pi-upload"
-      severity="secondary"
-      @click="openDialog"
+      icon="pi pi-file-pdf"
+      class="pdf-export-button"
+      @click="openPdfDialog"
     />
-    <PdfNameDialog
-      v-model="showDialog"
+    <ExportFileDialog
+      v-model="showPdfDialog"
       :default-name="defaultPdfName"
-      @confirm="handleExport"
+      type="pdf"
+      hint-text="Enter a name for your PDF"
+      @confirm="handlePdfExport"
     />
 
     <LegalInformation />
@@ -44,19 +56,31 @@
 import { exportJSON, exportPDF } from "~/utils/export.utils";
 import { importJSON } from "~/utils/import";
 import { reset } from "~/utils/reset";
+import ExportFileDialog from "./ExportFileDialog.vue";
 
 const { encounterArray } = useEncounterState();
 
-const showDialog = ref(false);
+const showPdfDialog = ref(false);
+const showJsonDialog = ref(false);
+
 const defaultPdfName = "path-fighter-encounter";
 
-function openDialog() {
-  showDialog.value = true;
+function openPdfDialog() {
+  showPdfDialog.value = true;
 }
 
-async function handleExport(fileName: string) {
-  showDialog.value = false;
+function openJsonDialog() {
+  showJsonDialog.value = true;
+}
+
+async function handlePdfExport(fileName: string) {
+  showPdfDialog.value = false;
   await exportPDF(encounterArray.value, fileName);
+}
+
+async function handleJsonExport(fileName: string) {
+  showPdfDialog.value = false;
+  exportJSON(encounterArray.value, fileName);
 }
 </script>
 
@@ -68,5 +92,15 @@ async function handleExport(fileName: string) {
   align-items: center;
   gap: 12px;
   margin-right: 12px;
+}
+
+.p-button-warn {
+  color: black !important;
+}
+
+.pdf-export-button {
+  background-color: #fd4949 !important;
+  border-color: #fd4949 !important;
+  color: white !important;
 }
 </style>

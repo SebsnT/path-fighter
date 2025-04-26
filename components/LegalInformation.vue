@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Button label="Legal Information" @click="isOpen = true" />
+    <Button
+      label="Legal Information"
+      class="legal-button"
+      :severity="'info'"
+      @click="isOpen = true"
+    />
 
     <Dialog v-model:visible="isOpen" header="License" modal>
       <!-- eslint-disable-next-line vue/no-v-html -->
@@ -57,5 +62,9 @@ const renderedLicenses = md.render(licenses);
 
 .licenses-text a:hover {
   text-decoration: underline;
+}
+
+.legal-button {
+  color: black;
 }
 </style>
