@@ -7,13 +7,13 @@
   display: flex;
   flex: 2;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  margin-right: 8px;
 }
 
 .slot-right {
   display: flex;
   flex: 1;
   border: 2px solid rgba(255, 255, 255, 0.2);
+  border-left: none;
   margin-right: 5px;
   min-width: 600px;
 }
@@ -98,4 +98,8 @@ input,
 
 .p-multiselect {
   font-size: 14px;
+}
+
+.p-dialog-header {
+  padding-bottom: 0;
 }
