@@ -28,7 +28,7 @@ https://2e.aonprd.com/Sources.aspx
 
 ## Donations
 
-If you like my work, support me with a small donation on my "buy me a coffee". Coffee is the energy on which this project is build upon :)
+If you like my work, support me with a small donation on my "Buy me a coffee". Coffee is the energy on which this project is build upon :)
 
 <a href="https://www.buymeacoffee.com/SebsnT" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" width=250px/></a>
 

@@ -3,7 +3,7 @@
     ><img
       src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png"
       alt="Buy Me A Coffee"
-      style="max-height: 40px !important; max-width: 136px !important"
+      style="max-height: 80px !important; max-width: 200px !important"
   /></a>
 </template>
 

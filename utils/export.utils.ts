@@ -182,7 +182,7 @@ function addPdfEntry(
  *
  * @param creatures is an Array of {@link Creature} objects
  */
-export function exportJSON(creatures: Creature[], fileName: string): void {
+export function exportJSON(creatures: Creature[], fileName?: string): void {
   // Convert creatures array into a JSON string
   const json = JSON.stringify(creatures, null, 2); // Pretty format with 2 spaces indentation
 
@@ -194,7 +194,7 @@ export function exportJSON(creatures: Creature[], fileName: string): void {
   link.href = URL.createObjectURL(blob);
 
   // Set the download filename
-  link.download = `${fileName.trim() || "pathfighter-encounter"}.json`;
+  link.download = `${fileName?.trim() || "pathfighter-encounter"}.json`;
 
   // Trigger a click event on the link to start the download
   link.click();

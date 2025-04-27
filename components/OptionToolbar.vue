@@ -48,7 +48,13 @@
     />
 
     <LegalInformation />
-    <BuyMeACoffee />
+
+    <Button
+      label="Donate"
+      class="donation-button"
+      @click="openDonationDialog"
+    />
+    <DonationDialog v-model="showDonationDialog"></DonationDialog>
   </div>
 </template>
 
@@ -56,12 +62,13 @@
 import { exportJSON, exportPDF } from "~/utils/export.utils";
 import { importJSON } from "~/utils/import";
 import { reset } from "~/utils/reset";
-import ExportFileDialog from "./ExportFileDialog.vue";
+import ExportFileDialog from "./dialogs/ExportFileDialog.vue";
 
 const { encounterArray } = useEncounterState();
 
 const showPdfDialog = ref(false);
 const showJsonDialog = ref(false);
+const showDonationDialog = ref(false);
 
 const defaultPdfName = "path-fighter-encounter";
 
@@ -71,6 +78,10 @@ function openPdfDialog() {
 
 function openJsonDialog() {
   showJsonDialog.value = true;
+}
+
+function openDonationDialog() {
+  showDonationDialog.value = true;
 }
 
 async function handlePdfExport(fileName: string) {
@@ -102,5 +113,11 @@ async function handleJsonExport(fileName: string) {
   background-color: #fd4949 !important;
   border-color: #fd4949 !important;
   color: white !important;
+}
+
+.donation-button {
+  background-color: #ebff14 !important;
+  border-color: #ebff14 !important;
+  color: black !important;
 }
 </style>
