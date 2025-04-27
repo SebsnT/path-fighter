@@ -1,0 +1,22 @@
+{
+  "extends": ["config:base"],
+  "automerge": false,
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 10,
+  "labels": ["dependencies"],
+  "dependencyDashboard": true,
+  "schedule": ["at 20:00 on Sunday"], 
+  "timezone": "Europe/Berlin",
+  "packageRules": [
+    {
+      "description": "Group all minor and patch updates together",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "Weekly Dependency Updates"
+    },
+    {
+      "description": "Keep major updates separate for review",
+      "matchUpdateTypes": ["major"],
+      "groupName": "Major Updates"
+    }
+  ]
+}
