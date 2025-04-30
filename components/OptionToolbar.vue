@@ -54,6 +54,12 @@
       class="donation-button"
       @click="openDonationDialog"
     />
+    <Button
+  label="GitHub"
+  icon="pi pi-github"
+  class="github-button"
+  @click="openGithub"
+/>
     <DonationDialog v-model="showDonationDialog"></DonationDialog>
   </div>
 </template>
@@ -63,6 +69,7 @@ import { exportJSON, exportPDF } from "~/utils/export.utils";
 import { importJSON } from "~/utils/import";
 import { reset } from "~/utils/reset";
 import ExportFileDialog from "./dialogs/ExportFileDialog.vue";
+import { projectUrl } from "~/constants/url.constants";
 
 const { encounterArray } = useEncounterState();
 
@@ -82,6 +89,10 @@ function openJsonDialog() {
 
 function openDonationDialog() {
   showDonationDialog.value = true;
+}
+
+function openGithub() {
+  window.open(projectUrl, "_blank");
 }
 
 async function handlePdfExport(fileName: string) {
@@ -119,5 +130,11 @@ async function handleJsonExport(fileName: string) {
   background-color: #ebff14 !important;
   border-color: #ebff14 !important;
   color: black !important;
+}
+
+.github-button {
+  background-color: #24292e !important;
+  border-color: #24292e !important;
+  color: white !important;
 }
 </style>
