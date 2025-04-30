@@ -65,7 +65,6 @@ attributes_to_remove = [
     "strongest_save",
     "summary",
     "summary_markdown",
-    "text",
     "tradition",
     "tradition_markdown",
     "trait",

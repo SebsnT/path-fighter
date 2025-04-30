@@ -137,6 +137,17 @@ function addCreatureInformationPDF(
     }
   }
 
+  // Unique abilities
+  doc.setFont("helvetica", "bold");
+  doc.text("Unique Abilites:", leftIndent, (currentHeight += lineHeight));
+  doc.setFont("helvetica", "normal");
+
+    doc.text(
+    `${creature.creature_ability ?? "None"}`,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+
   // Spells
   doc.setFont("helvetica", "bold");
   doc.text(`Spells:\n`, leftIndent, (currentHeight += lineHeight));

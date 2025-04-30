@@ -54,14 +54,14 @@ def extract_attacks(text):
     text = re.sub(r"\s+", " ", text.strip())
 
     # Improved pattern: match only up to end of single attack line
-    pattern = re.compile(
+    weapon_attack_pattern = re.compile(
         r"(Melee|Ranged)\s+\w+(?:\s+\w+)*\s+Action.+?,\s*Damage\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+(?:\s+plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+)?",
         flags=re.IGNORECASE,
     )
 
     results = []
 
-    for match in pattern.finditer(text):
+    for match in weapon_attack_pattern.finditer(text):
         attack = match.group(0).strip()
         if "plus" in attack:
             # Check if 'plus' is followed by another damage dice

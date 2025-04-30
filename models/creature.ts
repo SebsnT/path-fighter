@@ -10,6 +10,7 @@ export type Creature = {
   constitution: number;
   count: number;
   challenge_type: ChallengeType;
+  creature_ability: string[];
   creature_familiy: string;
   creature_family_markdown: string;
   dexterity: string;
