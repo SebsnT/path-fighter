@@ -15,7 +15,7 @@
     @row-expand="onRowExpand"
   >
     <!-- For the row expansion -->
-    <Column expander style="width: 10px" />
+    <!-- <Column expander style="width: 10px" /> -->
     <Column
       v-for="col in columns"
       :key="col.key"
@@ -50,9 +50,9 @@
         </template>
       </template>
     </Column>
-    <template #expansion="row">
+    <!--   <template #expansion="row">
       <CreatureDetails :creature="row.data" />
-    </template>
+    </template> -->
     <!-- Detail view for the expanded row -->
   </DataTable>
 </template>

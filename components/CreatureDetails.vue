@@ -51,7 +51,7 @@
     <div class="row">
       <span> Attacks: {{ props.creature.attacks }} </span>
     </div>
-      <div class="row">
+    <div class="row">
       <span> Creature Abilities: {{ props.creature.creature_ability }} </span>
     </div>
   </div>

@@ -5,7 +5,7 @@
   "prConcurrentLimit": 10,
   "labels": ["dependencies"],
   "dependencyDashboard": true,
-  "schedule": ["at 20:00 on Sunday"], 
+  "schedule": ["at 20:00 on Sunday"],
   "timezone": "Europe/Berlin",
   "packageRules": [
     {

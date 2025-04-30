@@ -3,11 +3,10 @@ name: Release pipeline
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 env:
   NODE_VERSION: 22.15.0
-
 
 jobs:
   lint-and-test:
@@ -62,5 +61,4 @@ jobs:
 
       - name: Build the app
         run: npm run build:cloudflare
-
 # TODO Deploy

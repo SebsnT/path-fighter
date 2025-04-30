@@ -142,7 +142,7 @@ function addCreatureInformationPDF(
   doc.text("Unique Abilites:", leftIndent, (currentHeight += lineHeight));
   doc.setFont("helvetica", "normal");
 
-    doc.text(
+  doc.text(
     `${creature.creature_ability ?? "None"}`,
     leftIndent,
     (currentHeight += lineHeight),

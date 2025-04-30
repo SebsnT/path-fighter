@@ -55,11 +55,11 @@
       @click="openDonationDialog"
     />
     <Button
-  label="GitHub"
-  icon="pi pi-github"
-  class="github-button"
-  @click="openGithub"
-/>
+      label="GitHub"
+      icon="pi pi-github"
+      class="github-button"
+      @click="openGithub"
+    />
     <DonationDialog v-model="showDonationDialog"></DonationDialog>
   </div>
 </template>
