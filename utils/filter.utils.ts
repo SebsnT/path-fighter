@@ -74,7 +74,7 @@ export function inFilter(
   filterValue: FilterValue,
   fieldValue: string,
   containsMultipleValues: boolean,
-) {
+): boolean {
   // Custom filter logic for multiple values in one column
   if (Array.isArray(filterValue) && containsMultipleValues) {
     return filterValue.some((filterItem: string) =>
@@ -88,6 +88,8 @@ export function inFilter(
       fieldValue.includes(filterItem.toLowerCase()),
     );
   }
+
+  return false;
 }
 
 /**
@@ -96,10 +98,14 @@ export function inFilter(
  * @param filterValue
  * @param fieldValue
  */
-export function containsFilter(filterValue: FilterValue, fieldValue: string) {
+export function containsFilter(
+  filterValue: FilterValue,
+  fieldValue: string,
+): boolean {
   if (typeof filterValue === "string") {
     return fieldValue.includes(filterValue.toLowerCase());
   }
+  return false;
 }
 
 /**
@@ -107,10 +113,14 @@ export function containsFilter(filterValue: FilterValue, fieldValue: string) {
  * @param filterValue
  * @param fieldValue
  */
-export function gteFilter(filterValue: FilterValue, fieldValue: string) {
+export function gteFilter(
+  filterValue: FilterValue,
+  fieldValue: string,
+): boolean {
   if (typeof filterValue === "number") {
     return Number(fieldValue) >= filterValue;
   }
+  return false;
 }
 
 /**
@@ -118,8 +128,12 @@ export function gteFilter(filterValue: FilterValue, fieldValue: string) {
  * @param filterValue
  * @param fieldValue
  */
-export function lteFilter(filterValue: FilterValue, fieldValue: string) {
+export function lteFilter(
+  filterValue: FilterValue,
+  fieldValue: string,
+): boolean {
   if (typeof filterValue === "number") {
     return Number(fieldValue) <= filterValue;
   }
+  return false;
 }
