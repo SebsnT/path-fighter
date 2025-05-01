@@ -40,12 +40,7 @@ describe("Filter Utils", () => {
     ];
 
     it("should return selection options for non existent field", () => {
-      expect(getSelectionOptions(creatures, "ac")).toStrictEqual([
-        {
-          label: undefined,
-          value: undefined,
-        },
-      ]);
+      expect(getSelectionOptions(creatures, "ac")).toStrictEqual([]);
     });
 
     it("should return selection options for string field", () => {
