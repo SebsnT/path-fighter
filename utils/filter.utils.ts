@@ -28,13 +28,24 @@ export function getSelectionOptions(
 ): SelectionOption[] {
   const options = selectionOptionsFromKeyAndValue(creatures, keyField);
 
-  return options.sort((a, b) => {
-    // Ensure that both labels are strings, fallback to empty string if undefined or null
-    const labelA = a.label ? String(a.label) : ""; // Convert to string or default to ''
-    const labelB = b.label ? String(b.label) : ""; // Convert to string or default to ''
+  console.log(
+    options.sort((a, b) => {
+      const labelA = a.label ? String(a.label) : "";
+      const labelB = b.label ? String(b.label) : "";
 
-    return labelA.localeCompare(labelB);
-  });
+      return labelA.localeCompare(labelB);
+    }),
+  );
+
+  return options
+    .sort((a, b) => {
+      // Ensure that both labels are strings, fallback to empty string if undefined or null
+      const labelA = a.label ? String(a.label) : ""; // Convert to string or default to ''
+      const labelB = b.label ? String(b.label) : ""; // Convert to string or default to ''
+
+      return labelA.localeCompare(labelB);
+    })
+    .filter((filterValue) => filterValue.label ?? filterValue.value);
 }
 
 /**
