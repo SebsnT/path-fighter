@@ -106,7 +106,11 @@ const filteredCreatures = computed(() => {
         } else {
           fieldValue = creature[field]
             ? creature[field].toString().toLowerCase()
-            : "";
+            : undefined;
+        }
+
+        if (!fieldValue) {
+          return false;
         }
 
         switch (matchMode) {

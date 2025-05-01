@@ -83,7 +83,7 @@ export const filterConfig: Filter[] = [
     select: "single",
     matchMode: "contains",
     selectionOptions: [
-      { label: "Creature", value: false },
+      { label: "Creature", value: "false" },
       { label: "NPC", value: "true" },
     ],
   },

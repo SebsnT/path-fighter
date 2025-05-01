@@ -28,15 +28,6 @@ export function getSelectionOptions(
 ): SelectionOption[] {
   const options = selectionOptionsFromKeyAndValue(creatures, keyField);
 
-  console.log(
-    options.sort((a, b) => {
-      const labelA = a.label ? String(a.label) : "";
-      const labelB = b.label ? String(b.label) : "";
-
-      return labelA.localeCompare(labelB);
-    }),
-  );
-
   return options
     .sort((a, b) => {
       // Ensure that both labels are strings, fallback to empty string if undefined or null
