@@ -103,6 +103,8 @@ const filteredCreatures = computed(() => {
         // Special handling for level_min and level_max
         if (field === "level_min" || field === "level_max") {
           fieldValue = creature.level?.toString().toLowerCase() ?? "";
+        } else if (field === "npc") {
+          fieldValue = creature.npc?.toString().toLowerCase() ?? "false";
         } else {
           fieldValue = creature[field]
             ? creature[field].toString().toLowerCase()
