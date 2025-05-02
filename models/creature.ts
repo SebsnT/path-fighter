@@ -25,6 +25,8 @@ export type Creature = {
   skill_mod: NumberObject;
   speed_raw: string;
   spell: string[];
+  spell_attack_bonus: string[]
+  spell_dc: string[]
   strength: string;
   trait: string;
   trait_markdown: string[];
