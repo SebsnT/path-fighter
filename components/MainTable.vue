@@ -6,7 +6,7 @@
     :size="'small'"
     show-gridlines
     scrollable
-    scrollHeight="flex"
+    scroll-height="flex"
     :virtual-scroller-options="{ itemSize: 50 }"
     sort-field="name"
     :sort-order="1"

@@ -75,8 +75,6 @@ describe("useFilters", () => {
         value: "Test",
         matchMode: "contains",
       });
-
     });
   });
-
 });

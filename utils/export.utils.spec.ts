@@ -1,6 +1,7 @@
 import { vi, expect, describe, it } from "vitest";
 import { exportJSON, exportPDF } from "./export.utils";
 import type { Creature } from "~/models/creature";
+import type jsPDF from "jspdf";
 
 // Mocking browser APIs
 global.URL.createObjectURL = vi.fn().mockReturnValue("mocked-url");
@@ -64,9 +65,13 @@ describe("Export Utils", () => {
   describe("exportPDF", () => {
     it("should export to PDF correctly", async () => {
       const saveSpy = vi.fn();
+
       const docMock = {
         internal: {
-          pageSize: { getWidth: vi.fn().mockReturnValue(210), getHeight: vi.fn().mockReturnValue(297) },
+          pageSize: {
+            getWidth: vi.fn().mockReturnValue(210),
+            getHeight: vi.fn().mockReturnValue(297),
+          },
         },
         setFont: vi.fn(),
         setFontSize: vi.fn(),
@@ -77,9 +82,9 @@ describe("Export Utils", () => {
         splitTextToSize: vi.fn().mockReturnValue(["Attack 1", "Attack 2"]),
         save: saveSpy,
         getTextWidth: vi.fn().mockReturnValue(30),
-      };
+      } as unknown as jsPDF;
 
-      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock as any);
+      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock);
 
       await exportPDF(creatures, "creature-report");
 
@@ -94,7 +99,10 @@ describe("Export Utils", () => {
       const saveSpy = vi.fn();
       const docMock = {
         internal: {
-          pageSize: { getWidth: vi.fn().mockReturnValue(210), getHeight: vi.fn().mockReturnValue(297) },
+          pageSize: {
+            getWidth: vi.fn().mockReturnValue(210),
+            getHeight: vi.fn().mockReturnValue(297),
+          },
         },
         setFont: vi.fn(),
         setFontSize: vi.fn(),
@@ -105,9 +113,9 @@ describe("Export Utils", () => {
         splitTextToSize: vi.fn(),
         save: saveSpy,
         getTextWidth: vi.fn().mockReturnValue(30),
-      };
+      } as unknown as jsPDF;
 
-      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock as any);
+      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock);
 
       await exportPDF([], "empty-creature-report");
 
@@ -123,7 +131,10 @@ describe("Export Utils", () => {
       const saveSpy = vi.fn();
       const docMock = {
         internal: {
-          pageSize: { getWidth: vi.fn().mockReturnValue(210), getHeight: vi.fn().mockReturnValue(297) },
+          pageSize: {
+            getWidth: vi.fn().mockReturnValue(210),
+            getHeight: vi.fn().mockReturnValue(297),
+          },
         },
         setFont: vi.fn(),
         setFontSize: vi.fn(),
@@ -134,25 +145,40 @@ describe("Export Utils", () => {
         splitTextToSize: vi.fn(),
         save: saveSpy,
         getTextWidth: vi.fn().mockReturnValue(30),
-      };
+      } as unknown as jsPDF;
 
-      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock as any);
+      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock);
 
       await exportPDF(creaturesWithNoAttacks, "creature-no-attacks-report");
 
-      expect(docMock.save).toHaveBeenCalledWith("creature-no-attacks-report.pdf");
+      expect(docMock.save).toHaveBeenCalledWith(
+        "creature-no-attacks-report.pdf",
+      );
     });
 
     it("should handle creatures with missing optional fields", async () => {
       const creaturesWithMissingFields: Creature[] = [
-        { name: "Gnoll", level: 3, attacks: [], creature_ability: null } as unknown as Creature,
-        { name: "Goblin", level: 1, attacks: [], resistance_raw: undefined } as unknown as Creature,
+        {
+          name: "Gnoll",
+          level: 3,
+          attacks: [],
+          creature_ability: null,
+        } as unknown as Creature,
+        {
+          name: "Goblin",
+          level: 1,
+          attacks: [],
+          resistance_raw: undefined,
+        } as unknown as Creature,
       ];
 
       const saveSpy = vi.fn();
       const docMock = {
         internal: {
-          pageSize: { getWidth: vi.fn().mockReturnValue(210), getHeight: vi.fn().mockReturnValue(297) },
+          pageSize: {
+            getWidth: vi.fn().mockReturnValue(210),
+            getHeight: vi.fn().mockReturnValue(297),
+          },
         },
         setFont: vi.fn(),
         setFontSize: vi.fn(),
@@ -163,13 +189,18 @@ describe("Export Utils", () => {
         splitTextToSize: vi.fn(),
         save: saveSpy,
         getTextWidth: vi.fn().mockReturnValue(30),
-      };
+      } as unknown as jsPDF;
 
-      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock as any);
+      vi.spyOn(await import("jspdf"), "jsPDF").mockReturnValue(docMock);
 
-      await exportPDF(creaturesWithMissingFields, "creature-missing-fields-report");
+      await exportPDF(
+        creaturesWithMissingFields,
+        "creature-missing-fields-report",
+      );
 
-      expect(docMock.save).toHaveBeenCalledWith("creature-missing-fields-report.pdf");
+      expect(docMock.save).toHaveBeenCalledWith(
+        "creature-missing-fields-report.pdf",
+      );
     });
   });
 });

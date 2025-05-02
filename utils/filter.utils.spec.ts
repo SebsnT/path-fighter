@@ -1,5 +1,12 @@
 import { vi, expect, describe, it } from "vitest";
-import { getSelectionOptions, onNumberInput, gteFilter, inFilter, lteFilter, containsFilter } from "./filter.utils";
+import {
+  getSelectionOptions,
+  onNumberInput,
+  gteFilter,
+  inFilter,
+  lteFilter,
+  containsFilter,
+} from "./filter.utils";
 import type { Creature } from "~/models/creature";
 import type { InputNumberInputEvent } from "primevue/inputnumber";
 
@@ -69,7 +76,7 @@ describe("Filter Utils", () => {
       ]);
     });
 
-    it("should return selection options for string array field", () => { });
+    it("should return selection options for string array field", () => {});
     expect(getSelectionOptions(creatures, "trait_markdown")).toStrictEqual([
       {
         label: "test1",

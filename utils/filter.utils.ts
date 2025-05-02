@@ -83,7 +83,7 @@ export function inFilter(
       fieldValue.includes(filterItem.toLowerCase()),
     );
   } else {
-    return false
+    return false;
   }
 }
 
