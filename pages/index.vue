@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <ThresholdInputs />
     <div class="party-xp-container">
       <div class="party-inputs-position">
@@ -9,7 +9,7 @@
     </div>
     <DifficultyIndicator />
     <FilterBar :creatures="creatures" />
-    <div class="slot-container">
+    <div class="slot-container main-table-wrapper">
       <div class="slot-left">
         <MainTable :creatures="creatures" />
       </div>

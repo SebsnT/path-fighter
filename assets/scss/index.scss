@@ -103,3 +103,16 @@ input,
 .p-dialog-header {
   padding-bottom: 0;
 }
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+  overflow: hidden;
+}
+
+.main-table-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  overflow: hidden;
+}
