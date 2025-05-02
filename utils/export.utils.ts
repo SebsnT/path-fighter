@@ -139,25 +139,34 @@ function addCreatureInformationPDF(
 
   // Unique abilities
   doc.setFont("helvetica", "bold");
-  doc.text("Unique Abilites:", leftIndent, (currentHeight += lineHeight));
+  doc.text("Unique Abilities:", leftIndent, (currentHeight += lineHeight));
   doc.setFont("helvetica", "normal");
 
-  doc.text(
-    `${creature.creature_ability ?? "None"}`,
-    leftIndent,
-    (currentHeight += lineHeight),
-  );
+  const abilitiesText = creature.creature_ability?.length
+    ? creature.creature_ability.join(", ")
+    : "None";
+
+  let abilityLines = doc.splitTextToSize(abilitiesText, pageWidth - rightIdent);
+
+  for (const line of abilityLines) {
+    doc.text(line, leftIndent, (currentHeight += lineHeight));
+  }
 
   // Spells
   doc.setFont("helvetica", "bold");
-  doc.text(`Spells:\n`, leftIndent, (currentHeight += lineHeight));
+  doc.text('Spells:', leftIndent, (currentHeight += lineHeight));
   doc.setFont("helvetica", "normal");
 
-  doc.text(
-    `${creature.spell ?? "None"}`,
-    leftIndent,
-    (currentHeight += lineHeight),
-  );
+  const spellsText = creature.spell?.length
+    ? creature.spell.join(", ")
+    : "None";
+
+  let spellsLines = doc.splitTextToSize(spellsText, pageWidth - rightIdent);
+
+  for (const line of spellsLines) {
+    doc.text(line, leftIndent, (currentHeight += lineHeight));
+  }
+
 }
 
 /**
