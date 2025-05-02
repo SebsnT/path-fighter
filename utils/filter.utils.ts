@@ -82,16 +82,9 @@ export function inFilter(
     return filterValue.some((filterItem: string) =>
       fieldValue.includes(filterItem.toLowerCase()),
     );
+  } else {
+    return false
   }
-
-  // Default "in" filtering behavior
-  if (Array.isArray(filterValue)) {
-    return filterValue.some((filterItem: string) =>
-      fieldValue.includes(filterItem.toLowerCase()),
-    );
-  }
-
-  return false;
 }
 
 /**
@@ -126,6 +119,7 @@ export function gteFilter(
 }
 
 /**
+ * Checks if {@link filterValue} is greater or equal to {@link fieldValue}
  *
  * @param filterValue
  * @param fieldValue

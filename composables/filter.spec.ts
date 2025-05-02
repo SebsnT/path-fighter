@@ -56,4 +56,27 @@ describe("useFilters", () => {
       expect(filterOverwrite.level.value).toStrictEqual(null);
     });
   });
+  describe("cleanFilters", () => {
+    const { filters, cleanFilters } = useFilters();
+
+    it("should remove filters with null, undefined, or empty array values", () => {
+      filters.value = {
+        global: { value: null, matchMode: "contains" },
+        name: { value: "Test", matchMode: "contains" },
+        level: { value: [], matchMode: "gte" },
+        category: { value: "", matchMode: "equals" },
+      };
+
+      const cleanedFilters = cleanFilters();
+
+      // Only "name" should remain
+      expect(Object.keys(cleanedFilters)).toHaveLength(1);
+      expect(cleanedFilters.name).toEqual({
+        value: "Test",
+        matchMode: "contains",
+      });
+
+    });
+  });
+
 });
