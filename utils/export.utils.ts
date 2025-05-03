@@ -37,8 +37,12 @@ export async function exportPDF(creatures: Creature[], fileName: string) {
     // Add information about the creature to its section
     addCreatureInformationPDF(doc, creature, pageWidth, y);
 
-    // Draw line at bottom of section
-    doc.line(0, y + sectionHeight, pageWidth, y + sectionHeight);
+    if (sectionIndexOnPage !== sectionsPerPage - 1) {
+
+
+      // Draw line at bottom of section
+      doc.line(0, y + sectionHeight, pageWidth, y + sectionHeight);
+    }
 
     // After last section on page, add a new page (except after last creature)
     if (
@@ -87,7 +91,7 @@ function addCreatureInformationPDF(
     leftIndent,
     (currentHeight += lineHeight),
   );
-  addPdfEntry(doc, "AC: ", creature.hp, leftIndent + 20, currentHeight);
+  addPdfEntry(doc, "AC: ", creature.ac, leftIndent + 20, currentHeight);
   addPdfEntry(
     doc,
     "Speed: ",
@@ -156,6 +160,29 @@ function addCreatureInformationPDF(
   doc.setFont("helvetica", "bold");
   doc.text('Spells:', leftIndent, (currentHeight += lineHeight));
   doc.setFont("helvetica", "normal");
+  if (creature.spell_attack_bonus) {
+
+    // Spell Attack
+    addPdfEntry(
+      doc,
+      "Spell Attack: ",
+      creature.spell_attack_bonus[0],
+      leftIndent + 40,
+      currentHeight,
+    );
+  }
+
+  if (creature.spell_dc)
+
+    // Spell DC
+    addPdfEntry(
+      doc,
+      "Spell DC: ",
+      creature.spell_dc,
+      creature.spell_attack_bonus ? leftIndent + 100 : leftIndent + 40,
+      currentHeight,
+    );
+
 
   const spellsText = creature.spell?.length
     ? creature.spell.join(", ")

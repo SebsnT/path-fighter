@@ -52,7 +52,6 @@ attributes_to_remove = [
     "source_raw",
     "speed",
     "speed_markdown",
-    "spell_dc",
     "spell_dc_scale",
     "spell_dc_scale_number",
     "spell_markdown",
