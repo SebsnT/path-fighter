@@ -1,12 +1,14 @@
 <template>
   <DataTable
+    data-key="id"
     class="data-table"
     :size="'small'"
+    scroll-height="flex"
     :value="encounterArray"
     scrollable
     sort-field="name"
     :sort-order="1"
-    :scroll-height="'calc(65vh)'"
+    :virtual-scroller-options="{ itemSize: 50 }"
   >
     <Column
       v-for="col in encounterColumns"
