@@ -127,6 +127,15 @@ function addCreatureInformationPDF(
     (currentHeight += lineHeight),
   );
 
+  // Immunities
+  addPdfEntry(
+    doc,
+    "Immunities: ",
+    `${creature.immunity ?? "None"}`,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+
   // Attacks
   doc.setFont("helvetica", "bold");
   doc.text("Attacks:", leftIndent, (currentHeight += lineHeight));

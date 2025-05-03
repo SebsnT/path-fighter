@@ -17,6 +17,7 @@ export type Creature = {
   fortitude_save: number;
   hp: string;
   intelligence: number;
+  immunity: string[];
   level: number;
   name: string;
   reflex_save: number;
