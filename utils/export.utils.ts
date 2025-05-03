@@ -38,8 +38,6 @@ export async function exportPDF(creatures: Creature[], fileName: string) {
     addCreatureInformationPDF(doc, creature, pageWidth, y);
 
     if (sectionIndexOnPage !== sectionsPerPage - 1) {
-
-
       // Draw line at bottom of section
       doc.line(0, y + sectionHeight, pageWidth, y + sectionHeight);
     }
@@ -159,7 +157,10 @@ function addCreatureInformationPDF(
     ? creature.creature_ability.join(", ")
     : "None";
 
-  let abilityLines = doc.splitTextToSize(abilitiesText, pageWidth - rightIdent);
+  const abilityLines = doc.splitTextToSize(
+    abilitiesText,
+    pageWidth - rightIdent,
+  );
 
   for (const line of abilityLines) {
     doc.text(line, leftIndent, (currentHeight += lineHeight));
@@ -167,10 +168,9 @@ function addCreatureInformationPDF(
 
   // Spells
   doc.setFont("helvetica", "bold");
-  doc.text('Spells:', leftIndent, (currentHeight += lineHeight));
+  doc.text("Spells:", leftIndent, (currentHeight += lineHeight));
   doc.setFont("helvetica", "normal");
   if (creature.spell_attack_bonus) {
-
     // Spell Attack
     addPdfEntry(
       doc,
@@ -182,7 +182,6 @@ function addCreatureInformationPDF(
   }
 
   if (creature.spell_dc)
-
     // Spell DC
     addPdfEntry(
       doc,
@@ -192,17 +191,15 @@ function addCreatureInformationPDF(
       currentHeight,
     );
 
-
   const spellsText = creature.spell?.length
     ? creature.spell.join(", ")
     : "None";
 
-  let spellsLines = doc.splitTextToSize(spellsText, pageWidth - rightIdent);
+  const spellsLines = doc.splitTextToSize(spellsText, pageWidth - rightIdent);
 
   for (const line of spellsLines) {
     doc.text(line, leftIndent, (currentHeight += lineHeight));
   }
-
 }
 
 /**

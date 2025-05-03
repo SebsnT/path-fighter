@@ -10,7 +10,6 @@
     <DifficultyIndicator />
     <FilterBar :creatures="creatures" />
     <div class="slot-container main-table-wrapper">
-
       <div class="slot-left">
         <MainTable :creatures="creatures" />
       </div>

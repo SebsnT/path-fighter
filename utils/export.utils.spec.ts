@@ -142,7 +142,7 @@ describe("Export Utils", () => {
         line: vi.fn(),
         addPage: vi.fn(),
         text: vi.fn(),
-        splitTextToSize: vi.fn(),
+        splitTextToSize: vi.fn().mockReturnValue([]),
         save: saveSpy,
         getTextWidth: vi.fn().mockReturnValue(30),
       } as unknown as jsPDF;
@@ -186,7 +186,7 @@ describe("Export Utils", () => {
         line: vi.fn(),
         addPage: vi.fn(),
         text: vi.fn(),
-        splitTextToSize: vi.fn(),
+        splitTextToSize: vi.fn().mockReturnValue(["Attack1", "Attack2"]),
         save: saveSpy,
         getTextWidth: vi.fn().mockReturnValue(30),
       } as unknown as jsPDF;
