@@ -26,7 +26,7 @@ import EncounterTable from "~/components/EncounterTable.vue";
 import "primeicons/primeicons.css";
 
 onMounted(() => {
-  document.documentElement.classList.add('darkmode');
+  document.documentElement.classList.add("darkmode");
 });
 
 const { creatures } = useCreatures();

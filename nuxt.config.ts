@@ -22,8 +22,8 @@ export default defineNuxtConfig({
     },
   },
   colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
+    preference: "dark",
+    fallback: "dark",
   },
   modules: [
     "@nuxt/eslint",
@@ -37,8 +37,8 @@ export default defineNuxtConfig({
       theme: {
         preset: Aura,
         options: {
-          darkModeSelector: '.darkmode',
-        }
+          darkModeSelector: ".darkmode",
+        },
       },
     },
   },
