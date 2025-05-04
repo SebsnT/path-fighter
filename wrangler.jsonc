@@ -1,5 +1,7 @@
 {
   "name": "path-fighter-app",
   "compatibility_date": "2025-05-04",
-  "assets": "./.output/public"
+  "site": {
+    "bucket": ".output/public"
+  }
 }
