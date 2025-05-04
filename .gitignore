@@ -19,6 +19,7 @@ logs
 .idea
 __pycache__
 coverage
+creatures.json
 output.json
 .wrangler
 

@@ -74,7 +74,7 @@ def extract_attacks(text):
 
 
 # Load JSON data
-with open("public/creature.json", "r", encoding="utf-8") as f:
+with open("public/creatures.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Collect all legacy IDs to be removed
