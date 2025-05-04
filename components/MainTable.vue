@@ -117,11 +117,7 @@ const filteredCreatures = computed(() => {
 
         switch (matchMode) {
           case "in":
-            return inFilter(
-              filterValue,
-              fieldValue,
-              filter.containsMultipleValues ?? false,
-            );
+            return inFilter(filterValue, fieldValue);
           case "contains":
             return containsFilter(filterValue, fieldValue);
           case "gte":

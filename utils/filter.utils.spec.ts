@@ -100,22 +100,22 @@ describe("Filter Utils", () => {
   describe("Filter functions", () => {
     describe("inFilter", () => {
       it("should return true when filter value contains one of the field's values", () => {
-        const result = inFilter(["apple", "banana"], "apple pie", true);
+        const result = inFilter(["apple", "banana"], "apple pie");
         expect(result).toBe(true);
       });
 
       it("should return false when filter value doesn't match", () => {
-        const result = inFilter(["apple", "banana"], "cherry pie", true);
+        const result = inFilter(["apple", "banana"], "cherry pie");
         expect(result).toBe(false);
       });
 
       it("should handle empty fieldValue gracefully", () => {
-        const result = inFilter(["apple", "banana"], "", true);
+        const result = inFilter(["apple", "banana"], "");
         expect(result).toBe(false);
       });
 
       it("should retrun wrong for false dataType ", () => {
-        const result = inFilter("apple", "", false);
+        const result = inFilter("apple", "");
         expect(result).toBe(false);
       });
     });

@@ -75,10 +75,9 @@ function selectionOptionsFromKeyAndValue(
 export function inFilter(
   filterValue: FilterValue,
   fieldValue: string,
-  containsMultipleValues: boolean,
 ): boolean {
   // Custom filter logic for multiple values in one column
-  if (Array.isArray(filterValue) && containsMultipleValues) {
+  if (Array.isArray(filterValue)) {
     return filterValue.some((filterItem: string) =>
       fieldValue.includes(filterItem.toLowerCase()),
     );
