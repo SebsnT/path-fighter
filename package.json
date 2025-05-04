@@ -17,6 +17,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@nuxtjs/color-mode": "^3.5.2",
     "@primevue/forms": "^4.3.3",
     "@primevue/themes": "^4.3.3",
     "jspdf": "^3.0.1",

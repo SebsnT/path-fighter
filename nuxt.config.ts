@@ -1,6 +1,7 @@
 import { defineNuxtConfig } from "nuxt/config";
 import Aura from "@primevue/themes/aura";
 export default defineNuxtConfig({
+  ssr: true,
   app: {
     head: {
       title: "PathFighter",
@@ -11,22 +12,33 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: "cloudflare-pages",
+    prerender: {
+      autoSubfolderIndex: false,
+    },
   },
   googleFonts: {
     families: {
       "Noto+Sans": true,
     },
   },
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+  },
   modules: [
     "@nuxt/eslint",
     "@primevue/nuxt-module",
     "@nuxtjs/google-fonts",
     "@nuxt/test-utils/module",
+    "@nuxtjs/color-mode",
   ],
   primevue: {
     options: {
       theme: {
         preset: Aura,
+        options: {
+          darkModeSelector: '.darkmode',
+        }
       },
     },
   },
