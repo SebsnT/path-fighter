@@ -4,6 +4,7 @@ import {
   lineHeight,
   rightIdent,
   sectionsPerPage,
+  spaceIndent,
 } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
 
@@ -71,7 +72,8 @@ function addCreatureInformationPDF(
   creature: Creature,
   pageWidth: number,
   currentHeight: number,
-) {
+): void {
+
   // Name
   addPdfEntry(
     doc,
@@ -89,7 +91,14 @@ function addCreatureInformationPDF(
     leftIndent,
     (currentHeight += lineHeight),
   );
-  addPdfEntry(doc, "AC: ", creature.ac, leftIndent + 20, currentHeight);
+
+  addPdfEntry(
+    doc, "AC: ",
+    creature.ac,
+    leftIndent + 20,
+    currentHeight
+  );
+
   addPdfEntry(
     doc,
     "Speed: ",
@@ -97,6 +106,39 @@ function addCreatureInformationPDF(
     leftIndent + 40,
     currentHeight,
   );
+
+  // Fort , Ref, Will, Perception
+  addPdfEntry(
+    doc,
+    "Fortitude: ",
+    creature.fortitude_save,
+    leftIndent,
+    (currentHeight += lineHeight),
+  );
+
+  addPdfEntry(
+    doc,
+    "Reflex: ",
+    creature.fortitude_save,
+    leftIndent + 30,
+    currentHeight,
+  );
+
+  addPdfEntry(
+    doc,
+    "Will: ",
+    creature.fortitude_save,
+    leftIndent + 60,
+    currentHeight,
+  );
+
+  addPdfEntry(
+    doc,
+    "Perception: ",
+    creature.perception,
+    leftIndent + 90,
+    currentHeight)
+    ;
 
   // Attributes
   addPdfEntry(
@@ -214,7 +256,7 @@ function addCreatureInformationPDF(
 function addPdfEntry(
   doc: jsPDF,
   name: string,
-  value: string | string[] | number,
+  value: string | string[] | number | number[],
   xCoordinate: number,
   yCoordinate: number,
   maxWidth?: number,
@@ -225,7 +267,7 @@ function addPdfEntry(
   doc.text(name, xCoordinate, yCoordinate);
   doc.setFont("helvetica", "normal");
 
-  doc.text(`${value}`, xCoordinate + nameLength + 2, yCoordinate, {
+  doc.text(`${value}`, xCoordinate + nameLength + spaceIndent, yCoordinate, {
     maxWidth: maxWidth ?? 0,
   });
 }
