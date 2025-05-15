@@ -73,7 +73,6 @@ function addCreatureInformationPDF(
   pageWidth: number,
   currentHeight: number,
 ): void {
-
   // Name
   addPdfEntry(
     doc,
@@ -92,12 +91,7 @@ function addCreatureInformationPDF(
     (currentHeight += lineHeight),
   );
 
-  addPdfEntry(
-    doc, "AC: ",
-    creature.ac,
-    leftIndent + 20,
-    currentHeight
-  );
+  addPdfEntry(doc, "AC: ", creature.ac, leftIndent + 20, currentHeight);
 
   addPdfEntry(
     doc,
@@ -137,8 +131,8 @@ function addCreatureInformationPDF(
     "Perception: ",
     creature.perception,
     leftIndent + 90,
-    currentHeight)
-    ;
+    currentHeight,
+  );
 
   // Attributes
   addPdfEntry(

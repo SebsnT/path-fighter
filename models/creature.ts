@@ -20,7 +20,7 @@ export type Creature = {
   immunity: string[];
   level: number;
   name: string;
-  perception: number,
+  perception: number;
   reflex_save: number;
   resistance_raw: string;
   size: string[];
