@@ -113,7 +113,7 @@ function addCreatureInformationPDF(
   addPdfEntry(
     doc,
     "Reflex: ",
-    creature.fortitude_save,
+    creature.reflex_save,
     leftIndent + 30,
     currentHeight,
   );
@@ -121,7 +121,7 @@ function addCreatureInformationPDF(
   addPdfEntry(
     doc,
     "Will: ",
-    creature.fortitude_save,
+    creature.will_save,
     leftIndent + 60,
     currentHeight,
   );
