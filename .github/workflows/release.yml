@@ -95,4 +95,4 @@ jobs:
           projectName: path-fighter-app
           directory: dist
           wranglerVersion: '4'
-          gitHubToken: ''
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
