@@ -94,4 +94,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: path-fighter-app
           directory: dist
+          wranglerVersion: '4'
           gitHubToken: ''
