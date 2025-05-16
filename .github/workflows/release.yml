@@ -94,4 +94,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: path-fighter-app
           directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          gitHubToken: ''
