@@ -1,5 +1,6 @@
 {
   "extends": ["config:recommended"],
+  "rangeStrategy": "bump",
   "automerge": false,
   "prHourlyLimit": 2,
   "prConcurrentLimit": 10,
