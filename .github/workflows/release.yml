@@ -61,8 +61,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build the app
         run: npm run build:cloudflare
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
 
   deploy:
     runs-on: ubuntu-latest
@@ -83,4 +92,3 @@ jobs:
           projectName: path-fighter-app
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
