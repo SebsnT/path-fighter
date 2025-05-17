@@ -15,8 +15,8 @@ export function getEliteCreature(creature: Creature): Creature {
     perception: creature.perception + 2,
     fortitude_save: creature.fortitude_save + 2,
     reflex_save: creature.reflex_save + 2,
-    will_save: creature.will_save + 2
-  }
+    will_save: creature.will_save + 2,
+  };
 }
 
 /**
@@ -34,8 +34,8 @@ export function getWeakCreature(creature: Creature) {
     perception: creature.perception - 2,
     fortitude_save: creature.fortitude_save - 2,
     reflex_save: creature.reflex_save - 2,
-    will_save: creature.will_save - 2
-  }
+    will_save: creature.will_save - 2,
+  };
 }
 
 /**
@@ -64,7 +64,6 @@ function getEliteHP(level: number, hp: number): number {
       return hp;
   }
 }
-
 
 /**
  * Returns ajdusted HP for weak challenge type

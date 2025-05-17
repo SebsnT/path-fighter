@@ -75,14 +75,12 @@ function addCreatureInformationPDF(
   currentHeight: number,
 ): void {
   if (creature.challenge_type == "elite") {
-    creature = getEliteCreature(creature)
+    creature = getEliteCreature(creature);
   }
 
   if (creature.challenge_type == "weak") {
-    creature = getWeakCreature(creature)
+    creature = getWeakCreature(creature);
   }
-
-
 
   // Name
   addPdfEntry(
