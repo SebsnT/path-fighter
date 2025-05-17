@@ -8,12 +8,20 @@ export function calculateCreatureXP(
 ): { baseXP: number; scaledXP: number } {
   if (challengeType == "elite") {
     // Increase the creature’s level by 1; if the creature is level –1 or 0, instead increase its level by 2.
-    creatureLevel <= 0 ? creatureLevel += 2 : creatureLevel += 1;
+    if (creatureLevel <= 0) {
+      creatureLevel += 2;
+    } else {
+      creatureLevel += 1;
+    }
   }
 
   if (challengeType == "weak") {
     // Decrease the creature’s level by 1; if the creature is level 1, instead decrease its level by 2.
-    creatureLevel == 1 ? creatureLevel -= 2 : creatureLevel -= 1;
+    if (creatureLevel == 1) {
+      creatureLevel -= 2;
+    } else {
+      creatureLevel -= 1;
+    }
   }
 
   const levelDiff = creatureLevel - partyLevel;
