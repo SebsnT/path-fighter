@@ -41,8 +41,9 @@ export const useFilters = () => {
       Object.entries(filters.value).filter(([_, filter]) => {
         const filterValue = filter.value;
         return (
-          filterValue &&
-          (Array.isArray(filterValue) ? filterValue.length > 0 : true)
+          (filterValue &&
+            (Array.isArray(filterValue) ? filterValue.length > 0 : true)) ||
+          filterValue == 0
         );
       }),
     );

@@ -56,6 +56,7 @@ describe("useFilters", () => {
       expect(filterOverwrite.level.value).toStrictEqual(null);
     });
   });
+
   describe("cleanFilters", () => {
     const { filters, cleanFilters } = useFilters();
 
@@ -63,8 +64,7 @@ describe("useFilters", () => {
       filters.value = {
         global: { value: null, matchMode: "contains" },
         name: { value: "Test", matchMode: "contains" },
-        level: { value: [], matchMode: "gte" },
-        category: { value: "", matchMode: "equals" },
+        level: { value: null, matchMode: "gte" },
       };
 
       const cleanedFilters = cleanFilters();
@@ -74,6 +74,21 @@ describe("useFilters", () => {
       expect(cleanedFilters.name).toEqual({
         value: "Test",
         matchMode: "contains",
+      });
+    });
+
+    it("should not remove filters with 0", () => {
+      filters.value = {
+        level: { value: 0, matchMode: "gte" },
+      };
+
+      const cleanedFilters = cleanFilters();
+
+      // Only "level" should remain
+      expect(Object.keys(cleanedFilters)).toHaveLength(1);
+      expect(cleanedFilters.level).toEqual({
+        value: 0,
+        matchMode: "gte",
       });
     });
   });

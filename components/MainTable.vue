@@ -89,7 +89,6 @@ const filteredCreatures = computed(() => {
     return props.creatures;
   }
 
-  // Apply custom filtering logic for "trait_raw" column (for example)
   return props.creatures.filter((creature) => {
     return Object.keys(cleanedFilters).every((field) => {
       const filter = cleanedFilters[field];
@@ -97,7 +96,7 @@ const filteredCreatures = computed(() => {
       const filterValue = toRaw(filter.value);
       const matchMode = filter.matchMode;
 
-      if (filterValue && matchMode) {
+      if ((filterValue || filterValue == "0") && matchMode) {
         let fieldValue;
 
         // Special handling for level_min and level_max
