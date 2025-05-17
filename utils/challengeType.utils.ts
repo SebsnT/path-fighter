@@ -16,7 +16,7 @@ export function getEliteCreature(creature: Creature): Creature {
     fortitude_save: creature.fortitude_save + 2,
     reflex_save: creature.reflex_save + 2,
     will_save: creature.will_save + 2,
-    attacks: adjustAttackAndDamage(creature.attacks, 2)
+    attacks: adjustAttackAndDamage(creature.attacks, 2),
   };
 }
 
@@ -36,7 +36,7 @@ export function getWeakCreature(creature: Creature) {
     fortitude_save: creature.fortitude_save - 2,
     reflex_save: creature.reflex_save - 2,
     will_save: creature.will_save - 2,
-    attacks: adjustAttackAndDamage(creature.attacks, -2)
+    attacks: adjustAttackAndDamage(creature.attacks, -2),
   };
 }
 
@@ -47,34 +47,29 @@ export function getWeakCreature(creature: Creature) {
  * @param adjustment is a number that the modifiers should be ajdusted by
  * @returns the update attacks array
  */
-function adjustAttackAndDamage(attacks: string[], adjustment: number): string[] {
-  return attacks.map(str => {
-
+export function adjustAttackAndDamage(
+  attacks: string[],
+  adjustment: number,
+): string[] {
+  return attacks.map((str) => {
     // Adjust the attack modifier
     str = str.replace(/\+(\d+)/, (_, num) => {
       const adjusted = Number(num) + adjustment;
       return (adjusted >= 0 ? "+" : "") + adjusted;
     });
 
-
     // Adjust the damage modifier in the damage expression
     str = str.replace(/(\d+d\d+)([+-])(\d+)/, (_, dice, sign, num) => {
-      let damageMod = Number(num);
-      // Add adjustment, but invert sign if damage is negative
-      if (sign === "+") {
-        damageMod += adjustment;
-      } else if (sign === "-") {
-        damageMod -= adjustment; // If negative, subtract adjustment
-      }
+      // keep signed
+      let damageMod = Number(sign + num);
+      damageMod += adjustment;
       const newSign = damageMod >= 0 ? "+" : "-";
       return dice + newSign + Math.abs(damageMod);
     });
 
-
     return str;
   });
 }
-
 
 /**
  * Returns ajdusted HP for elite challenge type
