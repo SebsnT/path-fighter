@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { adjustAttackAndDamage, getEliteCreature, getWeakCreature } from "./challengeType.utils";
+import {
+  adjustAttackAndDamage,
+  getEliteCreature,
+  getWeakCreature,
+} from "./challengeType.utils";
 import type { Creature } from "~/models/creature";
 
 const attacks = [
@@ -20,7 +24,7 @@ describe("Creature adjustments", () => {
         fortitude_save: 10,
         reflex_save: 10,
         will_save: 10,
-        attacks: attacks
+        attacks: attacks,
       } as Creature;
 
       const elite = getEliteCreature(baseCreature);
@@ -57,7 +61,7 @@ describe("Creature adjustments", () => {
           fortitude_save: 10,
           reflex_save: 10,
           will_save: 10,
-          attacks: attacks
+          attacks: attacks,
         } as Creature;
         const elite = getEliteCreature(creature);
         expect(elite.hp).toBe(creature.hp + expectedHpAdd);
@@ -76,7 +80,7 @@ describe("Creature adjustments", () => {
         fortitude_save: 10,
         reflex_save: 10,
         will_save: 10,
-        attacks: attacks
+        attacks: attacks,
       } as Creature;
 
       const weak = getWeakCreature(baseCreature);
@@ -114,7 +118,7 @@ describe("Creature adjustments", () => {
           fortitude_save: 10,
           reflex_save: 10,
           will_save: 10,
-          attacks: attacks
+          attacks: attacks,
         } as Creature;
         const weak = getWeakCreature(creature);
         expect(weak.hp).toBe(creature.hp - expectedHpSub);
@@ -149,17 +153,17 @@ describe("Creature adjustments", () => {
 
     it("should handle negative damage modifiers correctly", () => {
       const attacksWithNegativeDamage = [
-        "Melee Single Action tail +10, Damage 1d8-3 bludgeoning"
+        "Melee Single Action tail +10, Damage 1d8-3 bludgeoning",
       ];
       const adjusted = adjustAttackAndDamage(attacksWithNegativeDamage, 2);
       expect(adjusted).toEqual([
-        "Melee Single Action tail +12, Damage 1d8-1 bludgeoning"
+        "Melee Single Action tail +12, Damage 1d8-1 bludgeoning",
       ]);
     });
 
     it("should not modify strings without matching patterns", () => {
       const invalidAttacks = [
-        "Some ability without attack or damage modifiers"
+        "Some ability without attack or damage modifiers",
       ];
       const adjusted = adjustAttackAndDamage(invalidAttacks, 2);
       expect(adjusted).toEqual(invalidAttacks);
