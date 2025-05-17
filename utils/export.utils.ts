@@ -7,6 +7,7 @@ import {
   spaceIndent,
 } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
+import { getEliteCreature, getWeakCreature } from "./challengeType.utils";
 
 /**
  * Export given creatures to a pdf
@@ -73,6 +74,16 @@ function addCreatureInformationPDF(
   pageWidth: number,
   currentHeight: number,
 ): void {
+  if (creature.challenge_type == "elite") {
+    creature = getEliteCreature(creature)
+  }
+
+  if (creature.challenge_type == "weak") {
+    creature = getWeakCreature(creature)
+  }
+
+
+
   // Name
   addPdfEntry(
     doc,
