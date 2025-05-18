@@ -34,17 +34,21 @@ export const useFilters = () => {
   };
 
   /**
-   *  Remove filters with empty, null, or empty array values
+   * Remove filters with empty, null, or empty array values
    */
   function cleanFilters() {
     return Object.fromEntries(
       Object.entries(filters.value).filter(([_, filter]) => {
         const filterValue = filter.value;
-        return (
-          (filterValue &&
-            (Array.isArray(filterValue) ? filterValue.length > 0 : true)) ||
-          filterValue == 0
-        );
+
+        // Exclude null/undefined
+        if (filterValue == null) return false;
+
+        // Exclude empty arrays
+        if (Array.isArray(filterValue)) return filterValue.length > 0;
+
+        // Keep 0 and other truthy values, exclude empty string/false
+        return filterValue !== "";
       }),
     );
   }
