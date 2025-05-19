@@ -22,6 +22,7 @@ export type Creature = {
   name: string;
   perception: number;
   unique_abilities: string[];
+  reactions: string[];
   reflex_save: number;
   resistance_raw: string;
   size: string[];

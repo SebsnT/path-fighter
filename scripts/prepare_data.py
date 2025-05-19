@@ -37,6 +37,7 @@ def remove_attributes(data, attributes_to_remove, ids_to_remove):
             # If "creature_abilities" exists, extract reactions
             if "creature_ability" in data:
               data["unique_abilities"] = extract_abilities_from_markdown(data["markdown"], data['creature_ability'])
+              data["reactions"] = extract_reactions(data["unique_abilities"])
 
         return {
             key: remove_attributes(value, attributes_to_remove, ids_to_remove)
@@ -104,6 +105,12 @@ def extract_abilities_from_markdown(markdown: str, abilities: list[str]):
         })
 
     return results
+
+def extract_reactions(markdown: list[str]) -> list[str]:
+    return list(filter(isReaction, markdown))
+
+def isReaction(ability: str) -> bool:
+    return "Reaction" in ability['action']
 
 
 # Load JSON data
