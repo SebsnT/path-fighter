@@ -21,6 +21,7 @@ export type Creature = {
   level: number;
   name: string;
   perception: number;
+  unique_abilities: string[];
   reflex_save: number;
   resistance_raw: string;
   size: string[];

@@ -1,5 +1,6 @@
 import json
 import re
+from html import unescape
 from attributes_to_remove import attributes_to_remove
 
 
@@ -32,6 +33,10 @@ def remove_attributes(data, attributes_to_remove, ids_to_remove):
         # If "text" exists, extract attacks
         if "text" in data:
             data["attacks"] = extract_attacks(data["text"])
+
+            # If "creature_abilities" exists, extract reactions
+            if "creature_ability" in data:
+              data["unique_abilities"] = extract_abilities_from_markdown(data["markdown"], data['creature_ability'])
 
         return {
             key: remove_attributes(value, attributes_to_remove, ids_to_remove)
@@ -69,6 +74,34 @@ def extract_attacks(text):
             if not re.search(r"plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+", attack):
                 attack += " (see Creature)"
         results.append(attack)
+
+    return results
+
+
+def extract_abilities_from_markdown(markdown: str, abilities: list[str]):
+    markdown = re.sub(r"\s+", " ", unescape(markdown))
+
+    # Escape ability names
+    abilities_esc = [re.escape(a) for a in abilities]
+
+    pattern = re.compile(
+        rf"\*\*({'|'.join(abilities_esc)})\*\*"             # Match ability name
+        r"(?:\s*<actions string=\"(.*?)\" />)?"              # Optional action tag
+        r"\s*(.*?)"                                          # Description
+        r"(?=(?:\*\*[A-Z][^*]+\*\* <actions|</column>|</aside>|</row>|---|<title|<table|$))",
+        re.DOTALL
+    )
+
+    results = []
+    for match in pattern.finditer(markdown):
+        name = match.group(1).strip()
+        action = match.group(2) or ""
+        desc = match.group(3).strip().rstrip('<')  # Strip off trailing artifacts
+        results.append({
+            "name": name,
+            "action": action,
+            "description": desc
+        })
 
     return results
 
