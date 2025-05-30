@@ -58,7 +58,6 @@
 </template>
 
 <script setup lang="ts">
-
 import { columns } from "~/config/columns.config";
 import type { Creature } from "~/models/creature";
 import {

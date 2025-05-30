@@ -3,7 +3,7 @@ import Aura from "@primevue/themes/aura";
 export default defineNuxtConfig({
   ssr: true,
   build: {
-    transpile: ['primevue'],
+    transpile: ["primevue"],
   },
   experimental: {
     payloadExtraction: true,
@@ -25,9 +25,9 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      'Noto+Sans': [400, 700], // Limit to weights used
+      "Noto+Sans": [400, 700], // Limit to weights used
     },
-    display: 'swap',
+    display: "swap",
     preload: true,
   },
   colorMode: {
@@ -53,17 +53,44 @@ export default defineNuxtConfig({
       },
     },
     components: {
-      include: ['InputText', 'Button', 'Dropdown', 'Select', 'MultiSelect', 'Checkbox', 'DataTable', 'InputNumber', 'FloatLabel', 'ProgressBar', 'Dialog']
-    }
+      include: [
+        "InputText",
+        "Button",
+        "Dropdown",
+        "Select",
+        "MultiSelect",
+        "Checkbox",
+        "DataTable",
+        "InputNumber",
+        "FloatLabel",
+        "ProgressBar",
+        "Dialog",
+      ],
+    },
   },
 
   devtools: { enabled: true },
   vite: {
     optimizeDeps: {
-      include: ['primevue/config', 'primevue/button', 'primevue/inputtext', 'primevue/dropdown', 'primevue/selectbutton', 'primevue/multiselect', 'primevue/checkbox', 'primevue/datatable', 'primevue/inputnumber', 'primevue/floatlabel', 'primevue/progressbar', 'primevue/dialog', 'markdown-it', 'jspdf'],
+      include: [
+        "primevue/config",
+        "primevue/button",
+        "primevue/inputtext",
+        "primevue/dropdown",
+        "primevue/selectbutton",
+        "primevue/multiselect",
+        "primevue/checkbox",
+        "primevue/datatable",
+        "primevue/inputnumber",
+        "primevue/floatlabel",
+        "primevue/progressbar",
+        "primevue/dialog",
+        "markdown-it",
+        "jspdf",
+      ],
     },
     build: {
-      minify: 'terser',
+      minify: "terser",
       terserOptions: {
         compress: {
           drop_console: true,
@@ -81,7 +108,7 @@ export default defineNuxtConfig({
       path: "~/components",
       pathPrefix: false,
       watch: true,
-      extensions: ['vue'],
+      extensions: ["vue"],
       global: false,
       prefetch: true,
     },
