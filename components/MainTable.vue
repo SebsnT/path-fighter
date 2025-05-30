@@ -58,8 +58,6 @@
 </template>
 
 <script setup lang="ts">
-import DataTable from "primevue/datatable";
-import Column from "primevue/column";
 
 import { columns } from "~/config/columns.config";
 import type { Creature } from "~/models/creature";

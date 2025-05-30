@@ -16,8 +16,6 @@
 
 <script setup>
 import { ref } from "vue";
-import Button from "primevue/button";
-import Dialog from "primevue/dialog";
 import MarkdownIt from "markdown-it";
 
 // Import the raw markdown file
