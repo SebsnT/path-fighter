@@ -30,7 +30,7 @@ export const useCreatures = () => {
   // Fetch creatures from the local public folder
   const loadCreaturesFromLocal = async () => {
     try {
-      const response = await fetch("/output.json");
+      const response = await fetch("data/output.json");
       if (response.ok) {
         const data = await response.json();
         creatures.value = data;
