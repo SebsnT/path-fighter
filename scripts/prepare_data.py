@@ -81,6 +81,11 @@ def extract_attacks(text):
 
 
 def extract_abilities_from_markdown(markdown: str, abilities: list[str]):
+    markdown = unescape(markdown)
+
+    # Remove any [text](/Something.aspx?ID=digits) links
+    markdown = re.sub(r"\[([^\]]+)\]\(/[^)]+\.aspx\?ID=\d+\)", r"\1", markdown)
+
     markdown = re.sub(r"\s+", " ", unescape(markdown))
 
     # Escape ability names
