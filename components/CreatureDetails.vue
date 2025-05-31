@@ -4,56 +4,114 @@
       <span>Name: {{ props.creature.name }}</span>
     </div>
 
+    <Divider class="margin"></Divider>
+
     <div class="row">
       <span>HP: {{ props.creature.hp }}</span>
-    </div>
-
-    <div class="row">
       <span>AC: {{ props.creature.ac }}</span>
-    </div>
-
-    <div class="row">
       <span>Speed: {{ props.creature.speed_raw }}</span>
     </div>
 
+    <Divider class="margin"></Divider>
+
     <div class="row">
-      <span>
-        Str: {{ props.creature.strength }}, Dex: {{ props.creature.dexterity }},
-        Con: {{ props.creature.constitution }}, Int:
-        {{ props.creature.intelligence }}, Wis: {{ props.creature.wisdom }},
-        Cha: {{ props.creature.charisma }}
-      </span>
+      <span> Fort: {{ props.creature.fortitude_save }}</span>
+      <span> Ref: {{ props.creature.fortitude_save }}</span>
+      <span> Wil: {{ props.creature.will_save }}</span>
+      <span> Perception: {{ props.creature.perception }}</span>
+    </div>
+
+
+    <div class="row">
+      <span>Attributes:</span>
+      <span>Strength: {{ props.creature.strength }}</span>
+      <span>Dexterity: {{ props.creature.dexterity }}</span>
+      <span>Constitution: {{ props.creature.constitution }}</span>
+      <span>Intelligence: {{ props.creature.intelligence }}</span>
+      <span>Wisdom: {{ props.creature.wisdom }}</span>
+      <span>Charisma: {{ props.creature.charisma }}</span>
+    </div>
+
+    <Divider class="margin"></Divider>
+
+    <div class="row">
+      <div class="column">
+        <span> Skills: </span>
+        <span>{{Object.entries(props.creature.skill_mod).map(([skill, mod]) => `${mod}: ${skill}`).join(', ')}}</span>
+      </div>
+    </div>
+
+    <Divider class="margin"></Divider>
+
+    <div class="row">
+      <span>Resistance</span>
+      <span>{{ props.creature.resistance_raw ?? "None" }}</span>
     </div>
 
     <div class="row">
-      <span>
-        Fort: {{ props.creature.fortitude_save }}, Ref:
-        {{ props.creature.fortitude_save }}, Wil: {{ props.creature.will_save }}
-      </span>
+      <span>Weakness:</span>
+      <span>{{ props.creature.weakness_raw ?? "None" }}</span>
     </div>
 
     <div class="row">
-      <span> Resistance: {{ props.creature.resistance_raw }} </span>
+      <span>Immunities</span>
+      <span>{{ props.creature.immunity ?? "None" }}</span>
     </div>
 
-    <div class="row">
-      <span> Weakness: {{ props.creature.weakness_raw }} </span>
-    </div>
+    <Divider class="margin"></Divider>
 
     <div class="row">
-      <span> Spell: {{ props.creature.spell }} </span>
+      <div class="column">
+        <span>Reactions:</span>
+        <span v-for="({ name, description }, index) in props.creature.reactions" :key="index"> {{ name }} {{ description
+        }}</span>
+      </div>
     </div>
 
-    <div class="row">
-      <span> Skills: {{ props.creature.skill_mod }} </span>
-    </div>
+    <Divider class="margin"></Divider>
 
     <div class="row">
-      <span> Attacks: {{ props.creature.attacks }} </span>
+      <div class="column">
+        <span> Attacks: </span>
+        <div v-if="props.creature.attacks && props.creature.attacks.length > 0">
+          <div v-for="(attack, index) in props.creature.attacks" :key="index">
+            {{ attack }}
+          </div>
+        </div>
+        <div v-else>
+          None
+        </div>
+      </div>
     </div>
+
+    <Divider class="margin"></Divider>
+
     <div class="row">
-      <span> Creature Abilities: {{ props.creature.creature_ability }} </span>
+      <div class="column">
+        <span> Spells:</span>
+        <span> {{ props.creature.spell ?? "None" }}</span>
+      </div>
     </div>
+
+
+
+    <Divider class="margin"></Divider>
+
+    <div class="row">
+      <div class="column">
+        <span>Unique Abilities:</span>
+        <div v-if="props.creature.unique_abilities && props.creature.unique_abilities.length > 0">
+          <div v-for="(ability, index) in props.creature.unique_abilities" :key="index" style="margin-bottom: 0.5em;">
+            <strong>{{ ability.name }}</strong>: {{ ability.description }}
+          </div>
+        </div>
+        <div v-else>
+          None
+        </div>
+      </div>
+    </div>
+
+    <Divider class="margin"></Divider>
   </div>
 </template>
 
@@ -64,3 +122,20 @@ const props = defineProps<{
   creature: Creature;
 }>();
 </script>
+
+<style scoped lang="scss">
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.margin {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+</style>
