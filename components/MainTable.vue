@@ -49,10 +49,9 @@
         </template>
       </template>
     </Column>
-      <template #expansion="row">
+    <template #expansion="row">
       <CreatureDetails :creature="row.data" />
     </template>
-
   </DataTable>
 </template>
 

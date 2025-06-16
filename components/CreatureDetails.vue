@@ -21,7 +21,6 @@
       <span> Perception: {{ props.creature.perception }}</span>
     </div>
 
-
     <div class="row">
       <span>Attributes:</span>
       <span>Strength: {{ props.creature.strength }}</span>
@@ -37,7 +36,11 @@
     <div class="row">
       <div class="column">
         <span> Skills: </span>
-        <span>{{Object.entries(props.creature.skill_mod).map(([skill, mod]) => `${mod}: ${skill}`).join(', ')}}</span>
+        <span>{{
+          Object.entries(props.creature.skill_mod)
+            .map(([skill, mod]) => `${mod}: ${skill}`)
+            .join(", ")
+        }}</span>
       </div>
     </div>
 
@@ -63,8 +66,12 @@
     <div class="row">
       <div class="column">
         <span>Reactions:</span>
-        <span v-for="({ name, description }, index) in props.creature.reactions" :key="index"> {{ name }} {{ description
-        }}</span>
+        <span
+          v-for="({ name, description }, index) in props.creature.reactions"
+          :key="index"
+        >
+          {{ name }} {{ description }}</span
+        >
       </div>
     </div>
 
@@ -78,9 +85,7 @@
             {{ attack }}
           </div>
         </div>
-        <div v-else>
-          None
-        </div>
+        <div v-else>None</div>
       </div>
     </div>
 
@@ -93,21 +98,27 @@
       </div>
     </div>
 
-
-
     <Divider class="margin"></Divider>
 
     <div class="row">
       <div class="column">
         <span>Unique Abilities:</span>
-        <div v-if="props.creature.unique_abilities && props.creature.unique_abilities.length > 0">
-          <div v-for="(ability, index) in props.creature.unique_abilities" :key="index" style="margin-bottom: 0.5em;">
-            <strong>{{ ability.name }}</strong>: {{ ability.description }}
+        <div
+          v-if="
+            props.creature.unique_abilities &&
+            props.creature.unique_abilities.length > 0
+          "
+        >
+          <div
+            v-for="(ability, index) in props.creature.unique_abilities"
+            :key="index"
+            style="margin-bottom: 0.5em"
+          >
+            <strong>{{ ability.name }}</strong
+            >: {{ ability.description }}
           </div>
         </div>
-        <div v-else>
-          None
-        </div>
+        <div v-else>None</div>
       </div>
     </div>
 
