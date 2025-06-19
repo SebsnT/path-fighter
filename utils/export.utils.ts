@@ -91,7 +91,7 @@ function addCreatureInformationPDF(
     (currentHeight += lineHeight),
   );
 
-  // HP, AC and Speed
+  // HP, AC, Size and Speed
   addPdfEntry(
     doc,
     "HP: ",
@@ -102,11 +102,13 @@ function addCreatureInformationPDF(
 
   addPdfEntry(doc, "AC: ", creature.ac, leftIndent + 20, currentHeight);
 
+  addPdfEntry(doc, "Size: ", creature.size[0], leftIndent + 40, currentHeight);
+
   addPdfEntry(
     doc,
     "Speed: ",
     creature.speed_raw,
-    leftIndent + 40,
+    leftIndent + 80,
     currentHeight,
   );
 
@@ -179,6 +181,30 @@ function addCreatureInformationPDF(
     (currentHeight += lineHeight),
   );
 
+  // Reactions
+  doc.setFont("helvetica", "bold");
+  doc.text("Reactions:", leftIndent, (currentHeight += lineHeight));
+  doc.setFont("helvetica", "normal");
+  for (let i = 0; i < creature.reactions.length; i++) {
+    const ability = creature.reactions[i];
+    const combinedText = [
+      ability.name,
+      ability.description ? `— ${ability.description}` : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    currentHeight += lineHeight;
+    currentHeight = renderWrappedMarkdown(
+      doc,
+      combinedText,
+      leftIndent,
+      currentHeight,
+      pageWidth - rightIdent,
+      lineHeight,
+    );
+  }
+
   // Attacks
   doc.setFont("helvetica", "bold");
   doc.text("Attacks:", leftIndent, (currentHeight += lineHeight));
@@ -197,18 +223,25 @@ function addCreatureInformationPDF(
   doc.setFont("helvetica", "bold");
   doc.text("Unique Abilities:", leftIndent, (currentHeight += lineHeight));
   doc.setFont("helvetica", "normal");
+  for (let i = 0; i < creature.unique_abilities.length; i++) {
+    const ability = creature.unique_abilities[i];
+    const combinedText = [
+      ability.name,
+      ability.action ? `(${ability.action})` : "",
+      ability.description ? `— ${ability.description}` : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
 
-  const abilitiesText = creature.creature_ability?.length
-    ? creature.creature_ability.join(", ")
-    : "None";
-
-  const abilityLines = doc.splitTextToSize(
-    abilitiesText,
-    pageWidth - rightIdent,
-  );
-
-  for (const line of abilityLines) {
-    doc.text(line, leftIndent, (currentHeight += lineHeight));
+    currentHeight += lineHeight;
+    currentHeight = renderWrappedMarkdown(
+      doc,
+      combinedText,
+      leftIndent,
+      currentHeight,
+      pageWidth - rightIdent,
+      lineHeight,
+    );
   }
 
   // Spells
@@ -296,4 +329,89 @@ export function exportJSON(creatures: Creature[], fileName?: string): void {
 
   // Trigger a click event on the link to start the download
   link.click();
+}
+
+function renderWrappedMarkdown(
+  doc: jsPDF,
+  text: string,
+  x: number,
+  startY: number,
+  maxWidth: number,
+  lineHeight: number,
+) {
+  const regex = /(\*\*(.+?)\*\*|_(.+?)_)/g;
+
+  // Parse text into styled segments
+  const rawSegments = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      rawSegments.push({
+        text: text.slice(lastIndex, match.index),
+        style: "normal",
+      });
+    }
+
+    if (match[0].startsWith("**")) {
+      rawSegments.push({ text: match[2], style: "bold" });
+    } else if (match[0].startsWith("_")) {
+      rawSegments.push({ text: match[3], style: "underline" });
+    }
+
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    rawSegments.push({ text: text.slice(lastIndex), style: "normal" });
+  }
+
+  // Split segments into words with style info
+  const words = [];
+  for (const seg of rawSegments) {
+    const wordList = seg.text.split(/(\s+)/); // include spaces
+    for (const word of wordList) {
+      if (word) {
+        words.push({ text: word, style: seg.style });
+      }
+    }
+  }
+
+  // Layout words manually
+  let currentX = x;
+  let currentY = startY;
+
+  for (const word of words) {
+    doc.setFont("helvetica", word.style === "bold" ? "bold" : "normal");
+
+    const wordWidth =
+      (doc.getStringUnitWidth(word.text) * doc.getFontSize()) /
+      doc.internal.scaleFactor;
+
+    // If word would overflow, wrap to next line
+    if (currentX + wordWidth > x + maxWidth) {
+      currentX = x;
+      currentY += lineHeight;
+    }
+
+    // Draw word
+    doc.text(word.text, currentX, currentY);
+
+    // Draw underline if needed
+    if (word.style === "underline") {
+      const offsetY = 1;
+      doc.setLineWidth(0.5);
+      doc.line(
+        currentX,
+        currentY + offsetY,
+        currentX + wordWidth,
+        currentY + offsetY,
+      );
+    }
+
+    currentX += wordWidth;
+  }
+
+  return currentY; // Return final Y position if needed
 }
