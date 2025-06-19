@@ -1,5 +1,7 @@
 import type { MardownLink } from "~/models/markdownLink";
 import type { SelectionOption } from "~/models/selectionOptions";
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 /**
  *
@@ -69,4 +71,11 @@ export function parseMultipleMarkdownStrings(markdown: string): MardownLink[] {
     .map((link) => parseOneMarkdownLink(link.trim()))
     .filter(Boolean);
   return links as { label: string; link: string }[];
+}
+
+
+
+export async function safeMarkdownToHtml(text: string): Promise<string> {
+  const rawHtml = await marked.parseInline(text);
+  return DOMPurify.sanitize(rawHtml, { ALLOWED_TAGS: ['strong'] });
 }

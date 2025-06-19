@@ -38,11 +38,12 @@
         <span> Skills: </span>
         <span>{{
           Object.entries(props.creature.skill_mod)
-            .map(([skill, mod]) => `${mod}: ${skill}`)
+            .map(([skill, mod]) => `${skill}: ${mod}`)
             .join(", ")
         }}</span>
       </div>
     </div>
+
 
     <Divider class="margin"></Divider>
 
@@ -58,80 +59,115 @@
 
     <div class="row">
       <span>Immunities</span>
-      <span>{{ props.creature.immunity ?? "None" }}</span>
+      <span v-for="(name) in props.creature.immunity">{{ name ?? "None" }}</span>
     </div>
 
-    <Divider class="margin"></Divider>
+    <div v-if="props.creature.reactions.length">
 
-    <div class="row">
-      <div class="column">
-        <span>Reactions:</span>
-        <span
-          v-for="({ name, description }, index) in props.creature.reactions"
-          :key="index"
-        >
-          {{ name }} {{ description }}</span
-        >
-      </div>
-    </div>
+      <Divider class="margin"></Divider>
 
-    <Divider class="margin"></Divider>
-
-    <div class="row">
-      <div class="column">
-        <span> Attacks: </span>
-        <div v-if="props.creature.attacks && props.creature.attacks.length > 0">
-          <div v-for="(attack, index) in props.creature.attacks" :key="index">
-            {{ attack }}
-          </div>
+      <div class="row">
+        <div class="column">
+          <span>Reactions:</span>
+          <ul>
+            <li v-for="({ name, htmlDescription }, index) in renderedReactions" :key="index">
+              <strong>{{ name }}</strong>
+              <span v-if="htmlDescription">: </span>
+              <span v-if="htmlDescription" v-html="htmlDescription"></span>
+            </li>
+          </ul>
         </div>
-        <div v-else>None</div>
       </div>
     </div>
 
-    <Divider class="margin"></Divider>
+    <div v-if="props.creature.attacks.length">
 
-    <div class="row">
-      <div class="column">
-        <span> Spells:</span>
-        <span> {{ props.creature.spell ?? "None" }}</span>
-      </div>
-    </div>
-
-    <Divider class="margin"></Divider>
-
-    <div class="row">
-      <div class="column">
-        <span>Unique Abilities:</span>
-        <div
-          v-if="
-            props.creature.unique_abilities &&
-            props.creature.unique_abilities.length > 0
-          "
-        >
-          <div
-            v-for="(ability, index) in props.creature.unique_abilities"
-            :key="index"
-            style="margin-bottom: 0.5em"
-          >
-            <strong>{{ ability.name }}</strong
-            >: {{ ability.description }}
-          </div>
+      <Divider class="margin"></Divider>
+      <div class="row">
+        <div class="column">
+          <span> Attacks: </span>
+          <ul>
+            <li v-for="(attack, index) in props.creature.attacks" :key="index">
+              {{ attack }}
+            </li>
+          </ul>
         </div>
-        <div v-else>None</div>
       </div>
     </div>
 
-    <Divider class="margin"></Divider>
+    <div v-if="props.creature.spell?.length">
+
+      <Divider class="margin"></Divider>
+
+      <div class="row">
+        <div class="column">
+          <span>Spells:</span>
+          <span>
+            {{
+              props.creature.spell && props.creature.spell.length > 0
+                ? props.creature.spell.join(", ")
+                : "None"
+            }}
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+    <div v-if="props.creature.unique_abilities.length">
+
+      <Divider class="margin"></Divider>
+
+      <div class="row">
+        <div class="column">
+          <span>Unique Abilities:</span>
+          <ul>
+            <li v-for="({ name, action, htmlDescription }, i) in renderedUniqueAbilities" :key="i">
+              <strong>{{ name }} </strong>
+              <span v-if="action"> &nbsp;<u>{{ action }}</u>: </span>
+              <span v-else>: </span>
+              <span v-html="htmlDescription"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Creature } from "~/models/creature";
+import { safeMarkdownToHtml } from "~/utils/markdown.utils";
 
 const props = defineProps<{
   creature: Creature;
 }>();
+
+async function renderList(items: { description: string }[] = []) {
+  return Promise.all(
+    items.map(async (item) => ({
+      ...item,
+      htmlDescription: await safeMarkdownToHtml(item.description),
+    }))
+  );
+}
+
+const renderedReactions = ref<
+  Array<{ description: string; name?: string; action?: string; htmlDescription: string }>
+>([]);
+
+const renderedUniqueAbilities = ref<
+  Array<{ description: string; name?: string; action?: string; htmlDescription: string }>
+>([]);
+
+watchEffect(async () => {
+  renderedReactions.value = await renderList(props.creature.reactions);
+  renderedUniqueAbilities.value = await renderList(props.creature.unique_abilities);
+});
+
+
 </script>
 
 <style scoped lang="scss">
