@@ -44,7 +44,6 @@
       </div>
     </div>
 
-
     <Divider class="margin"></Divider>
 
     <div class="row">
@@ -59,20 +58,25 @@
 
     <div class="row">
       <span>Immunities</span>
-      <span v-for="(name) in props.creature.immunity">{{ name ?? "None" }}</span>
+      <span v-for="(name, index) in props.creature.immunity" :key="index">{{
+        name ?? "None"
+      }}</span>
     </div>
 
     <div v-if="props.creature.reactions.length">
-
       <Divider class="margin"></Divider>
 
       <div class="row">
         <div class="column">
           <span>Reactions:</span>
           <ul>
-            <li v-for="({ name, htmlDescription }, index) in renderedReactions" :key="index">
+            <li
+              v-for="({ name, htmlDescription }, index) in renderedReactions"
+              :key="index"
+            >
               <strong>{{ name }}</strong>
               <span v-if="htmlDescription">: </span>
+              <!-- eslint-disable-next-line vue/no-v-html -->
               <span v-if="htmlDescription" v-html="htmlDescription"></span>
             </li>
           </ul>
@@ -81,7 +85,6 @@
     </div>
 
     <div v-if="props.creature.attacks.length">
-
       <Divider class="margin"></Divider>
       <div class="row">
         <div class="column">
@@ -96,7 +99,6 @@
     </div>
 
     <div v-if="props.creature.spell?.length">
-
       <Divider class="margin"></Divider>
 
       <div class="row">
@@ -111,29 +113,34 @@
           </span>
         </div>
       </div>
-
     </div>
 
     <div v-if="props.creature.unique_abilities.length">
-
       <Divider class="margin"></Divider>
 
       <div class="row">
         <div class="column">
           <span>Unique Abilities:</span>
           <ul>
-            <li v-for="({ name, action, htmlDescription }, i) in renderedUniqueAbilities" :key="i">
+            <li
+              v-for="(
+                { name, action, htmlDescription }, i
+              ) in renderedUniqueAbilities"
+              :key="i"
+            >
               <strong>{{ name }} </strong>
-              <span v-if="action"> &nbsp;<u>{{ action }}</u>: </span>
+              <span v-if="action">
+                &nbsp;<u>{{ action }}</u
+                >:
+              </span>
               <span v-else>: </span>
+              <!-- eslint-disable-next-line vue/no-v-html -->
               <span v-html="htmlDescription"></span>
             </li>
           </ul>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -150,24 +157,34 @@ async function renderList(items: { description: string }[] = []) {
     items.map(async (item) => ({
       ...item,
       htmlDescription: await safeMarkdownToHtml(item.description),
-    }))
+    })),
   );
 }
 
 const renderedReactions = ref<
-  Array<{ description: string; name?: string; action?: string; htmlDescription: string }>
+  Array<{
+    description: string;
+    name?: string;
+    action?: string;
+    htmlDescription: string;
+  }>
 >([]);
 
 const renderedUniqueAbilities = ref<
-  Array<{ description: string; name?: string; action?: string; htmlDescription: string }>
+  Array<{
+    description: string;
+    name?: string;
+    action?: string;
+    htmlDescription: string;
+  }>
 >([]);
 
 watchEffect(async () => {
   renderedReactions.value = await renderList(props.creature.reactions);
-  renderedUniqueAbilities.value = await renderList(props.creature.unique_abilities);
+  renderedUniqueAbilities.value = await renderList(
+    props.creature.unique_abilities,
+  );
 });
-
-
 </script>
 
 <style scoped lang="scss">
