@@ -45,6 +45,7 @@ def extract_abilities_from_markdown(markdown: str, abilities: list[str]):
     markdown = re.sub(r"<br(\s+)?\/?>", " ", markdown)
     markdown = re.sub(r"\[([^\]]+)\]\(/[^)]+\.aspx\?ID=\d+\)", r"\1", markdown)
     markdown = re.sub(r"\s+", " ", markdown)
+    markdown = re.sub(r"_(.*?)_", r"\1", markdown)
 
     # Escape ability names
     abilities_esc = [re.escape(a) for a in abilities]

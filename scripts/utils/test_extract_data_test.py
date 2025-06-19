@@ -146,7 +146,7 @@ class TestExtractAbilitiesFunction(unittest.TestCase):
                 {
                     "name": "Carapace",
                     "action": "",
-                    "description": "Tarrasque is immune to cones, lines, rays, and _magic missile_ spells. These effects bounce harmlessly off its scales.",
+                    "description": "Tarrasque is immune to cones, lines, rays, and magic missile spells. These effects bounce harmlessly off its scales.",
                 },
                 {
                     "name": "Frightful Presence",

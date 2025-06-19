@@ -339,7 +339,7 @@ function renderWrappedMarkdown(
   maxWidth: number,
   lineHeight: number,
 ) {
-  const regex = /(\*\*(.+?)\*\*|_(.+?)_)/g;
+  const regex = /(\*\*(.+?)\*\*)/g;
 
   // Parse text into styled segments
   const rawSegments = [];
@@ -356,8 +356,6 @@ function renderWrappedMarkdown(
 
     if (match[0].startsWith("**")) {
       rawSegments.push({ text: match[2], style: "bold" });
-    } else if (match[0].startsWith("_")) {
-      rawSegments.push({ text: match[3], style: "underline" });
     }
 
     lastIndex = regex.lastIndex;
@@ -397,18 +395,6 @@ function renderWrappedMarkdown(
 
     // Draw word
     doc.text(word.text, currentX, currentY);
-
-    // Draw underline if needed
-    if (word.style === "underline") {
-      const offsetY = 1;
-      doc.setLineWidth(0.5);
-      doc.line(
-        currentX,
-        currentY + offsetY,
-        currentX + wordWidth,
-        currentY + offsetY,
-      );
-    }
 
     currentX += wordWidth;
   }
