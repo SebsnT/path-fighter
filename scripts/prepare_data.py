@@ -1,6 +1,7 @@
 import json
-import re
-from attributes_to_remove import attributes_to_remove
+from .attributes_to_remove import attributes_to_remove
+from .utils.extract_data import extract_abilities_from_markdown, extract_attacks
+from .utils.filter_data import filter_reactions, filter_unique_abilities
 
 
 def collect_legacy_ids(data):
@@ -31,7 +32,17 @@ def remove_attributes(data, attributes_to_remove, ids_to_remove):
 
         # If "text" exists, extract attacks
         if "text" in data:
-            data["attacks"] = extract_attacks(data["text"])
+            data["attacks"] = extract_attacks(data["markdown"])
+
+            # If "creature_abilities" exists, extract reactions
+            if "creature_ability" in data:
+                data["unique_abilities"] = extract_abilities_from_markdown(
+                    data["markdown"], data["creature_ability"]
+                )
+                data["reactions"] = filter_reactions(data["unique_abilities"])
+                data["unique_abilities"] = filter_unique_abilities(
+                    data["unique_abilities"]
+                )
 
         return {
             key: remove_attributes(value, attributes_to_remove, ids_to_remove)
@@ -50,29 +61,6 @@ def remove_attributes(data, attributes_to_remove, ids_to_remove):
     return data
 
 
-def extract_attacks(text):
-    text = re.sub(r"\s+", " ", text.strip())
-
-    # Improved pattern: match only up to end of single attack line
-    weapon_attack_pattern = re.compile(
-        r"(Melee|Ranged)\s+\w+(?:\s+\w+)*\s+Action.+?,\s*Damage\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+(?:\s+plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+)?",
-        flags=re.IGNORECASE,
-    )
-
-    results = []
-
-    for match in weapon_attack_pattern.finditer(text):
-        attack = match.group(0).strip()
-        if "plus" in attack:
-            # Check if 'plus' is followed by another damage dice
-            # if not, tag it
-            if not re.search(r"plus\s+\d+[dD]\d+(?:\+\d+)?\s+[a-zA-Z]+", attack):
-                attack += " (see Creature)"
-        results.append(attack)
-
-    return results
-
-
 # Load JSON data
 with open("public/creatures.json", "r", encoding="utf-8") as f:
     data = json.load(f)
@@ -84,7 +72,7 @@ ids_to_remove = collect_legacy_ids(data)
 cleaned_data = remove_attributes(data, attributes_to_remove, ids_to_remove)
 
 # Save the cleaned data
-with open("public/output.json", "w", encoding="utf-8") as f:
+with open("public/data/output.json", "w", encoding="utf-8") as f:
     json.dump(cleaned_data, f, indent=None)
 
 print("Attributes removed and result saved to 'output.json'")

@@ -50,8 +50,7 @@ npm install
 If you want to run purely local then:
 
 1. change from "loadCreaturesFromRemote" to "loadCreaturesFromLocal" in the loadCreatures.ts file.
-
-2. Run "prepare_data" python script to generate
+2. Run "prepare_data" python script to generate with "py -m scripts.prepare_data"
 
 Now with these steps you have a local version of the data and you can safely start the application.
 

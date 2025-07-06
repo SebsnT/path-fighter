@@ -44,7 +44,7 @@ export default defineNuxtConfig({
   primevue: {
     usePrimeVue: true,
     options: {
-      ripple: true,
+      ripple: false,
       theme: {
         preset: Aura,
         options: {
@@ -57,11 +57,13 @@ export default defineNuxtConfig({
         "InputText",
         "Button",
         "Dropdown",
+        "SelectButton",
         "Select",
         "MultiSelect",
         "Checkbox",
         "DataTable",
         "InputNumber",
+        "Column",
         "FloatLabel",
         "ProgressBar",
         "Dialog",
@@ -72,22 +74,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   vite: {
     optimizeDeps: {
-      include: [
-        "primevue/config",
-        "primevue/button",
-        "primevue/inputtext",
-        "primevue/dropdown",
-        "primevue/selectbutton",
-        "primevue/multiselect",
-        "primevue/checkbox",
-        "primevue/datatable",
-        "primevue/inputnumber",
-        "primevue/floatlabel",
-        "primevue/progressbar",
-        "primevue/dialog",
-        "markdown-it",
-        "jspdf",
-      ],
+      include: ["markdown-it", "jspdf"],
     },
     build: {
       minify: "terser",

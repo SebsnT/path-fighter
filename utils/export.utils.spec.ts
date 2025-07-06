@@ -20,8 +20,22 @@ describe("Export Utils", () => {
     .mockReturnValue(linkMock);
 
   const creatures: Creature[] = [
-    { name: "Gnoll", level: 3, attacks: ["attack1", "attack2"] } as Creature,
-    { name: "Goblin", level: 1, attacks: ["attack3", "attack4"] } as Creature,
+    {
+      name: "Gnoll",
+      level: 3,
+      reactions: [{}],
+      attacks: ["attack1", "attack2"],
+      unique_abilities: [{}],
+      size: ["Large"],
+    } as Creature,
+    {
+      name: "Goblin",
+      level: 1,
+      reactions: [{}],
+      attacks: ["attack3", "attack4"],
+      unique_abilities: [{}],
+      size: ["Medium"],
+    } as Creature,
   ]; // Example creature objects
 
   describe("exportJSON", () => {
@@ -124,8 +138,22 @@ describe("Export Utils", () => {
 
     it("should handle creatures with no attacks", async () => {
       const creaturesWithNoAttacks: Creature[] = [
-        { name: "Gnoll", level: 3, attacks: [] } as unknown as Creature,
-        { name: "Goblin", level: 1, attacks: [] } as unknown as Creature,
+        {
+          name: "Gnoll",
+          level: 3,
+          reactions: [{}],
+          attacks: [],
+          unique_abilities: [{}],
+          size: ["Large"],
+        } as unknown as Creature,
+        {
+          name: "Goblin",
+          level: 1,
+          reactions: [{}],
+          attacks: [],
+          unique_abilities: [{}],
+          size: ["Medium"],
+        } as unknown as Creature,
       ];
 
       const saveSpy = vi.fn();
@@ -161,13 +189,18 @@ describe("Export Utils", () => {
         {
           name: "Gnoll",
           level: 3,
+          reactions: [{}],
           attacks: [],
-          creature_ability: null,
+          unique_abilities: [{}],
+          size: ["Large"],
         } as unknown as Creature,
         {
           name: "Goblin",
           level: 1,
+          reactions: [{}],
           attacks: [],
+          unique_abilities: [{}],
+          size: ["Medium"],
           resistance_raw: undefined,
         } as unknown as Creature,
       ];

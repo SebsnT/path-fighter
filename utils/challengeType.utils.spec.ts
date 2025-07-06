@@ -12,6 +12,10 @@ const attacks = [
   "Ranged Single Action javelin +16 (range increment 30 feet), Damage 1d6+11 piercing",
 ];
 
+const spells_dcs = [10, 15];
+const increased_spells_dcs = [12, 17];
+const decreased_spells_dcs = [8, 13];
+
 describe("Creature adjustments", () => {
   describe("getEliteCreature", () => {
     it('should increase AC by 2, perception by 2, prepend "ELITE" to name, and adjust HP based on level', () => {
@@ -25,19 +29,23 @@ describe("Creature adjustments", () => {
         reflex_save: 10,
         will_save: 10,
         attacks: attacks,
+        spell_dc: spells_dcs,
       } as Creature;
 
       const elite = getEliteCreature(baseCreature);
 
-      expect(elite.ac).toBe(baseCreature.ac + 2);
-      expect(elite.perception).toBe(baseCreature.perception + 2);
-      expect(elite.fortitude_save).toBe(baseCreature.fortitude_save + 2);
-      expect(elite.reflex_save).toBe(baseCreature.reflex_save + 2);
-      expect(elite.will_save).toBe(baseCreature.will_save + 2);
-      expect(elite.name).toBe(`ELITE ${baseCreature.name}`);
+      expect(elite.name).toStrictEqual(`ELITE ${baseCreature.name}`);
+      expect(elite.ac).toStrictEqual(baseCreature.ac + 2);
+      expect(elite.perception).toStrictEqual(baseCreature.perception + 2);
+      expect(elite.fortitude_save).toStrictEqual(
+        baseCreature.fortitude_save + 2,
+      );
+      expect(elite.reflex_save).toStrictEqual(baseCreature.reflex_save + 2);
+      expect(elite.will_save).toStrictEqual(baseCreature.will_save + 2);
+      expect(elite.spell_dc).toStrictEqual(increased_spells_dcs);
 
       // For level 10, getEliteHP adds 20 hp
-      expect(elite.hp).toBe(baseCreature.hp + 20);
+      expect(elite.hp).toStrictEqual(baseCreature.hp + 20);
     });
 
     it("should add correct HP for different levels", () => {
@@ -62,9 +70,10 @@ describe("Creature adjustments", () => {
           reflex_save: 10,
           will_save: 10,
           attacks: attacks,
+          spell_dc: spells_dcs,
         } as Creature;
         const elite = getEliteCreature(creature);
-        expect(elite.hp).toBe(creature.hp + expectedHpAdd);
+        expect(elite.hp).toStrictEqual(creature.hp + expectedHpAdd);
       });
     });
   });
@@ -81,19 +90,23 @@ describe("Creature adjustments", () => {
         reflex_save: 10,
         will_save: 10,
         attacks: attacks,
+        spell_dc: spells_dcs,
       } as Creature;
 
       const weak = getWeakCreature(baseCreature);
 
-      expect(weak.ac).toBe(baseCreature.ac - 2);
-      expect(weak.perception).toBe(baseCreature.perception - 2);
-      expect(weak.fortitude_save).toBe(baseCreature.fortitude_save - 2);
-      expect(weak.reflex_save).toBe(baseCreature.reflex_save - 2);
-      expect(weak.will_save).toBe(baseCreature.will_save - 2);
-      expect(weak.name).toBe(`WEAK ${baseCreature.name}`);
+      expect(weak.name).toStrictEqual(`WEAK ${baseCreature.name}`);
+      expect(weak.ac).toStrictEqual(baseCreature.ac - 2);
+      expect(weak.perception).toStrictEqual(baseCreature.perception - 2);
+      expect(weak.fortitude_save).toStrictEqual(
+        baseCreature.fortitude_save - 2,
+      );
+      expect(weak.reflex_save).toStrictEqual(baseCreature.reflex_save - 2);
+      expect(weak.will_save).toStrictEqual(baseCreature.will_save - 2);
+      expect(weak.spell_dc).toStrictEqual(decreased_spells_dcs);
 
       // For level 4, getWeakHP subtracts 15 hp
-      expect(weak.hp).toBe(baseCreature.hp - 15);
+      expect(weak.hp).toStrictEqual(baseCreature.hp - 15);
     });
 
     it("should subtract correct HP for different levels", () => {
@@ -119,9 +132,10 @@ describe("Creature adjustments", () => {
           reflex_save: 10,
           will_save: 10,
           attacks: attacks,
+          spell_dc: spells_dcs,
         } as Creature;
         const weak = getWeakCreature(creature);
-        expect(weak.hp).toBe(creature.hp - expectedHpSub);
+        expect(weak.hp).toStrictEqual(creature.hp - expectedHpSub);
       });
     });
   });
@@ -135,7 +149,7 @@ describe("Creature adjustments", () => {
 
     it("should decrease attack and damage modifiers by 2", () => {
       const adjusted = adjustAttackAndDamage(baseAttacks, -2);
-      expect(adjusted).toEqual([
+      expect(adjusted).toStrictEqual([
         "Melee Single Action longspear +15 (reach 10 feet), Damage 1d8+9 piercing",
         "Melee Single Action fangs +15, Damage 1d8+9 piercing",
         "Ranged Single Action javelin +14 (range increment 30 feet), Damage 1d6+9 piercing",
@@ -144,7 +158,7 @@ describe("Creature adjustments", () => {
 
     it("should increase attack and damage modifiers by 2", () => {
       const adjusted = adjustAttackAndDamage(baseAttacks, 2);
-      expect(adjusted).toEqual([
+      expect(adjusted).toStrictEqual([
         "Melee Single Action longspear +19 (reach 10 feet), Damage 1d8+13 piercing",
         "Melee Single Action fangs +19, Damage 1d8+13 piercing",
         "Ranged Single Action javelin +18 (range increment 30 feet), Damage 1d6+13 piercing",
@@ -156,7 +170,7 @@ describe("Creature adjustments", () => {
         "Melee Single Action tail +10, Damage 1d8-3 bludgeoning",
       ];
       const adjusted = adjustAttackAndDamage(attacksWithNegativeDamage, 2);
-      expect(adjusted).toEqual([
+      expect(adjusted).toStrictEqual([
         "Melee Single Action tail +12, Damage 1d8-1 bludgeoning",
       ]);
     });
@@ -166,7 +180,7 @@ describe("Creature adjustments", () => {
         "Some ability without attack or damage modifiers",
       ];
       const adjusted = adjustAttackAndDamage(invalidAttacks, 2);
-      expect(adjusted).toEqual(invalidAttacks);
+      expect(adjusted).toStrictEqual(invalidAttacks);
     });
   });
 });

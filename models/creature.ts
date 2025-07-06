@@ -1,4 +1,5 @@
 import type { ChallengeType } from "./challengeType";
+import type { Action } from "./action";
 
 export type Creature = {
   [key: string]: unknown;
@@ -21,6 +22,8 @@ export type Creature = {
   level: number;
   name: string;
   perception: number;
+  unique_abilities: Action[];
+  reactions: Action[];
   reflex_save: number;
   resistance_raw: string;
   size: string[];
