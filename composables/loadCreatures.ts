@@ -50,7 +50,7 @@ export const useCreatures = () => {
 
   // On the initial page load, ensure creatures are loaded before rendering
   onBeforeMount(() => {
-    loadCreaturesFromLocal();
+    loadCreaturesFromRemote();
   });
 
   return {
