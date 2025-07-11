@@ -1,6 +1,8 @@
 import type { Creature } from "~/models/creature";
 import { adjustAttackModifiers } from "./adjustAttackModifiers.utils";
 
+const adjustment = 2;
+
 /**
  * Gets updated creature data for elite creatures
  *
@@ -10,15 +12,19 @@ import { adjustAttackModifiers } from "./adjustAttackModifiers.utils";
 export function getEliteCreature(creature: Creature): Creature {
   return {
     ...creature,
-    ac: creature.ac + 2,
+    ac: creature.ac + adjustment,
     hp: getEliteHP(creature.level, creature.hp),
     name: `ELITE ${creature.name}`,
-    perception: creature.perception + 2,
-    fortitude_save: creature.fortitude_save + 2,
-    reflex_save: creature.reflex_save + 2,
-    will_save: creature.will_save + 2,
-    spell_dc: creature.spell_dc.map((value) => value + 2),
-    attacks: adjustAttackModifiers(creature.attacks, 2),
+    perception: creature.perception + adjustment,
+    fortitude_save: creature.fortitude_save + adjustment,
+    reflex_save: creature.reflex_save + adjustment,
+    will_save: creature.will_save + adjustment,
+    spell_dc: creature.spell_dc
+      ? creature.spell_dc.map((value) => value + adjustment)
+      : undefined,
+    attacks: creature.attacks
+      ? adjustAttackModifiers(creature.attacks, adjustment)
+      : [],
   };
 }
 
