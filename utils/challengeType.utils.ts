@@ -7,6 +7,8 @@ import type { Creature } from "~/models/creature";
  * @returns
  */
 export function getEliteCreature(creature: Creature): Creature {
+  console.log(creature);
+
   return {
     ...creature,
     ac: creature.ac + 2,
@@ -16,8 +18,12 @@ export function getEliteCreature(creature: Creature): Creature {
     fortitude_save: creature.fortitude_save + 2,
     reflex_save: creature.reflex_save + 2,
     will_save: creature.will_save + 2,
-    spell_dc: creature.spell_dc.map((value) => value + 2),
-    attacks: adjustAttackAndDamage(creature.attacks, 2),
+    spell_dc: creature.spell_dc
+      ? creature.spell_dc.map((value) => value + 2)
+      : undefined,
+    attacks: creature.attacks
+      ? adjustAttackAndDamage(creature.attacks, -2)
+      : [],
   };
 }
 
@@ -37,8 +43,12 @@ export function getWeakCreature(creature: Creature): Creature {
     fortitude_save: creature.fortitude_save - 2,
     reflex_save: creature.reflex_save - 2,
     will_save: creature.will_save - 2,
-    spell_dc: creature.spell_dc.map((value) => value - 2),
-    attacks: adjustAttackAndDamage(creature.attacks, -2),
+    spell_dc: creature.spell_dc
+      ? creature.spell_dc.map((value) => value - 2)
+      : undefined,
+    attacks: creature.attacks
+      ? adjustAttackAndDamage(creature.attacks, -2)
+      : [],
   };
 }
 
