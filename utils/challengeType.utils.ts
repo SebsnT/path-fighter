@@ -7,8 +7,6 @@ import type { Creature } from "~/models/creature";
  * @returns
  */
 export function getEliteCreature(creature: Creature): Creature {
-  console.log(creature);
-
   return {
     ...creature,
     ac: creature.ac + 2,
