@@ -58,10 +58,14 @@
     </div>
 
     <div class="row">
-      <span>Immunities</span>
-      <span v-for="(name, index) in props.creature.immunity" :key="index">{{
-        name ?? "None"
-      }}</span>
+      <span>Immunities:</span>
+      <span v-if="props.creature.immunity && props.creature.immunity.length">
+        <span v-for="(name, index) in props.creature.immunity" :key="index">
+          {{ name
+          }}<span v-if="index < props.creature.immunity.length - 1">, </span>
+        </span>
+      </span>
+      <span v-else>None</span>
     </div>
 
     <div v-if="props.creature.reactions.length">
