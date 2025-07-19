@@ -5,12 +5,17 @@ from .utils.filter_data import filter_reactions, filter_unique_abilities
 
 
 def collect_legacy_ids(data):
-    """Recursively collect all 'legacy_id' values in the dataset."""
+    """Recursively collect all first 'legacy_id' values in the dataset."""
     legacy_ids = set()
 
     if isinstance(data, dict):
         if "legacy_id" in data:
-            legacy_ids.add(data["legacy_id"])
+            legacy_value = data["legacy_id"]
+            if isinstance(legacy_value, list) and legacy_value:
+                legacy_ids.add(legacy_value[0])  # take the first item
+            elif isinstance(legacy_value, (str, int)):  # fallback if it's not a list
+                legacy_ids.add(legacy_value)
+
         for value in data.values():
             legacy_ids.update(collect_legacy_ids(value))
 
