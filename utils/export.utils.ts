@@ -154,129 +154,144 @@ function addCreatureInformationPDF(
     (currentHeight += lineHeight),
   );
 
-  // Resistances
-  addPdfEntry(
-    doc,
-    "Resistances: ",
-    `${creature.resistance_raw ?? "None"}`,
-    leftIndent,
-    (currentHeight += lineHeight),
-  );
-
-  // Weaknesses
-  addPdfEntry(
-    doc,
-    "Weaknesses: ",
-    `${creature.weakness_raw ?? "None"}`,
-    leftIndent,
-    (currentHeight += lineHeight),
-  );
-
-  // Immunities
-  addPdfEntry(
-    doc,
-    "Immunities: ",
-    `${creature.immunity ?? "None"}`,
-    leftIndent,
-    (currentHeight += lineHeight),
-  );
-
-  // Reactions
-  doc.setFont("helvetica", "bold");
-  doc.text("Reactions:", leftIndent, (currentHeight += lineHeight));
-  doc.setFont("helvetica", "normal");
-  for (let i = 0; i < creature.reactions.length; i++) {
-    const ability = creature.reactions[i];
-    const combinedText = [
-      ability.name,
-      ability.description ? `— ${ability.description}` : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    currentHeight += lineHeight;
-    currentHeight = renderWrappedMarkdown(
+  if (creature.resistance_raw) {
+    // Resistances
+    addPdfEntry(
       doc,
-      combinedText,
+      "Resistances: ",
+      `${creature.resistance_raw}`,
       leftIndent,
-      currentHeight,
-      pageWidth - rightIdent,
-      lineHeight,
+      (currentHeight += lineHeight),
     );
   }
 
-  // Attacks
-  doc.setFont("helvetica", "bold");
-  doc.text("Attacks:", leftIndent, (currentHeight += lineHeight));
-  doc.setFont("helvetica", "normal");
-  for (let i = 0; i < creature.attacks.length; i++) {
-    const attackLines = doc.splitTextToSize(
-      creature.attacks[i],
-      pageWidth - rightIdent,
+  if (creature.weakness_raw) {
+    // Weaknesses
+    addPdfEntry(
+      doc,
+      "Weaknesses: ",
+      `${creature.weakness_raw}`,
+      leftIndent,
+      (currentHeight += lineHeight),
     );
-    for (const line of attackLines) {
-      doc.text(line, leftIndent, (currentHeight += lineHeight));
+  }
+
+  if (creature.immunity) {
+    // Immunities
+    addPdfEntry(
+      doc,
+      "Immunities: ",
+      `${creature.immunity}`,
+      leftIndent,
+      (currentHeight += lineHeight),
+    );
+  }
+
+  if (creature.reactions?.length) {
+    // Reactions
+    doc.setFont("helvetica", "bold");
+    doc.text("Reactions:", leftIndent, (currentHeight += lineHeight));
+    doc.setFont("helvetica", "normal");
+    for (let i = 0; i < creature.reactions.length; i++) {
+      const ability = creature.reactions[i];
+      const combinedText = [
+        ability.name,
+        ability.description ? `— ${ability.description}` : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      currentHeight += lineHeight;
+      currentHeight = renderWrappedMarkdown(
+        doc,
+        combinedText,
+        leftIndent,
+        currentHeight,
+        pageWidth - rightIdent,
+        lineHeight,
+      );
     }
   }
 
-  // Unique abilities
-  doc.setFont("helvetica", "bold");
-  doc.text("Unique Abilities:", leftIndent, (currentHeight += lineHeight));
-  doc.setFont("helvetica", "normal");
-  for (let i = 0; i < creature.unique_abilities.length; i++) {
-    const ability = creature.unique_abilities[i];
-    const combinedText = [
-      ability.name,
-      ability.action ? `(${ability.action})` : "",
-      ability.description ? `— ${ability.description}` : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    currentHeight += lineHeight;
-    currentHeight = renderWrappedMarkdown(
-      doc,
-      combinedText,
-      leftIndent,
-      currentHeight,
-      pageWidth - rightIdent,
-      lineHeight,
-    );
+  if (creature.attacks?.length) {
+    // Attacks
+    doc.setFont("helvetica", "bold");
+    doc.text("Attacks:", leftIndent, (currentHeight += lineHeight));
+    doc.setFont("helvetica", "normal");
+    for (let i = 0; i < creature.attacks.length; i++) {
+      const attackLines = doc.splitTextToSize(
+        creature.attacks[i],
+        pageWidth - rightIdent,
+      );
+      for (const line of attackLines) {
+        doc.text(line, leftIndent, (currentHeight += lineHeight));
+      }
+    }
   }
 
-  // Spells
-  doc.setFont("helvetica", "bold");
-  doc.text("Spells:", leftIndent, (currentHeight += lineHeight));
-  doc.setFont("helvetica", "normal");
-  if (creature.spell_attack_bonus) {
-    // Spell Attack
-    addPdfEntry(
-      doc,
-      "Spell Attack: ",
-      creature.spell_attack_bonus[0],
-      leftIndent + 40,
-      currentHeight,
-    );
+  if (creature.unique_abilities?.length) {
+    // Unique abilities
+    doc.setFont("helvetica", "bold");
+    doc.text("Unique Abilities:", leftIndent, (currentHeight += lineHeight));
+    doc.setFont("helvetica", "normal");
+    for (let i = 0; i < creature.unique_abilities.length; i++) {
+      const ability = creature.unique_abilities[i];
+      const combinedText = [
+        ability.name,
+        ability.action ? `(${ability.action})` : "",
+        ability.description ? `— ${ability.description}` : "",
+      ]
+        .filter(Boolean)
+        .join(" ");
+
+      currentHeight += lineHeight;
+      currentHeight = renderWrappedMarkdown(
+        doc,
+        combinedText,
+        leftIndent,
+        currentHeight,
+        pageWidth - rightIdent,
+        lineHeight,
+      );
+    }
   }
 
-  if (creature.spell_dc)
-    // Spell DC
-    addPdfEntry(
-      doc,
-      "Spell DC: ",
-      creature.spell_dc,
-      creature.spell_attack_bonus ? leftIndent + 100 : leftIndent + 40,
-      currentHeight,
-    );
+  if (creature.spell?.length) {
+    // Spells
+    doc.setFont("helvetica", "bold");
+    doc.text("Spells:", leftIndent, (currentHeight += lineHeight));
+    doc.setFont("helvetica", "normal");
+    if (creature.spell_attack_bonus) {
+      // Spell Attack
+      addPdfEntry(
+        doc,
+        "Spell Attack: ",
+        creature.spell_attack_bonus[0],
+        leftIndent + 40,
+        currentHeight,
+      );
+    }
 
-  const spellsText = creature.spell?.length
-    ? creature.spell.join(", ")
-    : "None";
+    if (creature.spell_dc) {
+      // Spell DC
+      addPdfEntry(
+        doc,
+        "Spell DC: ",
+        creature.spell_dc,
+        creature.spell_attack_bonus ? leftIndent + 100 : leftIndent + 40,
+        currentHeight,
+      );
+    }
 
-  const spellsLines = doc.splitTextToSize(spellsText, pageWidth - rightIdent);
+    const spellsText = creature.spell?.length
+      ? creature.spell.join(", ")
+      : "None";
 
-  for (const line of spellsLines) {
-    doc.text(line, leftIndent, (currentHeight += lineHeight));
+    const spellsLines = doc.splitTextToSize(spellsText, pageWidth - rightIdent);
+
+    for (const line of spellsLines) {
+      doc.text(line, leftIndent, (currentHeight += lineHeight));
+    }
   }
 }
 
