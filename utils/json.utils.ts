@@ -1,3 +1,4 @@
+import type { Creature } from "~/models/creature";
 import type { FileUploadSelectEvent } from "primevue/fileupload";
 import { useEncounter } from "@/composables/encounter";
 import { useDifficulty } from "@/composables/difficulty";
@@ -39,4 +40,27 @@ export function importJSON(event: FileUploadSelectEvent): Promise<void> {
       reader.readAsText(file);
     }
   });
+}
+
+/**
+ * Exports creatures of the encounter to a JSON file
+ *
+ * @param creatures is an Array of {@link Creature} objects
+ */
+export function exportJSON(creatures: Creature[], fileName?: string): void {
+  // Convert creatures array into a JSON string
+  const json = JSON.stringify(creatures, null, 2); // Pretty format with 2 spaces indentation
+
+  // Create a Blob object from the JSON string
+  const blob = new Blob([json], { type: "application/json" });
+
+  // Create an anchor element to trigger the download
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+
+  // Set the download filename
+  link.download = `${fileName?.trim() || "pathfighter-encounter"}.json`;
+
+  // Trigger a click event on the link to start the download
+  link.click();
 }
