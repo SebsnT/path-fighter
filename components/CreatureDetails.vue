@@ -9,6 +9,7 @@
     <div class="row">
       <span>HP: {{ props.creature.hp }}</span>
       <span>AC: {{ props.creature.ac }}</span>
+      <span>Size: {{ props.creature.size?.[0] }}</span>
       <span>Speed: {{ props.creature.speed_raw }}</span>
     </div>
 
