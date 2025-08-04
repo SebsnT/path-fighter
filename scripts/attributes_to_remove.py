@@ -15,6 +15,7 @@ attributes_to_remove = [
     "exclude_from_search",
     "fortitude_save_scale",
     "fortitude_save_scale_number",
+    "hardness_raw",
     "hp_raw",
     "hp_scale",
     "hp_scale_number",
