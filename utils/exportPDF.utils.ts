@@ -251,6 +251,7 @@ function addCreatureInformationPDF(
     doc.text("Attacks:", leftIndent, (currentHeight += lineHeight));
     doc.setFont("helvetica", "normal");
     for (let i = 0; i < creature.attacks.length; i++) {
+
       const attackLines = doc.splitTextToSize(
         `${bulletPoint} ${creature.attacks[i]}`,
         pageWidth - rightIdent,
