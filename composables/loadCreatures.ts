@@ -4,47 +4,51 @@ import type { Creature } from "~/models/creature";
 
 export const useCreatures = () => {
   const creatures = ref<Creature[]>([]);
-  const isLoaded = ref(false);
+  const isLoading = ref(false);
 
   // Fetch creatures from remote
   const loadCreaturesFromRemote = async () => {
+    isLoading.value = true;
     try {
       const response = await fetch(repositoryUrl);
       if (response.ok) {
         const data = await response.json();
         creatures.value = data;
-        isLoaded.value = true;
+        isLoading.value = false;
         return { creatures, status: "success" };
       } else {
         console.error("Failed to fetch from remote:", response.statusText);
-        isLoaded.value = true;
         return { creatures: [], status: "failed" };
       }
     } catch (error) {
       console.log(error);
-      isLoaded.value = true;
+      isLoading.value = false;
       return { creatures: [], status: "error" };
+    } finally {
+      isLoading.value = false;
     }
   };
 
   // Fetch creatures from the local public folder
   const loadCreaturesFromLocal = async () => {
+    isLoading.value = true;
     try {
       const response = await fetch("data/output.json");
       if (response.ok) {
         const data = await response.json();
         creatures.value = data;
-        isLoaded.value = true;
+        isLoading.value = false;
         return { creatures: data, status: "success" };
       } else {
         console.error("Failed to fetch from local:", response.statusText);
-        isLoaded.value = true;
         return { creatures: [], status: "failed" };
       }
     } catch (error) {
       console.log(error);
-      isLoaded.value = true;
+      isLoading.value = false;
       return { creatures: [], status: "error" };
+    } finally {
+      isLoading.value = false;
     }
   };
 
@@ -57,6 +61,6 @@ export const useCreatures = () => {
     creatures,
     loadCreaturesFromRemote,
     loadCreaturesFromLocal,
-    isLoaded,
+    isLoading,
   };
 };
