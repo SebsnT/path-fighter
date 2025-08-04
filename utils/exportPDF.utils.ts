@@ -101,16 +101,28 @@ function addCreatureInformationPDF(
   );
 
   addPdfEntry(doc, "AC: ", creature.ac, leftIndent + 20, currentHeight);
+  if (creature.hardness) {
+    addPdfEntry(doc, "Hardness: ", creature.hardness, leftIndent + 40, currentHeight);
+    addPdfEntry(doc, "Size: ", creature.size[0], leftIndent + 80, currentHeight);
+    addPdfEntry(
+      doc,
+      "Speed: ",
+      creature.speed_raw,
+      leftIndent + 110,
+      currentHeight,
+    );
+  } else {
+    addPdfEntry(doc, "Size: ", creature.size[0], leftIndent + 40, currentHeight);
+    addPdfEntry(
+      doc,
+      "Speed: ",
+      creature.speed_raw,
+      leftIndent + 80,
+      currentHeight,
+    );
+  }
 
-  addPdfEntry(doc, "Size: ", creature.size[0], leftIndent + 40, currentHeight);
 
-  addPdfEntry(
-    doc,
-    "Speed: ",
-    creature.speed_raw,
-    leftIndent + 80,
-    currentHeight,
-  );
 
   // Fort , Ref, Will, Perception
   addPdfEntry(

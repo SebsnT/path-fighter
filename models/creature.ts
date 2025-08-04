@@ -16,6 +16,7 @@ export type Creature = {
   creature_family_markdown: string;
   dexterity: number;
   fortitude_save: number;
+  hardness: number;
   hp: number;
   intelligence: number;
   immunity: string[];
