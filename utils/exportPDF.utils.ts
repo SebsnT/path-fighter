@@ -1,5 +1,7 @@
 import type jsPDF from "jspdf";
 import {
+  bulletPoint,
+  lineBreak,
   leftIndent,
   lineHeight,
   rightIdent,
@@ -207,6 +209,7 @@ function addCreatureInformationPDF(
     for (let i = 0; i < creature.reactions.length; i++) {
       const ability = creature.reactions[i];
       const combinedText = [
+        bulletPoint,
         ability.name,
         ability.description ? `— ${ability.description}` : "",
       ]
@@ -222,6 +225,7 @@ function addCreatureInformationPDF(
         pageWidth - rightIdent,
         lineHeight,
       );
+      currentHeight += lineBreak;
     }
   }
 
@@ -231,12 +235,14 @@ function addCreatureInformationPDF(
     doc.text("Attacks:", leftIndent, (currentHeight += lineHeight));
     doc.setFont("helvetica", "normal");
     for (let i = 0; i < creature.attacks.length; i++) {
+
       const attackLines = doc.splitTextToSize(
-        creature.attacks[i],
+        `${bulletPoint} ${creature.attacks[i]}`,
         pageWidth - rightIdent,
       );
       for (const line of attackLines) {
         doc.text(line, leftIndent, (currentHeight += lineHeight));
+        currentHeight += lineBreak;
       }
     }
   }
@@ -249,6 +255,7 @@ function addCreatureInformationPDF(
     for (let i = 0; i < creature.unique_abilities.length; i++) {
       const ability = creature.unique_abilities[i];
       const combinedText = [
+        bulletPoint,
         ability.name,
         ability.action ? `(${ability.action})` : "",
         ability.description ? `— ${ability.description}` : "",
@@ -265,6 +272,7 @@ function addCreatureInformationPDF(
         pageWidth - rightIdent,
         lineHeight,
       );
+      currentHeight += lineBreak;
     }
   }
 
