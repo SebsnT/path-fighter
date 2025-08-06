@@ -1,5 +1,5 @@
 import { vi, expect, describe, it } from "vitest";
-import { exportPDF } from "./exportPDF.utils";
+import { exportPDF } from "./exportPDF";
 import type { Creature } from "~/models/creature";
 import type jsPDF from "jspdf";
 
