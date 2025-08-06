@@ -7,6 +7,13 @@ import {
   lineBreak,
 } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
+import {
+  addEntry,
+  addOptionalEntry,
+  addPdfEntry,
+  setSectionHeader,
+} from "./export.utils";
+import { renderWrappedMarkdown } from "./renderWrappedMarkdown";
 
 export function addAttributes(
   doc: jsPDF,

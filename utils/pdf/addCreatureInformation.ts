@@ -2,6 +2,15 @@ import type jsPDF from "jspdf";
 import type { Creature } from "~/models/creature";
 import { leftIndent } from "~/constants/pdf.constants";
 import { addEntry, addPdfEntry } from "./export.utils";
+import {
+  addSaves,
+  addAttributes,
+  addDefenses,
+  addReactions,
+  addAttacks,
+  addUniqueAbilities,
+  addSpells,
+} from "./creaturePdfSections";
 
 /**
  * Adds all information about the creature to the section
