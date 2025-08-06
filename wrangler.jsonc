@@ -1,5 +1,8 @@
 {
   "name": "path-fighter-app",
   "compatibility_date": "2025-05-04",
-  "pages_build_output_dir": "dist"
+  "pages_build_output_dir": "dist",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
 }
