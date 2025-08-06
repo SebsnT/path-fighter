@@ -66,7 +66,7 @@
 
 <script setup lang="ts">
 import { importJSON, exportJSON } from "~/utils/json.utils";
-import { exportPDF } from "~/utils/exportPDF";
+import { exportPDF } from "~/utils/pdf/exportPDF";
 import { reset } from "~/utils/reset";
 import ExportFileDialog from "./dialogs/ExportFileDialog.vue";
 import { projectUrl } from "~/constants/url.constants";
