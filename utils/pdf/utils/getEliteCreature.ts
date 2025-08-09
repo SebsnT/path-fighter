@@ -1,5 +1,8 @@
 import type { Creature } from "~/models/creature";
 import { adjustAttackModifiers } from "./adjustAttackModifiers.utils";
+import { adjustUniqueAbilitiesModifier } from "./adjustUniqueAbilitiesModifier";
+import { adjustReactionsModifier } from "./adjustReaction";
+import { adjustSpellDc } from "./adjustSpellDc";
 
 const adjustment = 2;
 
@@ -19,12 +22,13 @@ export function getEliteCreature(creature: Creature): Creature {
     fortitude_save: creature.fortitude_save + adjustment,
     reflex_save: creature.reflex_save + adjustment,
     will_save: creature.will_save + adjustment,
-    spell_dc: creature.spell_dc
-      ? creature.spell_dc.map((value) => value + adjustment)
-      : undefined,
-    attacks: creature.attacks
-      ? adjustAttackModifiers(creature.attacks, adjustment)
-      : [],
+    spell_dc: adjustSpellDc(creature.spell_dc, adjustment),
+    reactions: adjustReactionsModifier(creature.reactions, adjustment),
+    attacks: adjustAttackModifiers(creature.attacks, adjustment),
+    unique_abilities: adjustUniqueAbilitiesModifier(
+      creature.unique_abilities,
+      adjustment,
+    ),
   };
 }
 

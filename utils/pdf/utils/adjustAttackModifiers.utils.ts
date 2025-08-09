@@ -6,9 +6,10 @@
  * @returns the update attacks array
  */
 export function adjustAttackModifiers(
-  attacks: string[],
+  attacks: string[] | undefined,
   adjustment: number,
 ): string[] {
+  if (!attacks) return [];
   return attacks.map((str) => {
     str = adjustAttackModifier(str, adjustment);
 
