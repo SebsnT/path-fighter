@@ -1,6 +1,6 @@
 import type jsPDF from "jspdf";
 import type { Creature } from "~/models/creature";
-import { addEntry } from "./export.utils";
+import { addEntry } from "./utils/export.utils";
 import { addBasicStats } from "./sections/addBasicStats";
 import { addAttacks } from "./sections/addAttacks";
 import { addAttributes } from "./sections/addAttributes";
@@ -9,6 +9,8 @@ import { addReactions } from "./sections/addReactions";
 import { addSaves } from "./sections/addSaves";
 import { addSpells } from "./sections/addSpells";
 import { addUniqueAbilities } from "./sections/addUniqueAbilities";
+import { getEliteCreature } from "./utils/getEliteCreature";
+import { getWeakCreature } from "./utils/getWeakCreature";
 
 /**
  * Adds all information about the creature to the section

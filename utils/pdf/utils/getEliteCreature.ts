@@ -1,0 +1,50 @@
+import type { Creature } from "~/models/creature";
+import { adjustAttackModifiers } from "./adjustAttackModifiers.utils";
+
+/**
+ * Gets updated creature data for elite creatures
+ *
+ * @param creature
+ * @returns
+ */
+export function getEliteCreature(creature: Creature): Creature {
+  return {
+    ...creature,
+    ac: creature.ac + 2,
+    hp: getEliteHP(creature.level, creature.hp),
+    name: `ELITE ${creature.name}`,
+    perception: creature.perception + 2,
+    fortitude_save: creature.fortitude_save + 2,
+    reflex_save: creature.reflex_save + 2,
+    will_save: creature.will_save + 2,
+    spell_dc: creature.spell_dc.map((value) => value + 2),
+    attacks: adjustAttackModifiers(creature.attacks, 2),
+  };
+}
+
+/**
+ * Returns ajdusted HP for elite challenge type
+ *
+ * @param creature
+ * @param level current level of the creature
+ * @param hp current hp of the creature
+ * @returns The updated hp
+ */
+function getEliteHP(level: number, hp: number): number {
+  switch (true) {
+    // 1 or lower
+    case level <= 1:
+      return hp + 10;
+    // 2-4
+    case level >= 2 && level <= 4:
+      return hp + 15;
+    // 5-19
+    case level >= 5 && level <= 19:
+      return hp + 20;
+    // 20+
+    case level >= 20:
+      return hp + 30;
+    default:
+      return hp;
+  }
+}

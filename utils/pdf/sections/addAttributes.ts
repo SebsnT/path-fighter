@@ -1,6 +1,6 @@
 import type jsPDF from "jspdf";
 import type { Creature } from "~/models/creature";
-import { addEntry } from "../export.utils";
+import { addEntry } from "../utils/export.utils";
 
 /**
  * Adds attributes of the creature to the PDF
