@@ -1,16 +1,14 @@
 import type jsPDF from "jspdf";
 import type { Creature } from "~/models/creature";
-import { leftIndent } from "~/constants/pdf.constants";
-import { addEntry, addPdfEntry } from "./export.utils";
-import {
-  addSaves,
-  addAttributes,
-  addDefenses,
-  addReactions,
-  addAttacks,
-  addUniqueAbilities,
-  addSpells,
-} from "./creaturePdfSections";
+import { addEntry } from "./export.utils";
+import { addBasicStats } from "./sections/addBasicStats";
+import { addAttacks } from "./sections/addAttacks";
+import { addAttributes } from "./sections/addAttributes";
+import { addDefenses } from "./sections/addDefenses";
+import { addReactions } from "./sections/addReactions";
+import { addSaves } from "./sections/addSaves";
+import { addSpells } from "./sections/addSpells";
+import { addUniqueAbilities } from "./sections/addUniqueAbilities";
 
 /**
  * Adds all information about the creature to the section
@@ -52,56 +50,4 @@ export function addCreatureInformation(
   currentHeight = addUniqueAbilities(doc, creature, pageWidth, currentHeight);
 
   addSpells(doc, creature, pageWidth, currentHeight);
-}
-
-function addBasicStats(
-  doc: jsPDF,
-  creature: Creature,
-  currentHeight: number,
-): number {
-  // HP
-  currentHeight = addEntry(doc, "HP: ", creature.hp, currentHeight);
-
-  // AC
-  addPdfEntry(doc, "AC: ", creature.ac, leftIndent + 20, currentHeight);
-  if (creature.hardness) {
-    addPdfEntry(
-      doc,
-      "Hardness: ",
-      creature.hardness,
-      leftIndent + 40,
-      currentHeight,
-    );
-    addPdfEntry(
-      doc,
-      "Size: ",
-      creature.size[0],
-      leftIndent + 80,
-      currentHeight,
-    );
-    addPdfEntry(
-      doc,
-      "Speed: ",
-      creature.speed_raw,
-      leftIndent + 110,
-      currentHeight,
-    );
-  } else {
-    addPdfEntry(
-      doc,
-      "Size: ",
-      creature.size[0],
-      leftIndent + 40,
-      currentHeight,
-    );
-    addPdfEntry(
-      doc,
-      "Speed: ",
-      creature.speed_raw,
-      leftIndent + 80,
-      currentHeight,
-    );
-  }
-
-  return currentHeight;
 }
