@@ -9,7 +9,9 @@
     <div class="row">
       <span>HP: {{ props.creature.hp }}</span>
       <span>AC: {{ props.creature.ac }}</span>
-      <span>Hardness: {{ props.creature.hardness }}</span>
+      <span v-if="props.creature.hardness">
+        Hardness: {{ props.creature.hardness }}
+      </span>
       <span>Size: {{ props.creature.size?.[0] }}</span>
       <span>Speed: {{ props.creature.speed_raw }}</span>
     </div>
@@ -69,7 +71,7 @@
       <span v-else>None</span>
     </div>
 
-    <div v-if="props.creature.reactions.length">
+    <div v-if="props.creature.reactions?.length">
       <Divider class="margin"></Divider>
 
       <div class="row">
@@ -90,7 +92,7 @@
       </div>
     </div>
 
-    <div v-if="props.creature.attacks.length">
+    <div v-if="props.creature.attacks?.length">
       <Divider class="margin"></Divider>
       <div class="row">
         <div class="column">
@@ -121,7 +123,7 @@
       </div>
     </div>
 
-    <div v-if="props.creature.unique_abilities.length">
+    <div v-if="props.creature.unique_abilities?.length">
       <Divider class="margin"></Divider>
 
       <div class="row">
