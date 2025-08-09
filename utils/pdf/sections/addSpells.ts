@@ -1,7 +1,7 @@
 import type jsPDF from "jspdf";
 import { lineHeight, leftIndent, rightIdent } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
-import { setSectionHeader, addPdfEntry } from "../export.utils";
+import { setSectionHeader, addPdfEntry } from "../utils/export.utils";
 
 /**
  * Adds spells of the creature to the PDF

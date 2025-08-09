@@ -7,7 +7,7 @@ import {
   lineBreak,
 } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
-import { setSectionHeader } from "../export.utils";
+import { setSectionHeader } from "../utils/export.utils";
 import { renderWrappedMarkdown } from "../renderWrappedMarkdown";
 
 /**

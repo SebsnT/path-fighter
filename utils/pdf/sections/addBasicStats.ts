@@ -1,7 +1,7 @@
 import type jsPDF from "jspdf";
 import { leftIndent } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
-import { addEntry, addPdfEntry } from "../export.utils";
+import { addEntry, addPdfEntry } from "../utils/export.utils";
 
 export function addBasicStats(
   doc: jsPDF,
