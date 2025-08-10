@@ -1,6 +1,6 @@
-import { sectionsPerPage } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
 import { addCreatureInformation } from "./addCreatureInformation";
+import { dividerSpace } from "~/constants/pdf.constants";
 
 /**
  * Export given creatures to a pdf
@@ -11,43 +11,39 @@ export async function exportPDF(creatures: Creature[], fileName: string) {
   const { jsPDF } = await import("jspdf");
 
   const doc = new jsPDF();
-
-  // width and height of the document (a4)
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
 
-  // height of each creature section
-  const sectionHeight = pageHeight / sectionsPerPage;
-
-  // Set line pattern to dotted
   doc.setLineDashPattern([1, 2], 0);
-
-  // Font size
   doc.setFontSize(12);
 
-  creatures.forEach((creature, index) => {
-    const sectionIndexOnPage = index % sectionsPerPage;
-    const y = sectionHeight * sectionIndexOnPage;
+  let currentY = 0;
 
-    // Add information about the creature to its section
-    addCreatureInformation(doc, creature, pageWidth, y);
+  for (let i = 0; i < creatures.length; i++) {
+    const creature = creatures[i];
 
-    if (sectionIndexOnPage !== sectionsPerPage - 1) {
-      // Draw line at bottom of section
-      doc.line(0, y + sectionHeight, pageWidth, y + sectionHeight);
-    }
+    // Simulate height at actual currentY
+    const tempDoc = new jsPDF();
+    let simulatedEndY = addCreatureInformation(tempDoc, creature, pageWidth, currentY);
 
-    // After last section on page, add a new page (except after last creature)
-    if (
-      sectionIndexOnPage === sectionsPerPage - 1 &&
-      index !== creatures.length - 1
-    ) {
+    // If it would overflow the page, start a new page
+    if (simulatedEndY > pageHeight && currentY !== 0) {
       doc.addPage();
-
-      // Re-apply dotted lines after new page
       doc.setLineDashPattern([1, 2], 0);
+      currentY = 0;
     }
-  });
+
+    // add the creature
+    const usedHeight = addCreatureInformation(doc, creature, pageWidth, currentY);
+
+    // Divider (if not last)
+    if (i !== creatures.length - 1) {
+      doc.line(0, currentY + usedHeight + dividerSpace, pageWidth, currentY + usedHeight + dividerSpace);
+      currentY += dividerSpace
+    }
+
+    currentY += usedHeight;
+  }
 
   doc.save(`${fileName}.pdf`);
 }

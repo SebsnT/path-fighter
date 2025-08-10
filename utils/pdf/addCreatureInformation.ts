@@ -26,7 +26,7 @@ export function addCreatureInformation(
   creature: Creature,
   pageWidth: number,
   currentHeight: number,
-): void {
+): number {
   if (creature.challenge_type == "elite") {
     creature = getEliteCreature(creature);
   }
@@ -51,5 +51,7 @@ export function addCreatureInformation(
 
   currentHeight = addUniqueAbilities(doc, creature, pageWidth, currentHeight);
 
-  addSpells(doc, creature, pageWidth, currentHeight);
+  currentHeight = addSpells(doc, creature, pageWidth, currentHeight);
+
+  return currentHeight
 }
