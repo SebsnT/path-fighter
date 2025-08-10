@@ -75,5 +75,7 @@ export function parseMultipleMarkdownStrings(markdown: string): MardownLink[] {
 
 export async function safeMarkdownToHtml(text: string): Promise<string> {
   const rawHtml = await marked.parseInline(text);
-  return DOMPurify.sanitize(rawHtml, { ALLOWED_TAGS: ["strong"] });
+  return DOMPurify.sanitize(rawHtml, {
+    ALLOWED_TAGS: ["strong"],
+  });
 }
