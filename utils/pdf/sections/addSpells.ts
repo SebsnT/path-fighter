@@ -30,7 +30,7 @@ export function addSpells(
     addPdfEntry(
       doc,
       "Spell Attack: ",
-      creature.spell_attack_bonus[0],
+      creature.spell_attack_bonus,
       leftIndent + 40,
       currentHeight,
     );

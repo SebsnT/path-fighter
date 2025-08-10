@@ -1,8 +1,5 @@
 import type { Creature } from "~/models/creature";
-import { adjustAttackModifiers } from "./adjustAttackModifiers.utils";
-import { adjustSpellDc } from "./adjustSpellDc";
-import { adjustReactionsModifier } from "./adjustReaction";
-import { adjustUniqueAbilitiesModifier } from "./adjustUniqueAbilitiesModifier";
+import { getAdjustedCreature } from "../adjustments/getAdjustedCreature";
 
 const adjustment = -2;
 
@@ -13,23 +10,7 @@ const adjustment = -2;
  * @returns
  */
 export function getWeakCreature(creature: Creature): Creature {
-  return {
-    ...creature,
-    ac: creature.ac + adjustment,
-    hp: getWeakHP(creature.level, creature.hp),
-    name: `WEAK ${creature.name}`,
-    perception: creature.perception + adjustment,
-    fortitude_save: creature.fortitude_save + adjustment,
-    reflex_save: creature.reflex_save + adjustment,
-    will_save: creature.will_save + adjustment,
-    spell_dc: adjustSpellDc(creature.spell_dc, adjustment),
-    reactions: adjustReactionsModifier(creature.reactions, adjustment),
-    attacks: adjustAttackModifiers(creature.attacks, adjustment),
-    unique_abilities: adjustUniqueAbilitiesModifier(
-      creature.unique_abilities,
-      adjustment,
-    ),
-  };
+  return getAdjustedCreature(creature, "WEAK", getWeakHP, adjustment);
 }
 
 /**
