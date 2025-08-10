@@ -3,7 +3,6 @@ import { getAdjustedCreature } from "../adjustments/getAdjustedCreature";
 
 const adjustment = 2;
 
-
 /**
  * Gets updated creature data for elite creatures
  *
