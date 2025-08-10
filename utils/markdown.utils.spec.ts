@@ -5,6 +5,7 @@ import {
   parseOneMarkdownLink,
   parseOneMarkdownStringAsSelectionOption,
   parseMultipleMarkdownStrings,
+  safeMarkdownToHtml,
 } from "./markdown.utils";
 
 describe("Markdown Utils", () => {
@@ -92,6 +93,29 @@ describe("Markdown Utils", () => {
           link: "/Traits.aspx?ID=2",
         },
       ]);
+    });
+    it("should return an array with one invalid markdown link object when input is invalid", () => {
+      const result = parseMultipleMarkdownStrings("invalid string");
+      expect(result).toHaveLength(1);
+      expect(result[0].label).toBe("-");
+      expect(result[0].link).toBeUndefined();
+    });
+  });
+
+  describe("safeMarkdownToHtml", () => {
+    it("should convert markdown to sanitized HTML with only allowed tags", async () => {
+      const markdown = "**Bold** [Link](https://example.com)";
+
+      const result = await safeMarkdownToHtml(markdown);
+
+      // It should keep <strong> but sanitize <script> and remove <a> (not allowed)
+      expect(result).toContain("<strong>Bold</strong>");
+      expect(result).not.toContain("<a href=");
+    });
+
+    it("should return empty string if empty input is given", async () => {
+      const result = await safeMarkdownToHtml("");
+      expect(result).toBe("");
     });
   });
 });
