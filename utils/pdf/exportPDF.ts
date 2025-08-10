@@ -24,7 +24,12 @@ export async function exportPDF(creatures: Creature[], fileName: string) {
 
     // Simulate height at actual currentY
     const tempDoc = new jsPDF();
-    let simulatedEndY = addCreatureInformation(tempDoc, creature, pageWidth, currentY);
+    const simulatedEndY = addCreatureInformation(
+      tempDoc,
+      creature,
+      pageWidth,
+      currentY,
+    );
 
     // If it would overflow the page, start a new page
     if (simulatedEndY > pageHeight && currentY !== 0) {
@@ -34,12 +39,22 @@ export async function exportPDF(creatures: Creature[], fileName: string) {
     }
 
     // add the creature
-    const usedHeight = addCreatureInformation(doc, creature, pageWidth, currentY);
+    const usedHeight = addCreatureInformation(
+      doc,
+      creature,
+      pageWidth,
+      currentY,
+    );
 
     // Divider (if not last)
     if (i !== creatures.length - 1) {
-      doc.line(0, currentY + usedHeight + dividerSpace, pageWidth, currentY + usedHeight + dividerSpace);
-      currentY += dividerSpace
+      doc.line(
+        0,
+        currentY + usedHeight + dividerSpace,
+        pageWidth,
+        currentY + usedHeight + dividerSpace,
+      );
+      currentY += dividerSpace;
     }
 
     currentY += usedHeight;

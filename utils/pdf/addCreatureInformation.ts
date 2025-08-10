@@ -53,5 +53,5 @@ export function addCreatureInformation(
 
   currentHeight = addSpells(doc, creature, pageWidth, currentHeight);
 
-  return currentHeight
+  return currentHeight;
 }
