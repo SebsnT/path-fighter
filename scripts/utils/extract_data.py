@@ -26,6 +26,9 @@ def extract_attacks(markdown):
         # Remove bold markdown **...**
         attack_text = re.sub(r"\*\*", "", attack_text)
 
+        # Remove underline markdown _..._
+        attack_text = re.sub(r"_", "", attack_text)
+
         # Replace <actions string="Single Action" /> with "Single Action"
         attack_text = re.sub(r'<actions string="([^"]+)" ?\/>', r"\1", attack_text)
 
