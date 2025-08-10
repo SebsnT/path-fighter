@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { adjustAttackModifiers } from "./adjustAttackModifiers.utils";
-
 describe("Creature adjustments", () => {
   describe("adjustAttackAndDamage", () => {
     const baseAttacks = [
