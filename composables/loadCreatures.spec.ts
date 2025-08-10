@@ -7,6 +7,7 @@ const mockCreatures = [
 ];
 
 describe("useCreatures composable", () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let fetchMock: any;
 
   beforeEach(() => {
