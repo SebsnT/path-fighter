@@ -50,6 +50,18 @@ def extract_abilities_from_markdown(markdown: str, abilities: list[str]):
     markdown = re.sub(r"\s+", " ", markdown)
     markdown = re.sub(r"_(.*?)_", r"\1", markdown)
 
+    # Remove markdown underlines by replacing _text_ with text
+    markdown = re.sub(r"_(.*?)_", r"\1", markdown)
+
+    # Replace <li> with bullet point
+    markdown = re.sub(r"<li>", "\u2022 ", markdown)
+
+    # Remove </li>, <ul>, and </ul> tags
+    markdown = re.sub(r"</li>", "", markdown)
+    markdown = re.sub(r"<\/?ul>", "", markdown)
+
+    markdown = re.sub(r":\s*", ": ", markdown)
+
     # Escape ability names
     abilities_esc = [re.escape(a) for a in abilities]
     ability_pattern = "|".join(abilities_esc)

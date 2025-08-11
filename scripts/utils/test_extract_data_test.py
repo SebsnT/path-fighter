@@ -200,6 +200,38 @@ class TestExtractAbilitiesFunction(unittest.TestCase):
                 },
             ],
         )
+    def test_extract_abilities_bullet_point_list(self):
+        markdown = """
+        **Swarm Tactics** <actions string="Free Action" /> The swarm coordinates its assault:
+        <ul>
+            <li>Each ally within 10 feet gains +1 to attack rolls</li>
+            <li>Enemies must succeed at a DC 20 Will save or become frightened 1</li>
+        </ul>
+        """
+        result = extract_abilities_from_markdown(markdown, ["Swarm Tactics"])
+        self.assertEqual(
+            result,
+            [
+                {
+                    "name": "Swarm Tactics",
+                    "action": "Free Action",
+                    "description": "The swarm coordinates its assault: \u2022 Each ally within 10 feet gains +1 to attack rolls \u2022 Enemies must succeed at a DC 20 Will save or become frightened 1",
+                }
+            ],
+        )
+    def test_underline_removal(self):
+        markdown = "**Poison** This ability causes _weakness_ to enemies."
+        result = extract_abilities_from_markdown(markdown, ["Poison"])
+        self.assertEqual(
+            result,
+            [
+                {
+                    "name": "Poison",
+                    "action": "",
+                    "description": "This ability causes weakness to enemies.",
+                }
+            ],
+        )
 
 
 if __name__ == "__main__":
