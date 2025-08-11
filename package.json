@@ -24,7 +24,7 @@
     "jspdf": "3.0.1",
     "markdown-it": "14.1.0",
     "marked": "16.1.2",
-    "nuxt": "3.17.6",
+    "nuxt": "4.0.3",
     "nuxt-app": "file:",
     "path-fighter": "file:",
     "primeicons": "7.0.0",
