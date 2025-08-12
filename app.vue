@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout>
-      <div v-show="showLoader" id="loader" v-cloak>
+      <div v-show="showLoader" v-cloak id="loader">
         <div class="spinner"></div>
         <img class="logo" src="/favicon.ico" alt="Logo" />
       </div>
@@ -11,23 +11,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick } from "vue";
 
-const showLoader = ref(true)
+const showLoader = ref(true);
 
 onMounted(() => {
   requestAnimationFrame(async () => {
-    await nextTick()
+    await nextTick();
     setTimeout(() => {
-      showLoader.value = false
-    }, 100)
-  })
-})
+      showLoader.value = false;
+    }, 100);
+  });
+});
 </script>
 
 <style>
 #loader {
-  position: fixed;    
+  position: fixed;
   inset: 0;
   background: #000;
   display: flex;
