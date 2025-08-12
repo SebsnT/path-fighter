@@ -54,12 +54,30 @@ If you want to run purely local then:
 
 Now with these steps you have a local version of the data and you can safely start the application.
 
+
+### Testing
+
+For testing the python scripts `pytest` is used.
+
+To run the python tests run:
+
+```bash
+python -m pytest
+```
+
+As a testing library `vitest` was chosen.
+
+To run the typescript test run:
+
+```bash
+npm run test
+```
+
 ### Development Server
 
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
 ```
 
@@ -68,13 +86,11 @@ npm run dev
 Build the application for production:
 
 ```bash
-# npm
 npm run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
 npm run preview
 ```
