@@ -67,6 +67,8 @@ export function addNewPageIfOverflow(
 
   if (currentHeight + requiredHeight > pageHeight) {
     doc.addPage();
+    doc.setLineDashPattern([1, 2], 0);
+
     return lineHeight;
   } else {
     return currentHeight;
