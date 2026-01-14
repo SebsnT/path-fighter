@@ -7,7 +7,7 @@ import {
   lineBreak,
 } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
-import { setSectionHeader } from "../utils/export.utils";
+import { addNewPageIfOverflow, setSectionHeader } from "../utils/export.utils";
 import { renderWrappedMarkdown } from "../renderWrappedMarkdown";
 
 /**
@@ -26,9 +26,14 @@ export function addReactions(
   creature: Creature,
   pageWidth: number,
   currentHeight: number,
+  allowOverflow: boolean = false,
 ): number {
   if (!creature.reactions?.length) {
     return currentHeight;
+  }
+
+  if (allowOverflow) {
+    currentHeight = addNewPageIfOverflow(doc, lineHeight, currentHeight);
   }
 
   setSectionHeader(doc, "Reactions", (currentHeight += lineHeight));
@@ -43,13 +48,14 @@ export function addReactions(
       .join(" ");
 
     currentHeight += lineHeight;
+
     currentHeight = renderWrappedMarkdown(
       doc,
       combinedText,
       leftIndent,
       currentHeight,
       pageWidth - rightIdent,
-      lineHeight,
+      allowOverflow,
     );
     currentHeight += lineBreak;
   }

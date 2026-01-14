@@ -1,5 +1,8 @@
 import type jsPDF from "jspdf";
 import type { TextSegment } from "~/models/textSegment";
+import { getTextSegmentsHeight as getTextSegmentsHeight } from "./utils/markdown.utils";
+import { addNewPageIfOverflow } from "./utils/export.utils";
+import { lineHeight } from "~/constants/pdf.constants";
 
 export function renderWrappedMarkdown(
   doc: jsPDF,
@@ -7,12 +10,18 @@ export function renderWrappedMarkdown(
   startX: number,
   startY: number,
   maxWidth: number,
-  lineHeight: number,
+  allowOverflow: boolean = false,
 ): number {
   const words = segmentToWords(parseMarkdown(text));
 
-  let x = startX;
-  let y = startY;
+  const blockHeight = getTextSegmentsHeight(doc, words, maxWidth);
+
+  let currentWidth = startX;
+  let currentHeight = startY;
+
+  if (allowOverflow) {
+    currentHeight = addNewPageIfOverflow(doc, blockHeight, currentHeight);
+  }
 
   for (const { text: word, style } of words) {
     doc.setFont("helvetica", style === "bold" ? "bold" : "normal");
@@ -21,16 +30,16 @@ export function renderWrappedMarkdown(
       (doc.getStringUnitWidth(word) * doc.getFontSize()) /
       doc.internal.scaleFactor;
 
-    if (x + wordWidth > startX + maxWidth) {
-      x = startX;
-      y += lineHeight;
+    if (currentWidth + wordWidth > startX + maxWidth) {
+      currentWidth = startX;
+      currentHeight += lineHeight;
     }
 
-    doc.text(word, x, y);
-    x += wordWidth;
+    doc.text(word, currentWidth, currentHeight);
+    currentWidth += wordWidth;
   }
 
-  return y;
+  return currentHeight;
 }
 
 function segmentToWords(segments: TextSegment[]): TextSegment[] {

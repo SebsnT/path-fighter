@@ -7,7 +7,7 @@ import {
   lineBreak,
 } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
-import { setSectionHeader } from "../utils/export.utils";
+import { addNewPageIfOverflow, setSectionHeader } from "../utils/export.utils";
 
 /**
  *  Adds attacks of the creature to the PDF
@@ -25,10 +25,15 @@ export function addAttacks(
   creature: Creature,
   pageWidth: number,
   currentHeight: number,
+  allowOverflow: boolean = false,
 ): number {
   if (!creature.attacks?.length) {
     return currentHeight;
   }
+
+  /*  if (allowOverflow) {
+    addNewPageIfOverflow(doc, lineHeight, currentHeight);
+  } */
 
   setSectionHeader(doc, "Attacks", (currentHeight += lineHeight));
 
@@ -38,6 +43,9 @@ export function addAttacks(
       pageWidth - rightIdent,
     );
     for (const line of attackLines) {
+      if (allowOverflow) {
+        currentHeight = addNewPageIfOverflow(doc, lineHeight, currentHeight);
+      }
       doc.text(line, leftIndent, (currentHeight += lineHeight));
       currentHeight += lineBreak;
     }
