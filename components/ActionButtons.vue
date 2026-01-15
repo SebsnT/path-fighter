@@ -47,7 +47,7 @@ const props = defineProps<{
   gap: 0.25rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
   .action-buttons {
     flex-direction: column;
   }
