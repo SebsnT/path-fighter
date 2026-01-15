@@ -14,7 +14,7 @@
     :expanded-rows="expandedRows"
     @row-expand="onRowExpand"
   >
-    <Column expander style="width: 10px" />
+    <Column expander style="width: 1%" />
     <Column
       v-for="col in columns"
       :key="col.key"
