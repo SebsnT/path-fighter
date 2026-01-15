@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-bar-container">
+  <Panel class="filter-panel" toggleable header="Filters">
     <Button
       class="filter-button"
       type="button"
@@ -9,7 +9,6 @@
       outlined
       @click="clearFilters()"
     />
-
     <div class="filter-bar">
       <div
         v-for="filter in filterConfig"
@@ -21,12 +20,12 @@
           :id="`filter-${filter.key}`"
           v-model="filters[filter.key].value"
           class="filter-input-field"
-          :placeholder="`${filter.label}`"
+          :placeholder="filter.label"
           v-bind="getComponentProps(filter)"
         />
       </div>
     </div>
-  </div>
+  </Panel>
 </template>
 
 <script setup lang="ts">
@@ -116,6 +115,10 @@ const getComponentProps = (filter: Filter) => {
 </script>
 
 <style lang="css" scoped>
+.filter-panel {
+  margin: 8px 8px 0 8px;
+}
+
 .filter-bar-container {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -134,6 +137,32 @@ const getComponentProps = (filter: Filter) => {
   justify-content: space-between;
   gap: 8px;
   margin: 0 16px 0 12px;
+}
+
+/* Button aligned at the end of the first row */
+.filter-button {
+  margin-left: 12px;
+  width: 100px;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  margin-bottom: 8px;
+}
+
+.filter-input {
+  flex: 1 1 200px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-input label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.filter-input-field {
+  width: 100%;
 }
 
 @media (max-width: 1700px) {
@@ -162,30 +191,5 @@ const getComponentProps = (filter: Filter) => {
     flex: 0 0 100% !important;
     max-width: 99% !important;
   }
-}
-
-/* Button aligned at the end of the first row */
-.filter-button {
-  margin-left: 12px;
-  width: 100px;
-  grid-column: 1;
-  grid-row: 1;
-  align-self: center;
-}
-
-.filter-input {
-  flex: 1 1 200px;
-  max-width: 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-.filter-input label {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.filter-input-field {
-  width: 100%;
 }
 </style>
