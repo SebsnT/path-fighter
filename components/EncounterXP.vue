@@ -44,6 +44,8 @@ const label = computed(() => {
 
 .difficulty-label-wrapper {
   display: flex;
+  flex-direction: column;
+  gap: 12px;
   justify-content: center;
   position: relative;
   font-weight: bold;
