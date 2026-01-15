@@ -22,19 +22,6 @@
   height: 100%;
 }
 
-@media (max-width: 768px) {
-
-  /* Hide some columns on small screens */
-  .data-table td:nth-child(n + 4),
-  .data-table th:nth-child(n + 4) {
-    display: none;
-  }
-
-     .data-table td:nth-child(1) {
-       width: 20px;
-     }
-
-}
 
 a {
   font-size: 14px;
@@ -83,19 +70,7 @@ button {
 }
 
 
-@media (max-width: 1200px) {
-  .slot-right {
-    min-width: 400px;
-  }
-}
 
-@media (max-width: 500px) {
-.party-xp-container {
-    margin-top: 20px ;
-    display: flex;
-    flex-direction: column;
-  }
-}
 
 .add-button {
   max-height: 28px;
@@ -129,4 +104,32 @@ input,
 .main-table-wrapper {
   flex: 1 1 auto;
   display: flex;
+}
+
+@media (max-width: 1100px) {
+.slot-left {
+    flex: 1;
+  }
+}
+
+@media (max-width: 800px) {
+.slot-container {
+  flex-direction: column;
+}
+
+.slot-right{
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  margin-right: unset;
+}
+}
+
+
+
+
+@media (max-width: 500px) {
+  .party-xp-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
 }
