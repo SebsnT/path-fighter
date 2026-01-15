@@ -143,6 +143,25 @@ const getComponentProps = (filter: Filter) => {
   .filter-bar {
     justify-content: start;
   }
+
+  .filter-input {
+    flex: 0 0 25% !important;
+    max-width: 24% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .filter-input {
+    flex: 0 0 50% !important;
+    max-width: 49% !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .filter-input {
+    flex: 0 0 100% !important;
+    max-width: 99% !important;
+  }
 }
 
 /* Button aligned at the end of the first row */
