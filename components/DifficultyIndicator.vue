@@ -8,7 +8,8 @@
         :style="{ left: `${(threshold.value / maxValue) * 100}%` }"
       >
         <div class="threshold-label">
-          {{ threshold.label }} {{ threshold.value }}
+          <div class="threshold-name">{{ threshold.label }}</div>
+          <div class="threshold-value">{{ threshold.value }}</div>
         </div>
       </div>
     </div>

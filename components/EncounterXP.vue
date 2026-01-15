@@ -47,7 +47,7 @@ const label = computed(() => {
   flex-direction: column;
   gap: 12px;
   justify-content: center;
-  position: relative;
+  align-items: center;
   font-weight: bold;
   margin: 8px 8px 28px 8px;
 }

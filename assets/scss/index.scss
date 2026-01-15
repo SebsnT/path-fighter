@@ -61,28 +61,26 @@ button {
   }
 }
 
-.filter-input {
-  .p-inputnumber-input {
-    max-width: 160px;
-  }
-}
-
-.party-inputs-position {
-  position: absolute;
-  left: 0;
-}
-
 .party-xp-container {
   margin: 8px 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
+
 
 @media (max-width: 1200px) {
   .slot-right {
     min-width: 400px;
+  }
+}
+
+@media (max-width: 500px) {
+.party-xp-container {
+    margin-top: 20px ;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -102,6 +100,10 @@ input,
 
 .p-dialog-header {
   padding-bottom: 0;
+}
+
+.p-select-label.p-placeholder {
+  font-size: 14px;
 }
 
 .page-container {
