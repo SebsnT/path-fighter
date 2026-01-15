@@ -7,7 +7,7 @@
     show-gridlines
     scrollable
     scroll-height="flex"
-    :virtual-scroller-options="{ itemSize: 50 }"
+    :virtual-scroller-options="{ itemSize: 60 }"
     sort-field="name"
     :sort-order="1"
     removable-sort
@@ -21,7 +21,7 @@
       :field="col.key"
       :header="col.label"
       :sortable="col.sortable"
-      :virtual-scroller-options="{ itemSize: 50 }"
+      :virtual-scroller-options="{ itemSize: 60 }"
       :style="{ width: col.width || '150px' }"
       :filter-field="col.key"
     >
