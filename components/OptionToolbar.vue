@@ -1,25 +1,27 @@
 <template>
   <div class="buttons">
     <Button
+      class="reset-button"
       label="Reset"
-      class="button-spacer reset button"
       :severity="'warn'"
       @click="reset()"
     />
 
     <FileUpload
+      class="import-button header-button"
       mode="basic"
       accept=".json"
-      :max-file-size="1000000"
       label="Import"
       choose-label="Import JSON"
       auto
       custom-upload
+      :max-file-size="1000000"
       :choose-button-props="{ severity: 'contrast' }"
       @select="importJSON($event)"
     />
 
     <Button
+      class="export-button header-button"
       label="Export JSON"
       icon="pi pi-upload"
       :severity="'contrast'"
@@ -34,33 +36,33 @@
     />
 
     <Button
+      class="pdf-export-button header-button"
       label="Export PDF"
       icon="pi pi-file-pdf"
-      class="pdf-export-button"
       @click="openPdfDialog"
     />
     <ExportFileDialog
       v-model="showPdfDialog"
-      :default-name="defaultPdfName"
       type="pdf"
       hint-text="Enter a name for your PDF"
+      :default-name="defaultPdfName"
       @confirm="handlePdfExport"
     />
 
     <LegalInformation />
 
     <Button
-      label="Donate"
       class="donation-button"
+      label="Donate"
       @click="openDonationDialog"
     />
     <Button
+      class="github-button header-button"
       label="GitHub"
       icon="pi pi-github"
-      class="github-button"
       @click="openGithub"
     />
-    <DonationDialog v-model="showDonationDialog"></DonationDialog>
+    <DonationDialog v-model="showDonationDialog" />
   </div>
 </template>
 
@@ -136,5 +138,39 @@ async function handleJsonExport(fileName: string) {
   background-color: #24292e !important;
   border-color: #24292e !important;
   color: white !important;
+}
+
+@media (max-width: 1000px) {
+  .header-button :deep(.p-button-label) {
+    display: none;
+  }
+
+  .header-button {
+    height: 37px;
+  }
+
+  .p-fileupload :deep(.header-button) {
+    .p-button-label {
+      display: none;
+    }
+    height: 37px;
+  }
+}
+
+@media (max-width: 700px) {
+  .p-fileupload {
+    display: none;
+  }
+
+  .export-button {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .buttons {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
 }
 </style>
