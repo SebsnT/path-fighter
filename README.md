@@ -17,7 +17,7 @@ https://github.com/LukeHagar/archives-of-nethys-scraper
 
 ## Legal Information
 
-This tool and the associated website uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Fan Content Policy [paizo.com/licenses/fancontent]([https://paizo.com/licenses/fancontent]). We are expressly prohibited from charging you to use or access this content. This tool and the associated website is not published, endorsed, or specifically approved by Paizo nor Archives of Nethys. For more information about Paizo Inc. and Paizo products, visit [paizo.com](https://paizo.com).
+This tool and the associated website uses trademarks and/or copyrights owned by Paizo Inc., used under Paizo's Fan Content Policy [paizo.com/licenses/fancontent](https://paizo.com/licenses/fancontent). We are expressly prohibited from charging you to use or access this content. This tool and the associated website is not published, endorsed, or specifically approved by Paizo nor Archives of Nethys. For more information about Paizo Inc. and Paizo products, visit [paizo.com](https://paizo.com).
 
 Link to the open gaming license:
 https://opengamingfoundation.org/ogl.html
@@ -34,9 +34,9 @@ If you like my work, support me with a small donation on my "Buy me a coffee". C
 
 ## Local Development
 
-This tool and the associated website are build with [Nuxt 3](https://nuxt.com).
+This tool and the associated website are build with [Nuxt](https://nuxt.com).
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ### Setup
 
@@ -49,11 +49,15 @@ npm install
 
 If you want to run purely local then:
 
+You will need a "creatures.json" in the "public" folder. You can get one using:
+https://github.com/LukeHagar/archives-of-nethys-scraper
+
+Then you can follow these steps:
+
 1. change from "loadCreaturesFromRemote" to "loadCreaturesFromLocal" in the loadCreatures.ts file.
 2. Run "prepare_data" python script to generate with "py -m scripts.prepare_data"
 
 Now with these steps you have a local version of the data and you can safely start the application.
-
 
 ### Testing
 
