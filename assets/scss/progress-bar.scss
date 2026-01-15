@@ -59,11 +59,19 @@
 }
 
 .threshold-label {
+  display: flex;
+  gap: 8px;
   font-size: 14px;
   padding: 0 4px;
   border-radius: 4px;
   pointer-events: auto;
   white-space: nowrap;
+}
+
+@media (max-width:800px) {
+  .threshold-name{
+    display: none;
+  }
 }
 
 .threshold-markers {

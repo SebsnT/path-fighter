@@ -210,4 +210,9 @@ watchEffect(async () => {
   margin-top: 8px;
   margin-bottom: 8px;
 }
+
+.expanded-row-content {
+  max-height: 200px;
+  overflow: auto;
+}
 </style>

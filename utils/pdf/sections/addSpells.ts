@@ -1,7 +1,11 @@
 import type jsPDF from "jspdf";
 import { lineHeight, leftIndent, rightIdent } from "~/constants/pdf.constants";
 import type { Creature } from "~/models/creature";
-import { setSectionHeader, addPdfEntry } from "../utils/export.utils";
+import {
+  setSectionHeader,
+  addPdfEntry,
+  addNewPageIfOverflow,
+} from "../utils/export.utils";
 
 /**
  * Adds spells of the creature to the PDF
@@ -19,9 +23,14 @@ export function addSpells(
   creature: Creature,
   pageWidth: number,
   currentHeight: number,
+  allowOverflow: boolean = false,
 ): number {
   if (!creature.spell?.length) {
     return currentHeight;
+  }
+
+  if (allowOverflow) {
+    currentHeight = addNewPageIfOverflow(doc, lineHeight, currentHeight);
   }
 
   setSectionHeader(doc, "Spells", (currentHeight += lineHeight));
@@ -54,6 +63,9 @@ export function addSpells(
   const spellsLines = doc.splitTextToSize(spellsText, pageWidth - rightIdent);
 
   for (const line of spellsLines) {
+    if (allowOverflow) {
+      currentHeight = addNewPageIfOverflow(doc, lineHeight, currentHeight);
+    }
     doc.text(line, leftIndent, (currentHeight += lineHeight));
   }
 

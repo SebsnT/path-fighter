@@ -46,11 +46,18 @@ const { adjustXPGained } = useExperiencePoints();
 <style scoped lang="scss">
 .party-inputs {
   display: flex;
-  margin-left: 48px;
+  margin-left: 16px;
   gap: 40px;
   padding-top: 10px;
   justify-content: center;
 }
+
+@media (max-width: 500px) {
+  .party-inputs {
+    margin: 0;
+  }
+}
+
 .center {
   align-items: center;
   padding-left: 10px;

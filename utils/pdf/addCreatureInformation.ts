@@ -26,7 +26,10 @@ export function addCreatureInformation(
   creature: Creature,
   pageWidth: number,
   currentHeight: number,
-): number {
+  allowOverflow?: boolean,
+): { currentHeight: number; entryHeight: number } {
+  const startHeight = currentHeight;
+
   if (creature.challenge_type == "elite") {
     creature = getEliteCreature(creature);
   }
@@ -45,13 +48,39 @@ export function addCreatureInformation(
 
   currentHeight = addDefenses(doc, creature, currentHeight);
 
-  currentHeight = addReactions(doc, creature, pageWidth, currentHeight);
+  currentHeight = addReactions(
+    doc,
+    creature,
+    pageWidth,
+    currentHeight,
+    allowOverflow,
+  );
 
-  currentHeight = addAttacks(doc, creature, pageWidth, currentHeight);
+  currentHeight = addAttacks(
+    doc,
+    creature,
+    pageWidth,
+    currentHeight,
+    allowOverflow,
+  );
 
-  currentHeight = addUniqueAbilities(doc, creature, pageWidth, currentHeight);
+  currentHeight = addUniqueAbilities(
+    doc,
+    creature,
+    pageWidth,
+    currentHeight,
+    allowOverflow,
+  );
 
-  currentHeight = addSpells(doc, creature, pageWidth, currentHeight);
+  currentHeight = addSpells(
+    doc,
+    creature,
+    pageWidth,
+    currentHeight,
+    allowOverflow,
+  );
 
-  return currentHeight;
+  const entryHeight = currentHeight - startHeight;
+
+  return { currentHeight, entryHeight: entryHeight };
 }

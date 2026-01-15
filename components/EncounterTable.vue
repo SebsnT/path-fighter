@@ -70,7 +70,7 @@ const challengeOptions = [
 </script>
 
 <style lang="scss">
-@media (max-width: 1200px) {
+@media (max-width: 1700px) {
   .challenge-buttons {
     flex-direction: column;
   }

@@ -35,6 +35,19 @@ export function addPdfEntry(
   });
 }
 
+export function getPdfEntryHeight(
+  doc: jsPDF,
+  name: string,
+  value: string | string[] | number | number[],
+  maxWidth: number,
+): number {
+  const text = `${value}`;
+  const lines = doc.splitTextToSize(text, maxWidth);
+  const lh = doc.getLineHeight() / doc.internal.scaleFactor;
+
+  return Math.max(1, lines.length) * lh;
+}
+
 export function addOptionalEntry(
   doc: jsPDF,
   label: string,
@@ -43,4 +56,21 @@ export function addOptionalEntry(
 ): number {
   if (!value) return currentHeight;
   return addEntry(doc, label, value, currentHeight);
+}
+
+export function addNewPageIfOverflow(
+  doc: jsPDF,
+  requiredHeight: number,
+  currentHeight: number,
+): number {
+  const pageHeight = doc.internal.pageSize.getHeight();
+
+  if (currentHeight + requiredHeight > pageHeight) {
+    doc.addPage();
+    doc.setLineDashPattern([1, 2], 0);
+
+    return lineHeight;
+  } else {
+    return currentHeight;
+  }
 }
