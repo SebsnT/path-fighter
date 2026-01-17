@@ -8,7 +8,7 @@
     scrollable
     sort-field="name"
     :sort-order="1"
-    :virtual-scroller-options="{ itemSize: 50 }"
+    :virtual-scroller-options="{ itemSize: 124 }"
   >
     <Column
       v-for="col in encounterColumns"
@@ -69,10 +69,14 @@ const challengeOptions = [
 ];
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @media (max-width: 1700px) {
   .challenge-buttons {
     flex-direction: column;
   }
+}
+
+.data-table .p-datatable-tbody > tr {
+  height: 50px;
 }
 </style>
