@@ -65,6 +65,7 @@ export const columns: Column[] = [
     key: "alignment",
     label: "Alignment",
     width: "5%",
+    sortable: true,
     filterable: true,
   },
 ];
