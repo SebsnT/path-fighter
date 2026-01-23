@@ -63,6 +63,7 @@ import {
   containsFilter,
   gteFilter,
   lteFilter,
+  exactFilter,
 } from "~/utils/filter.utils";
 
 const props = defineProps({
@@ -118,6 +119,8 @@ const filteredCreatures = computed(() => {
             return gteFilter(filterValue, fieldValue);
           case "lte":
             return lteFilter(filterValue, fieldValue);
+          case "exact":
+            return exactFilter(filterValue, fieldValue);
 
           default:
             return true; // If no filter or match mode is applied

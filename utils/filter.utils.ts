@@ -67,10 +67,13 @@ function selectionOptionsFromKeyAndValue(
 }
 
 /**
+ * Filter for array fields that checks if the array contains the value.
  *
  * @param field
  * @param filterValue
  * @param fieldValue
+ *
+ * @returns true if the fieldValue is in the filterValue array, false otherwise
  */
 export function inFilter(
   filterValue: FilterValue,
@@ -87,7 +90,7 @@ export function inFilter(
 }
 
 /**
- * Contains filter ()
+ * Filter for fields that contain this value
  *
  * @param filterValue
  * @param fieldValue
@@ -103,6 +106,31 @@ export function containsFilter(
 }
 
 /**
+ * Filter for fields that contain exactly this value
+ *
+ * @param filterValue
+ * @param fieldValue
+ */
+export function exactFilter(
+  filterValue: FilterValue,
+  fieldValue: string,
+): boolean {
+  if (typeof filterValue === "string") {
+    return fieldValue.toLowerCase() === filterValue.toLowerCase();
+  }
+
+  if (Array.isArray(filterValue) && filterValue.length > 0) {
+    return filterValue.some(
+      (filterItem: string) =>
+        filterItem.toLowerCase() === fieldValue.toLowerCase(),
+    );
+  }
+
+  return false;
+}
+
+/**
+ * Filter for fields that are greater than or equal to this value
  *
  * @param filterValue
  * @param fieldValue
@@ -118,7 +146,7 @@ export function gteFilter(
 }
 
 /**
- * Checks if {@link filterValue} is greater or equal to {@link fieldValue}
+ * Filter for fields that are less than or equal to this value
  *
  * @param filterValue
  * @param fieldValue

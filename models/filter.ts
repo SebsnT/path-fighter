@@ -4,6 +4,7 @@ type MatchMode =
   | "startsWith"
   | "contains"
   | "notContains"
+  | "exact"
   | "endsWith"
   | "equals"
   | "notEquals"
